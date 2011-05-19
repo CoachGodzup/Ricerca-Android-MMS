@@ -34,7 +34,8 @@
 \pagestyle{empty}                  % delete footer and header
 %----------------------------------------------------------------------------
 % Environment definitions
-\newenvironment*{mytitle}{\begin{LARGE}\bf}{\end{LARGE}\\[1.5ex]}%
+\newenvironment*{mytitle}{\begin{LARGE}\bf}{\end{LARGE}\\}%
+\newenvironment*{mysubtitle}{\bf}{\\[1.5ex]}%
 \newenvironment*{myabstract}{\begin{Large}\bf}{\end{Large}\\[2.5ex]}%
 %-----------------------------------------------------------------------------
 % Using Pictures and tables:
@@ -55,16 +56,24 @@
 \begin{document}
 
 % Please use capital letters in the beginning of important words as for example
-\begin{mytitle} A LaTeX Report Template. \end{mytitle}
+\begin{mytitle}A LaTeX Report Template\end{mytitle}
+\begin{mysubtitle}The report subtitle\end{mysubtitle}
 %
 % Please do not insert a line here
 %
 \\
 Last-name First-name\\
-Matr. 123456\\
+Matr. 123456, (address@email.com)\\
 \hspace{10ex}
 Last-name First-name\\
-Matr. 123456\\[10ex]
+Matr. 123456, (address@email.com)\\
+\begin{flushright}
+\emph{Report for the master course of Embedded Systems}\\
+\emph{Reviser: PhD. Patrick Bellasi (bellasi@elet.polimi.it)}
+\end{flushright}
+
+Received: April, 01 2011\\
+\hspace{10ex}
 
 \begin{myabstract} Abstract \end{myabstract}
 This is a normal text in 10pt type size and 12pt line spacing.
@@ -115,10 +124,7 @@ massa urna, auctor quis, tempus et, sollicitudin quis, justo?
 And this is the reference to a single column figure (see {\bf Figure
 \ref{fig:myfigure1}}).  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Vivamus dapibus convallis odio. Nunc sollicitudin laoreet ante! Vivamus dictum
-euismod orci.  Nullam vitae sapien. Maecenas semper massa varius dui? Aenean et
-sapien. Fusce tellus pede, dictum nec, fringilla id, molestie et, neque.
-Suspendisse tellus!  Donec venenatis tristique erat. Nulla elementum felis ut
-sem. Nunc vel arcu vel mauris pulvinar congue.
+euismod orci.
 
 \begin{figurehere}
  \centering
@@ -126,30 +132,6 @@ sem. Nunc vel arcu vel mauris pulvinar congue.
  \caption{Some single-column figure caption.}
  \label{fig:myfigure1}
 \end{figurehere}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec enim? Sed sapien.
-Nulla sit amet risus eu pede posuere hendrerit. Sed convallis odio ut magna!
-Suspendisse potenti. Maecenas laoreet ligula in sapien? Vestibulum condimentum.
-Duis faucibus mollis magna? Sed blandit nulla venenatis pede. Suspendisse vitae
-augue sed ipsum semper commodo? Nullam sapien nisl, varius id; tristique nec,
-suscipit ac; massa. Nunc leo. Praesent at tortor. Donec non odio non tellus
-posuere sodales.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a sapien
-eu est viverra placerat. In dapibus. Vestibulum interdum tellus vitae nulla.
-Fusce egestas mollis justo. Sed neque risus, pulvinar vel, tempus id, varius at,
-diam. Mauris consequat tempor tellus. Proin eleifend augue non mi. Aliquam erat
-volutpat. Donec id justo. Praesent id velit. Nulla facilisi. Mauris in tellus!
-Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-Curae;
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a sapien
-eu est viverra placerat. In dapibus. Vestibulum interdum tellus vitae nulla.
-Fusce egestas mollis justo. Sed neque risus, pulvinar vel, tempus id, varius at,
-diam. Mauris consequat tempor tellus. Proin eleifend augue non mi. Aliquam erat
-volutpat. Donec id justo. Praesent id velit. Nulla facilisi. Mauris in tellus!
-Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-Curae;
 
 
 %-----------------------------------------------------------------------------
@@ -182,16 +164,6 @@ accumsan sed; molestie egestas, massa. Fusce malesuada, ipsum et pulvinar
 aliquet, est dolor laoreet enim, quis porttitor erat mauris eget sapien. Integer
 vitae urna. Duis lectus.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et ligula. Nullam
-in libero. Donec dictum pede in justo. Lorem ipsum dolor sit amet, consectetur
-adipiscing elit. Aliquam congue. Aliquam egestas. Nunc eu est ac nibh mattis
-vestibulum. Curabitur aliquet bibendum odio. Etiam hendrerit. Nunc a velit quis
-dui molestie consequat. Sed et turpis et mi feugiat tincidunt. Sed sollicitudin.
-Ut risus? Duis eget orci eu turpis consectetur fringilla? Lorem ipsum dolor sit
-amet, consectetur adipiscing elit. Nullam tellus ligula, placerat vitae, tempor
-vitae, varius id; est! Nullam et ipsum eget tellus eleifend sollicitudin? Fusce
-urna massa, imperdiet vitae, convallis in; lacinia sed, tortor.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Second Section}
 
@@ -212,22 +184,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consectetur ante at
 eros. Vestibulum mi nisi, venenatis sollicitudin, tempus sed, auctor id, tortor.
 Fusce orci. Duis tellus arcu, euismod sed, consequat sit amet, elementum vel,
 mauris. Curabitur leo diam; dapibus quis, condimentum vitae, dignissim ut, diam.
-Nulla et nulla eget elit volutpat sagittis. Cras consequat. Aenean quis dui.
-Integer tortor velit; cursus ut, blandit vel, aliquet et, nulla. Pellentesque
-viverra! Vivamus augue. Nunc viverra vulputate justo. Nulla nec augue?
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc enim quam, lacinia
-nec, porta eu, interdum eget; libero? Duis scelerisque. Pellentesque habitant
-morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed
-tortor tellus, dignissim sit amet, porta a, consectetur facilisis, urna.
-Vestibulum dignissim blandit dolor. Lorem ipsum dolor sit amet, consectetur
-adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et
-ultrices posuere cubilia Curae; Quisque nec dolor at lacus scelerisque rhoncus.
-Etiam eu nisl. Sed mollis, risus a aliquet pharetra; velit enim sollicitudin
-neque, et gravida nibh ipsum a ipsum. In hac habitasse platea dictumst.
-Suspendisse dapibus varius elit! Fusce eros dui, tempor sit amet, tempus at;
-convallis auctor, justo. Morbi interdum molestie magna. Duis iaculis felis sed
-velit. Integer ultricies pulvinar odio.
+Nulla et nulla eget elit volutpat sagittis.
 
 %-----------------------------------------------------------------------------
 \subsection{The second subsection of the second \\ Section}
