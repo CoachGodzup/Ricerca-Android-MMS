@@ -62,11 +62,13 @@
 % Please do not insert a line here
 %
 \\
-Garza Matteo\\
-Matr. 755295, (matteo.garza@mail.polimi.it)\\
+Last-name First-name\\
+Matr. 123456, (address@email.com)\\
 \hspace{10ex}
+Last-name First-name\\
+Matr. 123456, (address@email.com)\\
 \begin{flushright}
-\emph{Report for the master course of Real Time Operative System (RTOS)}\\
+\emph{Report for the master course of Embedded Systems}\\
 \emph{Reviser: PhD. Patrick Bellasi (bellasi@elet.polimi.it)}
 \end{flushright}
 
