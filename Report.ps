@@ -1,0 +1,790 @@
+%!PS-Adobe-2.0
+%%Creator: dvips(k) 5.98 Copyright 2009 Radical Eye Software
+%%Title: Report.dvi
+%%CreationDate: Thu May 17 19:05:17 2012
+%%Pages: 2
+%%PageOrder: Ascend
+%%BoundingBox: 0 0 596 842
+%%DocumentFonts: Times-Bold Times-Roman Times-Italic
+%%DocumentPaperSizes: a4
+%%EndComments
+%DVIPSWebPage: (www.radicaleye.com)
+%DVIPSCommandLine: dvips -Ppdf -G0 -ta4 -o Report.ps Report.dvi
+%DVIPSParameters: dpi=8000
+%DVIPSSource:  TeX output 2012.05.17:1905
+%%BeginProcSet: tex.pro 0 0
+%!
+/TeXDict 300 dict def TeXDict begin/N{def}def/B{bind def}N/S{exch}N/X{S
+N}B/A{dup}B/TR{translate}N/isls false N/vsize 11 72 mul N/hsize 8.5 72
+mul N/landplus90{false}def/@rigin{isls{[0 landplus90{1 -1}{-1 1}ifelse 0
+0 0]concat}if 72 Resolution div 72 VResolution div neg scale isls{
+landplus90{VResolution 72 div vsize mul 0 exch}{Resolution -72 div hsize
+mul 0}ifelse TR}if Resolution VResolution vsize -72 div 1 add mul TR[
+matrix currentmatrix{A A round sub abs 0.00001 lt{round}if}forall round
+exch round exch]setmatrix}N/@landscape{/isls true N}B/@manualfeed{
+statusdict/manualfeed true put}B/@copies{/#copies X}B/FMat[1 0 0 -1 0 0]
+N/FBB[0 0 0 0]N/nn 0 N/IEn 0 N/ctr 0 N/df-tail{/nn 8 dict N nn begin
+/FontType 3 N/FontMatrix fntrx N/FontBBox FBB N string/base X array
+/BitMaps X/BuildChar{CharBuilder}N/Encoding IEn N end A{/foo setfont}2
+array copy cvx N load 0 nn put/ctr 0 N[}B/sf 0 N/df{/sf 1 N/fntrx FMat N
+df-tail}B/dfs{div/sf X/fntrx[sf 0 0 sf neg 0 0]N df-tail}B/E{pop nn A
+definefont setfont}B/Cw{Cd A length 5 sub get}B/Ch{Cd A length 4 sub get
+}B/Cx{128 Cd A length 3 sub get sub}B/Cy{Cd A length 2 sub get 127 sub}
+B/Cdx{Cd A length 1 sub get}B/Ci{Cd A type/stringtype ne{ctr get/ctr ctr
+1 add N}if}B/CharBuilder{save 3 1 roll S A/base get 2 index get S
+/BitMaps get S get/Cd X pop/ctr 0 N Cdx 0 Cx Cy Ch sub Cx Cw add Cy
+setcachedevice Cw Ch true[1 0 0 -1 -.1 Cx sub Cy .1 sub]{Ci}imagemask
+restore}B/D{/cc X A type/stringtype ne{]}if nn/base get cc ctr put nn
+/BitMaps get S ctr S sf 1 ne{A A length 1 sub A 2 index S get sf div put
+}if put/ctr ctr 1 add N}B/I{cc 1 add D}B/bop{userdict/bop-hook known{
+bop-hook}if/SI save N @rigin 0 0 moveto/V matrix currentmatrix A 1 get A
+mul exch 0 get A mul add .99 lt{/QV}{/RV}ifelse load def pop pop}N/eop{
+SI restore userdict/eop-hook known{eop-hook}if showpage}N/@start{
+userdict/start-hook known{start-hook}if pop/VResolution X/Resolution X
+1000 div/DVImag X/IEn 256 array N 2 string 0 1 255{IEn S A 360 add 36 4
+index cvrs cvn put}for pop 65781.76 div/vsize X 65781.76 div/hsize X}N
+/p{show}N/RMat[1 0 0 -1 0 0]N/BDot 260 string N/Rx 0 N/Ry 0 N/V{}B/RV/v{
+/Ry X/Rx X V}B statusdict begin/product where{pop false[(Display)(NeXT)
+(LaserWriter 16/600)]{A length product length le{A length product exch 0
+exch getinterval eq{pop true exit}if}{pop}ifelse}forall}{false}ifelse
+end{{gsave TR -.1 .1 TR 1 1 scale Rx Ry false RMat{BDot}imagemask
+grestore}}{{gsave TR -.1 .1 TR Rx Ry scale 1 1 false RMat{BDot}
+imagemask grestore}}ifelse B/QV{gsave newpath transform round exch round
+exch itransform moveto Rx 0 rlineto 0 Ry neg rlineto Rx neg 0 rlineto
+fill grestore}B/a{moveto}B/delta 0 N/tail{A/delta X 0 rmoveto}B/M{S p
+delta add tail}B/b{S p tail}B/c{-4 M}B/d{-3 M}B/e{-2 M}B/f{-1 M}B/g{0 M}
+B/h{1 M}B/i{2 M}B/j{3 M}B/k{4 M}B/w{0 rmoveto}B/l{p -4 w}B/m{p -3 w}B/n{
+p -2 w}B/o{p -1 w}B/q{p 1 w}B/r{p 2 w}B/s{p 3 w}B/t{p 4 w}B/x{0 S
+rmoveto}B/y{3 2 roll p a}B/bos{/SS save N}B/eos{SS restore}B end
+
+%%EndProcSet
+%%BeginProcSet: alt-rule.pro 0 0
+%!
+% Patch by TVZ
+% Makes dvips files draw rules with stroke rather than fill.
+% Makes narrow rules more predictable at low resolutions
+% after distilling to PDF.
+% May have unknown consequences for very thick rules.
+% Tested only with dvips 5.85(k).
+TeXDict begin
+/QV {
+  gsave newpath /ruleY X /ruleX X
+  Rx Ry gt
+  { ruleX ruleY Ry 2 div sub moveto Rx 0 rlineto Ry }
+  { ruleX Rx 2 div add ruleY moveto 0 Ry neg rlineto Rx }
+  ifelse
+  setlinewidth 0 setlinecap stroke grestore
+} bind def
+end
+
+%%EndProcSet
+%%BeginProcSet: 8r.enc 0 0
+% File 8r.enc  TeX Base 1 Encoding  Revision 2.0  2002-10-30
+%
+% @@psencodingfile@{
+%   author    = "S. Rahtz, P. MacKay, Alan Jeffrey, B. Horn, K. Berry,
+%                W. Schmidt, P. Lehman",
+%   version   = "2.0",
+%   date      = "27nov06",
+%   filename  = "8r.enc",
+%   email     = "tex-fonts@@tug.org",
+%   docstring = "This is the encoding vector for Type1 and TrueType
+%                fonts to be used with TeX.  This file is part of the
+%                PSNFSS bundle, version 9"
+% @}
+% 
+% The idea is to have all the characters normally included in Type 1 fonts
+% available for typesetting. This is effectively the characters in Adobe
+% Standard encoding, ISO Latin 1, Windows ANSI including the euro symbol,
+% MacRoman, and some extra characters from Lucida.
+% 
+% Character code assignments were made as follows:
+% 
+% (1) the Windows ANSI characters are almost all in their Windows ANSI
+% positions, because some Windows users cannot easily reencode the
+% fonts, and it makes no difference on other systems. The only Windows
+% ANSI characters not available are those that make no sense for
+% typesetting -- rubout (127 decimal), nobreakspace (160), softhyphen
+% (173). quotesingle and grave are moved just because it's such an
+% irritation not having them in TeX positions.
+% 
+% (2) Remaining characters are assigned arbitrarily to the lower part
+% of the range, avoiding 0, 10 and 13 in case we meet dumb software.
+% 
+% (3) Y&Y Lucida Bright includes some extra text characters; in the
+% hopes that other PostScript fonts, perhaps created for public
+% consumption, will include them, they are included starting at 0x12.
+% These are /dotlessj /ff /ffi /ffl.
+% 
+% (4) hyphen appears twice for compatibility with both ASCII and Windows.
+%
+% (5) /Euro was assigned to 128, as in Windows ANSI
+%
+% (6) Missing characters from MacRoman encoding incorporated as follows:
+%
+%     PostScript      MacRoman        TeXBase1
+%     --------------  --------------  --------------
+%     /notequal       173             0x16
+%     /infinity       176             0x17
+%     /lessequal      178             0x18
+%     /greaterequal   179             0x19
+%     /partialdiff    182             0x1A
+%     /summation      183             0x1B
+%     /product        184             0x1C
+%     /pi             185             0x1D
+%     /integral       186             0x81
+%     /Omega          189             0x8D
+%     /radical        195             0x8E
+%     /approxequal    197             0x8F
+%     /Delta          198             0x9D
+%     /lozenge        215             0x9E
+%
+/TeXBase1Encoding [
+% 0x00
+ /.notdef /dotaccent /fi /fl
+ /fraction /hungarumlaut /Lslash /lslash
+ /ogonek /ring /.notdef /breve
+ /minus /.notdef /Zcaron /zcaron
+% 0x10
+ /caron /dotlessi /dotlessj /ff
+ /ffi /ffl /notequal /infinity
+ /lessequal /greaterequal /partialdiff /summation
+ /product /pi /grave /quotesingle
+% 0x20
+ /space /exclam /quotedbl /numbersign
+ /dollar /percent /ampersand /quoteright
+ /parenleft /parenright /asterisk /plus
+ /comma /hyphen /period /slash
+% 0x30
+ /zero /one /two /three
+ /four /five /six /seven
+ /eight /nine /colon /semicolon
+ /less /equal /greater /question
+% 0x40
+ /at /A /B /C
+ /D /E /F /G
+ /H /I /J /K
+ /L /M /N /O
+% 0x50
+ /P /Q /R /S
+ /T /U /V /W
+ /X /Y /Z /bracketleft
+ /backslash /bracketright /asciicircum /underscore
+% 0x60
+ /quoteleft /a /b /c
+ /d /e /f /g
+ /h /i /j /k
+ /l /m /n /o
+% 0x70
+ /p /q /r /s
+ /t /u /v /w
+ /x /y /z /braceleft
+ /bar /braceright /asciitilde /.notdef
+% 0x80
+ /Euro /integral /quotesinglbase /florin
+ /quotedblbase /ellipsis /dagger /daggerdbl
+ /circumflex /perthousand /Scaron /guilsinglleft
+ /OE /Omega /radical /approxequal
+% 0x90
+ /.notdef /.notdef /.notdef /quotedblleft
+ /quotedblright /bullet /endash /emdash
+ /tilde /trademark /scaron /guilsinglright
+ /oe /Delta /lozenge /Ydieresis
+% 0xA0
+ /.notdef /exclamdown /cent /sterling
+ /currency /yen /brokenbar /section
+ /dieresis /copyright /ordfeminine /guillemotleft
+ /logicalnot /hyphen /registered /macron
+% 0xB0
+ /degree /plusminus /twosuperior /threesuperior
+ /acute /mu /paragraph /periodcentered
+ /cedilla /onesuperior /ordmasculine /guillemotright
+ /onequarter /onehalf /threequarters /questiondown
+% 0xC0
+ /Agrave /Aacute /Acircumflex /Atilde
+ /Adieresis /Aring /AE /Ccedilla
+ /Egrave /Eacute /Ecircumflex /Edieresis
+ /Igrave /Iacute /Icircumflex /Idieresis
+% 0xD0
+ /Eth /Ntilde /Ograve /Oacute
+ /Ocircumflex /Otilde /Odieresis /multiply
+ /Oslash /Ugrave /Uacute /Ucircumflex
+ /Udieresis /Yacute /Thorn /germandbls
+% 0xE0
+ /agrave /aacute /acircumflex /atilde
+ /adieresis /aring /ae /ccedilla
+ /egrave /eacute /ecircumflex /edieresis
+ /igrave /iacute /icircumflex /idieresis
+% 0xF0
+ /eth /ntilde /ograve /oacute
+ /ocircumflex /otilde /odieresis /divide
+ /oslash /ugrave /uacute /ucircumflex
+ /udieresis /yacute /thorn /ydieresis
+] def
+
+
+%%EndProcSet
+%%BeginProcSet: texps.pro 0 0
+%!
+TeXDict begin/rf{findfont dup length 1 add dict begin{1 index/FID ne 2
+index/UniqueID ne and{def}{pop pop}ifelse}forall[1 index 0 6 -1 roll
+exec 0 exch 5 -1 roll VResolution Resolution div mul neg 0 0]FontType 0
+ne{/Metrics exch def dict begin Encoding{exch dup type/integertype ne{
+pop pop 1 sub dup 0 le{pop}{[}ifelse}{FontMatrix 0 get div Metrics 0 get
+div def}ifelse}forall Metrics/Metrics currentdict end def}{{1 index type
+/nametype eq{exit}if exch pop}loop}ifelse[2 index currentdict end
+definefont 3 -1 roll makefont/setfont cvx]cvx def}def/ObliqueSlant{dup
+sin S cos div neg}B/SlantFont{4 index mul add}def/ExtendFont{3 -1 roll
+mul exch}def/ReEncodeFont{CharStrings rcheck{/Encoding false def dup[
+exch{dup CharStrings exch known not{pop/.notdef/Encoding true def}if}
+forall Encoding{]exch pop}{cleartomark}ifelse}if/Encoding exch def}def
+end
+
+%%EndProcSet
+%%BeginProcSet: special.pro 0 0
+%!
+TeXDict begin/SDict 200 dict N SDict begin/@SpecialDefaults{/hs 612 N
+/vs 792 N/ho 0 N/vo 0 N/hsc 1 N/vsc 1 N/ang 0 N/CLIP 0 N/rwiSeen false N
+/rhiSeen false N/letter{}N/note{}N/a4{}N/legal{}N}B/@scaleunit 100 N
+/@hscale{@scaleunit div/hsc X}B/@vscale{@scaleunit div/vsc X}B/@hsize{
+/hs X/CLIP 1 N}B/@vsize{/vs X/CLIP 1 N}B/@clip{/CLIP 2 N}B/@hoffset{/ho
+X}B/@voffset{/vo X}B/@angle{/ang X}B/@rwi{10 div/rwi X/rwiSeen true N}B
+/@rhi{10 div/rhi X/rhiSeen true N}B/@llx{/llx X}B/@lly{/lly X}B/@urx{
+/urx X}B/@ury{/ury X}B/magscale true def end/@MacSetUp{userdict/md known
+{userdict/md get type/dicttype eq{userdict begin md length 10 add md
+maxlength ge{/md md dup length 20 add dict copy def}if end md begin
+/letter{}N/note{}N/legal{}N/od{txpose 1 0 mtx defaultmatrix dtransform S
+atan/pa X newpath clippath mark{transform{itransform moveto}}{transform{
+itransform lineto}}{6 -2 roll transform 6 -2 roll transform 6 -2 roll
+transform{itransform 6 2 roll itransform 6 2 roll itransform 6 2 roll
+curveto}}{{closepath}}pathforall newpath counttomark array astore/gc xdf
+pop ct 39 0 put 10 fz 0 fs 2 F/|______Courier fnt invertflag{PaintBlack}
+if}N/txpose{pxs pys scale ppr aload pop por{noflips{pop S neg S TR pop 1
+-1 scale}if xflip yflip and{pop S neg S TR 180 rotate 1 -1 scale ppr 3
+get ppr 1 get neg sub neg ppr 2 get ppr 0 get neg sub neg TR}if xflip
+yflip not and{pop S neg S TR pop 180 rotate ppr 3 get ppr 1 get neg sub
+neg 0 TR}if yflip xflip not and{ppr 1 get neg ppr 0 get neg TR}if}{
+noflips{TR pop pop 270 rotate 1 -1 scale}if xflip yflip and{TR pop pop
+90 rotate 1 -1 scale ppr 3 get ppr 1 get neg sub neg ppr 2 get ppr 0 get
+neg sub neg TR}if xflip yflip not and{TR pop pop 90 rotate ppr 3 get ppr
+1 get neg sub neg 0 TR}if yflip xflip not and{TR pop pop 270 rotate ppr
+2 get ppr 0 get neg sub neg 0 S TR}if}ifelse scaleby96{ppr aload pop 4
+-1 roll add 2 div 3 1 roll add 2 div 2 copy TR .96 dup scale neg S neg S
+TR}if}N/cp{pop pop showpage pm restore}N end}if}if}N/normalscale{
+Resolution 72 div VResolution 72 div neg scale magscale{DVImag dup scale
+}if 0 setgray}N/psfts{S 65781.76 div N}N/startTexFig{/psf$SavedState
+save N userdict maxlength dict begin/magscale true def normalscale
+currentpoint TR/psf$ury psfts/psf$urx psfts/psf$lly psfts/psf$llx psfts
+/psf$y psfts/psf$x psfts currentpoint/psf$cy X/psf$cx X/psf$sx psf$x
+psf$urx psf$llx sub div N/psf$sy psf$y psf$ury psf$lly sub div N psf$sx
+psf$sy scale psf$cx psf$sx div psf$llx sub psf$cy psf$sy div psf$ury sub
+TR/showpage{}N/erasepage{}N/setpagedevice{pop}N/copypage{}N/p 3 def
+@MacSetUp}N/doclip{psf$llx psf$lly psf$urx psf$ury currentpoint 6 2 roll
+newpath 4 copy 4 2 roll moveto 6 -1 roll S lineto S lineto S lineto
+closepath clip newpath moveto}N/endTexFig{end psf$SavedState restore}N
+/@beginspecial{SDict begin/SpecialSave save N gsave normalscale
+currentpoint TR @SpecialDefaults count/ocount X/dcount countdictstack N}
+N/@setspecial{CLIP 1 eq{newpath 0 0 moveto hs 0 rlineto 0 vs rlineto hs
+neg 0 rlineto closepath clip}if ho vo TR hsc vsc scale ang rotate
+rwiSeen{rwi urx llx sub div rhiSeen{rhi ury lly sub div}{dup}ifelse
+scale llx neg lly neg TR}{rhiSeen{rhi ury lly sub div dup scale llx neg
+lly neg TR}if}ifelse CLIP 2 eq{newpath llx lly moveto urx lly lineto urx
+ury lineto llx ury lineto closepath clip}if/showpage{}N/erasepage{}N
+/setpagedevice{pop}N/copypage{}N newpath}N/@endspecial{count ocount sub{
+pop}repeat countdictstack dcount sub{end}repeat grestore SpecialSave
+restore end}N/@defspecial{SDict begin}N/@fedspecial{end}B/li{lineto}B
+/rl{rlineto}B/rc{rcurveto}B/np{/SaveX currentpoint/SaveY X N 1
+setlinecap newpath}N/st{stroke SaveX SaveY moveto}N/fil{fill SaveX SaveY
+moveto}N/ellipse{/endangle X/startangle X/yrad X/xrad X/savematrix
+matrix currentmatrix N TR xrad yrad scale 0 0 1 startangle endangle arc
+savematrix setmatrix}N end
+
+%%EndProcSet
+TeXDict begin 39158280 55380996 1000 8000 8000 (Report.dvi)
+@start /Fa 138[739 442 517 590 2[664 739 4[369 739 1[442
+590 739 590 739 13[886 739 32[664 664 2[332 43[739 2[{
+TeXBase1Encoding ReEncodeFont}19 1328.35 /Times-Bold
+rf /Fb 138[886 531 620 708 2[797 886 4[443 886 1[531
+708 886 708 886 797 12[1063 886 1151 8[620 7[1151 14[797
+797 49[{TeXBase1Encoding ReEncodeFont}21 1594.02 /Times-Bold
+rf /Fc 134[491 2[491 553 308 431 431 1[553 553 1[799
+308 491 1[308 553 1[308 491 1[491 553 553 12[615 553
+676 1[676 799 10[799 1[676 1[1018 5[369 11[277 4[369
+369 40[{TeXBase1Encoding ReEncodeFont}30 1106.96 /Times-Italic
+rf /Fd 133[491 553 553 799 553 553 308 431 369 553 553
+553 553 861 308 553 308 308 553 553 369 491 553 491 553
+491 3[369 1[369 4[799 799 676 615 738 799 615 1[799 984
+676 1[431 369 799 799 615 676 799 738 738 799 1020 491
+3[308 308 553 1[553 553 553 1[553 553 553 553 1[277 369
+277 2[369 369 6[369 29[615 615 2[{TeXBase1Encoding ReEncodeFont}68
+1106.96 /Times-Roman rf /Fe 138[615 369 431 491 1[615
+553 2[308 2[308 615 553 1[491 2[615 13[738 13[676 11[369
+7[553 553 3[369 45[{TeXBase1Encoding ReEncodeFont}18
+1106.96 /Times-Bold rf /Ff 139[637 1[849 1[1064 956 1[1593
+532 6[849 3[956 8[1381 3[1276 1[1381 5[1276 10[1381 65[{
+TeXBase1Encoding ReEncodeFont}13 1912.83 /Times-Bold
+rf end
+%%EndProlog
+%%BeginSetup
+%%Feature: *Resolution 8000dpi
+TeXDict begin
+%%BeginPaperSize: a4
+/setpagedevice where
+{ pop << /PageSize [595 842] >> setpagedevice }
+{ /a4 where { pop a4 } if }
+ifelse
+%%EndPaperSize
+ end
+%%EndSetup
+%%Page: 1 1
+TeXDict begin 1 0 bop -1575 1318 a Ff(A)478 b(LaT)-176
+b(eX)479 b(Report)g(T)-176 b(emplate)-1575 2646 y Fe(The)278
+b(r)-20 b(eport)279 b(subtitle)-1575 6068 y Fd(Garza)f(Matteo)-1575
+7397 y(Matr)-61 b(.)343 b(755295,)279 b(\(matteo.g)-6
+b(arza@mail.polimi.it\))21701 10939 y Fc(Report)278 b(for)f(the)g
+(master)g(cour)-11 b(se)278 b(of)f(Real)g(T)-61 b(ime)278
+b(Oper)-17 b(ative)279 b(System)f(\(RT)-20 b(OS\))28290
+12267 y(Re)j(viser:)344 b(PhD.)277 b(P)-89 b(atric)-22
+b(k)278 b(Bellasi)f(\(bellasi@elet.polimi.it\))-1575
+14481 y Fd(Recei)-28 b(v)-17 b(ed:)347 b(April,)276 b(01)i(2011)-1575
+17138 y Fb(Abstract)-1575 19712 y Fd(This)302 b(is)e(a)i(normal)g(te)
+-17 b(xt)302 b(in)f(10pt)i(type)f(size)g(and)g(12pt)h(line)e(spacing.)
+418 b(Place)303 b(here)g(a)e(summary)i(of)e(your)h(report.)417
+b(F)-17 b(ocus)303 b(on)f(what)g(is)f(the)-1575 21040
+y(problem)278 b(and)h(ho)-28 b(w)278 b(you)g(propose)g(to)f(tackle)h
+(it.)343 b(Brie\003y)278 b(resume)f(achie)-28 b(v)-17
+b(ed)281 b(results.)-1575 22368 y(Lorem)418 b(ipsum)f(dolor)h(sit)e
+(amet,)452 b(consectetur)419 b(adipiscing)f(elit.)762
+b(Cras)417 b(dapib)-22 b(us.)765 b(Donec)419 b(fermentum)f(mauris)e
+(non)j(lectus.)763 b(Nulla)-1575 23697 y(porttitor)398
+b(pede)i(id)e(ante.)708 b(Donec)400 b(in)e(erat)g(pellentesque)j(erat)d
+(ultrices)g(rutrum.)706 b(Pellentesque)401 b(id)d(tellus.)706
+b(Donec)400 b(v)-17 b(el)400 b(mi)d(non)j(dui)-1575 25025
+y(adipiscing)315 b(tempor)-61 b(.)454 b(Nunc)315 b(laoreet)f(pede)i(ut)
+d(lectus.)453 b(Aenean)316 b(aliquam)f(quam)g(a)f(sem.)453
+b(Duis)314 b(at)f(elit?)453 b(Ut)314 b(dolor)g(massa,)322
+b(dictum)315 b(v)-17 b(el;)-1575 26353 y(con)-44 b(v)-28
+b(allis)278 b(quis,)f(ullamcorper)h(id,)f(urna.)-1575
+31003 y Fb(1)1594 b(Intr)-29 b(oduction)-1575 33621 y
+Fd(Lorem)435 b(ipsum)f(dolor)g(sit)f(amet,)474 b(consectetur)435
+b(adipiscing)h(elit.)-1575 34949 y(Fusce)295 b(non)g(eros)e(nec)i(dui)f
+(sagittis)e(placerat.)394 b(Sed)295 b(vulputate)g(ac-)-1575
+36278 y(cumsan)k(massa?)404 b(Quisque)298 b(dapib)-22
+b(us)298 b(consequat)h(magna!)405 b(Mau-)-1575 37606
+y(ris)338 b(ante)i(erat,)354 b(ullamcorper)340 b(eu,)355
+b(iaculis)339 b(a,)354 b(posuere)341 b(at,)354 b(massa.)-1575
+38935 y(Donec)362 b(diam)f(orci,)381 b(luctus)361 b(non,)382
+b(tristique)359 b(at,)381 b(v)-22 b(olutpat)362 b(vulpu-)-1575
+40263 y(tate,)453 b(dui.)767 b(Suspendisse)419 b(potenti.)767
+b(V)-66 b(i)-28 b(v)g(amus)419 b(lacinia)g(justo)f(id)-1575
+41591 y(enim!)361 b(Maecenas)285 b(ut)e(odio.)361 b(Donec)284
+b(nisi)e(urna,)j(gra)-22 b(vida)284 b(eu,)h(sol-)-1575
+42920 y(licitudin)275 b(e)-17 b(get,)276 b(gra)-22 b(vida)276
+b(quis,)f(dolor)-61 b(.)343 b(Nulla)275 b(quam)h(erat,)f(con)-44
+b(v)-28 b(a-)-1575 44248 y(llis)281 b(id,)j(lobortis)e(v)-17
+b(el,)284 b(rutrum)e(tempor)-44 b(,)284 b(felis.)359
+b(Nam)283 b(id)f(ante.)361 b(Sed)-1575 45576 y(hendrerit)409
+b(ultricies)f(sapien.)738 b(Morbi)409 b(interdum)g(con)-44
+b(v)-28 b(allis)410 b(elit.)-1575 46905 y(Class)331 b(aptent)h(taciti)e
+(sociosqu)i(ad)g(litora)e(torquent)i(per)f(conubia)-1575
+48233 y(nostra,)248 b(per)241 b(inceptos)h(himenaeos.)333
+b(Suspendisse)242 b(potenti.)332 b(Prae-)-1575 49561
+y(sent)277 b(e)-17 b(gestas.)-1575 53148 y Fa(1.1)1329
+b(The)331 b(\002rst)h(subsection)e(of)j(the)f(\002rst)1414
+54698 y(Section)-1575 56918 y Fd(This)229 b(is)f(a)i(citation)g([1])e
+(and)j(here)f(is)e(another)i(citation)g([2].)327 b(Lorem)-1575
+58246 y(ipsum)257 b(dolor)h(sit)d(amet,)262 b(consectetur)c(adipiscing)
+h(elit.)336 b(Sed)258 b(v)-17 b(elit.)-1575 59574 y(Ut)279
+b(id)h(orci)f(ut)h(quam)h(placerat)f(rhoncus.)352 b(Pellentesque)282
+b(sed)e(nisl.)-1575 60903 y(Aliquam)259 b(sagittis)d(nunc)j(ut)e(dui.)
+338 b(Nullam)258 b(elementum)h(felis)d(e)-17 b(get)-1575
+62231 y(mauris!)619 b(Curabitur)370 b(nunc)h(arcu,)393
+b(v)-17 b(enenatis)371 b(ac,)392 b(commodo)372 b(id,)-1575
+63559 y(tristique)359 b(molestie,)380 b(urna?)591 b(Donec)362
+b(in)d(tortor)g(v)-17 b(el)360 b(augue)h(rhon-)-1575
+64888 y(cus)385 b(elementum.)667 b(Nunc)386 b(ac)f(felis.)664
+b(Nam)385 b(nulla)f(quam,)413 b(cursus)-1575 66216 y(sed,)368
+b(e)-17 b(gestas)351 b(nec,)369 b(rutrum)350 b(et,)367
+b(purus.)562 b(Nullam)351 b(sapien)g(mi,)367 b(ul-)-1575
+67544 y(lamcorper)283 b(rutrum,)g(placerat)g(e)-17 b(get,)284
+b(consectetur)g(ut,)e(metus.)358 b(In-)-1575 68873 y(te)-17
+b(ger)273 b(porta,)f(lacus)g(non)h(fermentum)f(pretium,)h(enim)f(dui)g
+(auctor)-1575 70201 y(ligula,)379 b(ut)358 b(f)-11 b(aucib)-22
+b(us)359 b(lacus)f(sem)g(a)g(metus.)587 b(Maecenas)360
+b(posuere)-1575 71530 y(dui)335 b(eu)g(est.)516 b(Ut)334
+b(massa)g(urna,)350 b(auctor)335 b(quis,)349 b(tempus)335
+b(et,)349 b(sollici-)-1575 72858 y(tudin)278 b(quis,)f(justo?)-1575
+74262 y(And)231 b(this)e(is)g(the)h(reference)h(to)f(a)g(single)g
+(column)h(\002gure)g(\(see)f Fe(Fig-)-1575 75591 y(ur)-20
+b(e)352 b(1)p Fd(\).)564 b(Lorem)351 b(ipsum)g(dolor)g(sit)f(amet,)369
+b(consectetur)352 b(adipisc-)26142 31003 y(ing)242 b(elit.)331
+b(V)-66 b(i)-28 b(v)g(amus)244 b(dapib)-22 b(us)244 b(con)-44
+b(v)-28 b(allis)243 b(odio.)332 b(Nunc)244 b(sollicitudin)26142
+32331 y(laoreet)277 b(ante!)344 b(V)-66 b(i)-28 b(v)g(amus)279
+b(dictum)e(euismod)i(orci.)26457 46166 y @beginspecial
+0 @llx 0 @lly 541 @urx 356 @ury 2267 @rwi 1133 @rhi @setspecial
+%%BeginDocument: ./eps/placeholder.eps
+%!PS-Adobe-2.0 EPSF-2.0
+%%Title: placeholder.fig
+%%Creator: fig2dev Version 3.2 Patchlevel 5
+%%CreationDate: Wed Aug 26 12:24:32 2009
+%%For: derkling@darkstar (Patrick Bellasi,,,)
+%%BoundingBox: 0 0 541 356
+%Magnification: 1.0000
+%%EndComments
+%%BeginProlog
+/$F2psDict 200 dict def
+$F2psDict begin
+$F2psDict /mtrx matrix put
+/col-1 {0 setgray} bind def
+/col0 {0.000 0.000 0.000 srgb} bind def
+/col1 {0.000 0.000 1.000 srgb} bind def
+/col2 {0.000 1.000 0.000 srgb} bind def
+/col3 {0.000 1.000 1.000 srgb} bind def
+/col4 {1.000 0.000 0.000 srgb} bind def
+/col5 {1.000 0.000 1.000 srgb} bind def
+/col6 {1.000 1.000 0.000 srgb} bind def
+/col7 {1.000 1.000 1.000 srgb} bind def
+/col8 {0.000 0.000 0.560 srgb} bind def
+/col9 {0.000 0.000 0.690 srgb} bind def
+/col10 {0.000 0.000 0.820 srgb} bind def
+/col11 {0.530 0.810 1.000 srgb} bind def
+/col12 {0.000 0.560 0.000 srgb} bind def
+/col13 {0.000 0.690 0.000 srgb} bind def
+/col14 {0.000 0.820 0.000 srgb} bind def
+/col15 {0.000 0.560 0.560 srgb} bind def
+/col16 {0.000 0.690 0.690 srgb} bind def
+/col17 {0.000 0.820 0.820 srgb} bind def
+/col18 {0.560 0.000 0.000 srgb} bind def
+/col19 {0.690 0.000 0.000 srgb} bind def
+/col20 {0.820 0.000 0.000 srgb} bind def
+/col21 {0.560 0.000 0.560 srgb} bind def
+/col22 {0.690 0.000 0.690 srgb} bind def
+/col23 {0.820 0.000 0.820 srgb} bind def
+/col24 {0.500 0.190 0.000 srgb} bind def
+/col25 {0.630 0.250 0.000 srgb} bind def
+/col26 {0.750 0.380 0.000 srgb} bind def
+/col27 {1.000 0.500 0.500 srgb} bind def
+/col28 {1.000 0.630 0.630 srgb} bind def
+/col29 {1.000 0.750 0.750 srgb} bind def
+/col30 {1.000 0.880 0.880 srgb} bind def
+/col31 {1.000 0.840 0.000 srgb} bind def
+/col32 {0.933 0.933 0.933 srgb} bind def
+
+end
+
+/cp {closepath} bind def
+/ef {eofill} bind def
+/gr {grestore} bind def
+/gs {gsave} bind def
+/sa {save} bind def
+/rs {restore} bind def
+/l {lineto} bind def
+/m {moveto} bind def
+/rm {rmoveto} bind def
+/n {newpath} bind def
+/s {stroke} bind def
+/sh {show} bind def
+/slc {setlinecap} bind def
+/slj {setlinejoin} bind def
+/slw {setlinewidth} bind def
+/srgb {setrgbcolor} bind def
+/rot {rotate} bind def
+/sc {scale} bind def
+/sd {setdash} bind def
+/ff {findfont} bind def
+/sf {setfont} bind def
+/scf {scalefont} bind def
+/sw {stringwidth} bind def
+/tr {translate} bind def
+/tnt {dup dup currentrgbcolor
+  4 -2 roll dup 1 exch sub 3 -1 roll mul add
+  4 -2 roll dup 1 exch sub 3 -1 roll mul add
+  4 -2 roll dup 1 exch sub 3 -1 roll mul add srgb}
+  bind def
+/shd {dup dup currentrgbcolor 4 -2 roll mul 4 -2 roll mul
+  4 -2 roll mul srgb} bind def
+/$F2psBegin {$F2psDict begin /$F2psEnteredState save def} def
+/$F2psEnd {$F2psEnteredState restore end} def
+
+/pageheader {
+save
+newpath 0 356 moveto 0 0 lineto 541 0 lineto 541 356 lineto closepath clip newpath
+-27.6 383.4 translate
+1 -1 scale
+$F2psBegin
+10 setmiterlimit
+0 slj 0 slc
+ 0.06299 0.06299 sc
+} bind def
+/pagefooter {
+$F2psEnd
+restore
+} bind def
+%%EndProlog
+pageheader
+%
+% Fig objects follow
+%
+% 
+% here starts figure with depth 50
+% Polyline
+0 slj
+0 slc
+7.500 slw
+ [15 45] 45 sd
+n 450 450 m 9000 450 l 9000 6075 l 450 6075 l
+ cp gs col0 s gr  [] 0 sd
+/Times-Italic ff 285.75 scf sf
+2624 3472 m
+gs 1 -1 sc (This image has not yet been produced) col32 sh gr
+/Times-Bold ff 285.75 scf sf
+3607 3022 m
+gs 1 -1 sc (Image Placeholder) col32 sh gr
+% here ends figure;
+pagefooter
+showpage
+%%Trailer
+%EOF
+
+%%EndDocument
+ @endspecial 26142 48203 a Fe(Figur)-20 b(e)279 b(1:)343
+b Fd(Some)278 b(single-column)h(\002gure)f(caption.)26142
+53023 y Fa(1.2)1329 b(The)331 b(second)g(subsection)f(of)j(the)e
+(\002rst)29131 54573 y(Section)26142 56875 y Fd(Lorem)434
+b(ipsum)h(dolor)f(sit)f(amet,)473 b(consectetur)436 b(adipiscing)f
+(elit.)26142 58203 y(Donec)337 b(et)e(ligula.)519 b(Nullam)336
+b(in)g(libero.)519 b(Donec)337 b(dictum)f(pede)h(in)26142
+59531 y(justo.)451 b(Lorem)313 b(ipsum)h(dolor)f(sit)f(amet,)322
+b(consectetur)315 b(adipiscing)26142 60860 y(elit.)640
+b(Aliquam)377 b(congue.)643 b(Aliquam)377 b(e)-17 b(gestas.)642
+b(Nunc)377 b(eu)g(est)f(ac)26142 62188 y(nibh)320 b(mattis)e(v)-17
+b(estib)-22 b(ulum.)472 b(Curabitur)320 b(aliquet)g(bibendum)i(odio.)
+26142 63516 y(Etiam)284 b(hendrerit.)366 b(Nunc)286 b(a)f(v)-17
+b(elit)284 b(quis)h(dui)g(molestie)f(consequat.)26142
+64845 y(Sed)350 b(et)g(turpis)e(et)i(mi)f(feugiat)h(tincidunt.)561
+b(Sed)350 b(sollicitudin.)561 b(Ut)26142 66173 y(risus?)324
+b(Duis)223 b(e)-17 b(get)225 b(orci)e(eu)h(turpis)e(consectetur)j
+(fringilla?)325 b(Lorem)26142 67501 y(ipsum)353 b(dolor)g(sit)f(amet,)
+372 b(consectetur)354 b(adipiscing)h(elit.)570 b(Nullam)26142
+68830 y(tellus)436 b(ligula,)476 b(placerat)437 b(vitae,)477
+b(tempor)437 b(vitae,)477 b(v)-28 b(arius)436 b(id;)516
+b(est!)26142 70158 y(Nullam)405 b(et)f(ipsum)h(e)-17
+b(get)406 b(tellus)e(eleifend)i(sollicitudin?)727 b(Fusce)26142
+71486 y(urna)344 b(massa,)361 b(imperdiet)344 b(vitae,)361
+b(con)-44 b(v)-28 b(allis)345 b(in;)377 b(lacinia)345
+b(sed,)360 b(tor)-22 b(-)26142 72815 y(tor)-61 b(.)26142
+74262 y(And)230 b(this)f(is)g(the)h(reference)i(to)d(a)h(single)g
+(column)i(\002gure)f(\(see)e Fe(Fig-)26142 75591 y(ur)-20
+b(e)352 b(2)p Fd(\).)563 b(Lorem)352 b(ipsum)f(dolor)g(sit)e(amet,)370
+b(consectetur)352 b(adipisc-)p eop end
+%%Page: 2 2
+TeXDict begin 2 1 bop -1 12598 a @beginspecial 0 @llx
+0 @lly 541 @urx 356 @ury 4535 @rwi 1133 @rhi @setspecial
+%%BeginDocument: ./eps/placeholder.eps
+%!PS-Adobe-2.0 EPSF-2.0
+%%Title: placeholder.fig
+%%Creator: fig2dev Version 3.2 Patchlevel 5
+%%CreationDate: Wed Aug 26 12:24:32 2009
+%%For: derkling@darkstar (Patrick Bellasi,,,)
+%%BoundingBox: 0 0 541 356
+%Magnification: 1.0000
+%%EndComments
+%%BeginProlog
+/$F2psDict 200 dict def
+$F2psDict begin
+$F2psDict /mtrx matrix put
+/col-1 {0 setgray} bind def
+/col0 {0.000 0.000 0.000 srgb} bind def
+/col1 {0.000 0.000 1.000 srgb} bind def
+/col2 {0.000 1.000 0.000 srgb} bind def
+/col3 {0.000 1.000 1.000 srgb} bind def
+/col4 {1.000 0.000 0.000 srgb} bind def
+/col5 {1.000 0.000 1.000 srgb} bind def
+/col6 {1.000 1.000 0.000 srgb} bind def
+/col7 {1.000 1.000 1.000 srgb} bind def
+/col8 {0.000 0.000 0.560 srgb} bind def
+/col9 {0.000 0.000 0.690 srgb} bind def
+/col10 {0.000 0.000 0.820 srgb} bind def
+/col11 {0.530 0.810 1.000 srgb} bind def
+/col12 {0.000 0.560 0.000 srgb} bind def
+/col13 {0.000 0.690 0.000 srgb} bind def
+/col14 {0.000 0.820 0.000 srgb} bind def
+/col15 {0.000 0.560 0.560 srgb} bind def
+/col16 {0.000 0.690 0.690 srgb} bind def
+/col17 {0.000 0.820 0.820 srgb} bind def
+/col18 {0.560 0.000 0.000 srgb} bind def
+/col19 {0.690 0.000 0.000 srgb} bind def
+/col20 {0.820 0.000 0.000 srgb} bind def
+/col21 {0.560 0.000 0.560 srgb} bind def
+/col22 {0.690 0.000 0.690 srgb} bind def
+/col23 {0.820 0.000 0.820 srgb} bind def
+/col24 {0.500 0.190 0.000 srgb} bind def
+/col25 {0.630 0.250 0.000 srgb} bind def
+/col26 {0.750 0.380 0.000 srgb} bind def
+/col27 {1.000 0.500 0.500 srgb} bind def
+/col28 {1.000 0.630 0.630 srgb} bind def
+/col29 {1.000 0.750 0.750 srgb} bind def
+/col30 {1.000 0.880 0.880 srgb} bind def
+/col31 {1.000 0.840 0.000 srgb} bind def
+/col32 {0.933 0.933 0.933 srgb} bind def
+
+end
+
+/cp {closepath} bind def
+/ef {eofill} bind def
+/gr {grestore} bind def
+/gs {gsave} bind def
+/sa {save} bind def
+/rs {restore} bind def
+/l {lineto} bind def
+/m {moveto} bind def
+/rm {rmoveto} bind def
+/n {newpath} bind def
+/s {stroke} bind def
+/sh {show} bind def
+/slc {setlinecap} bind def
+/slj {setlinejoin} bind def
+/slw {setlinewidth} bind def
+/srgb {setrgbcolor} bind def
+/rot {rotate} bind def
+/sc {scale} bind def
+/sd {setdash} bind def
+/ff {findfont} bind def
+/sf {setfont} bind def
+/scf {scalefont} bind def
+/sw {stringwidth} bind def
+/tr {translate} bind def
+/tnt {dup dup currentrgbcolor
+  4 -2 roll dup 1 exch sub 3 -1 roll mul add
+  4 -2 roll dup 1 exch sub 3 -1 roll mul add
+  4 -2 roll dup 1 exch sub 3 -1 roll mul add srgb}
+  bind def
+/shd {dup dup currentrgbcolor 4 -2 roll mul 4 -2 roll mul
+  4 -2 roll mul srgb} bind def
+/$F2psBegin {$F2psDict begin /$F2psEnteredState save def} def
+/$F2psEnd {$F2psEnteredState restore end} def
+
+/pageheader {
+save
+newpath 0 356 moveto 0 0 lineto 541 0 lineto 541 356 lineto closepath clip newpath
+-27.6 383.4 translate
+1 -1 scale
+$F2psBegin
+10 setmiterlimit
+0 slj 0 slc
+ 0.06299 0.06299 sc
+} bind def
+/pagefooter {
+$F2psEnd
+restore
+} bind def
+%%EndProlog
+pageheader
+%
+% Fig objects follow
+%
+% 
+% here starts figure with depth 50
+% Polyline
+0 slj
+0 slc
+7.500 slw
+ [15 45] 45 sd
+n 450 450 m 9000 450 l 9000 6075 l 450 6075 l
+ cp gs col0 s gr  [] 0 sd
+/Times-Italic ff 285.75 scf sf
+2624 3472 m
+gs 1 -1 sc (This image has not yet been produced) col32 sh gr
+/Times-Bold ff 285.75 scf sf
+3607 3022 m
+gs 1 -1 sc (Image Placeholder) col32 sh gr
+% here ends figure;
+pagefooter
+showpage
+%%Trailer
+%EOF
+
+%%EndDocument
+ @endspecial -1575 14635 a Fe(Figur)-20 b(e)279 b(2:)343
+b Fd(Some)279 b(wide-\002gure)f(caption.)-1575 18355
+y(ing)333 b(elit.)510 b(Nullam)333 b(consectetur)i(neque)f(at)f(orci.)
+510 b(Curabitur)334 b(non)-1575 19683 y(metus.)571 b(Praesent)354
+b(congue)i(porta)d(nisl.)570 b(Suspendisse)355 b(ultricies,)-1575
+21011 y(sem)372 b(ac)h(ultrices)e(aliquam,)397 b(erat)372
+b(nisi)f(fermentum)i(est;)418 b(a)372 b(rhon-)-1575 22340
+y(cus)339 b(mauris)f(arcu)h(e)-17 b(get)339 b(nibh.)528
+b(Aliquam)339 b(sollicitudin)f(v)-17 b(elit)339 b(non)-1575
+23668 y(erat.)611 b(Lorem)368 b(ipsum)e(dolor)h(sit)e(amet,)389
+b(consectetur)368 b(adipiscing)-1575 24996 y(elit.)631
+b(Inte)-17 b(ger)374 b(nulla)f(diam,)398 b(f)-11 b(acilisis)371
+b(v)-17 b(el,)397 b(accumsan)376 b(sed;)421 b(mo-)-1575
+26325 y(lestie)310 b(e)-17 b(gestas,)320 b(massa.)445
+b(Fusce)312 b(malesuada,)321 b(ipsum)311 b(et)g(pulvinar)-1575
+27653 y(aliquet,)441 b(est)407 b(dolor)g(laoreet)h(enim,)441
+b(quis)407 b(porttitor)g(erat)g(mauris)-1575 28981 y(e)-17
+b(get)279 b(sapien.)344 b(Inte)-17 b(ger)278 b(vitae)f(urna.)344
+b(Duis)277 b(lectus.)-1575 32641 y Fb(2)1594 b(The)399
+b(Second)g(Section)-1575 35115 y Fd(Lorem)435 b(ipsum)f(dolor)g(sit)f
+(amet,)474 b(consectetur)435 b(adipiscing)h(elit.)-1575
+36444 y(Aenean)i(magna.)821 b(Nunc)438 b(non)e(ante)h(e)-17
+b(get)437 b(nibh)g(condimentum)-1575 37772 y(tempor)-61
+b(.)992 b(Nullam)494 b(ullamcorper)g(lectus)g(e)-17 b(get)494
+b(mauris.)991 b(Nam)-1575 39100 y(neque)297 b(orci;)302
+b(rhoncus)296 b(at,)i(pulvinar)d(quis,)j(elementum)e(sit)d(amet,)-1575
+40429 y(turpis.)333 b(Mauris)247 b(posuere)i(nisi)e(ut)g(justo.)333
+b(Morbi)248 b(non)g(lorem)g(vitae)-1575 41757 y(mauris)344
+b(interdum)h(f)-11 b(aucib)-22 b(us.)545 b(V)-123 b(estib)-22
+b(ulum)345 b(ut)f(sapien)i(in)e(augue)-1575 43085 y(f)-11
+b(aucib)-22 b(us)415 b(fringilla.)752 b(V)-123 b(estib)-22
+b(ulum)414 b(ante)h(ipsum)f(primis)e(in)i(f)-11 b(au-)-1575
+44414 y(cib)-22 b(us)374 b(orci)g(luctus)g(et)g(ultrices)g(posuere)h
+(cubilia)f(Curae;)423 b(Etiam)-1575 45742 y(v)-17 b(estib)-22
+b(ulum)462 b(fringilla)d(libero.)892 b(Curabitur)461
+b(libero)f(diam,)506 b(hen-)-1575 47070 y(drerit)277
+b(sit)e(amet,)j(ornare)g(e)-17 b(get,)278 b(imperdiet)f(v)-17
+b(el,)278 b(purus!)-1575 50163 y Fa(2.1)1329 b(The)331
+b(\002rst)h(subsection)e(of)j(the)f(second)1414 51713
+y(Section)-1575 53788 y Fd(Lorem)435 b(ipsum)f(dolor)g(sit)f(amet,)474
+b(consectetur)435 b(adipiscing)h(elit.)-1575 55117 y(Nam)383
+b(consectetur)i(ante)e(at)f(eros.)660 b(V)-123 b(estib)-22
+b(ulum)383 b(mi)f(nisi,)408 b(v)-17 b(ene-)26142 18355
+y(natis)284 b(sollicitudin,)j(tempus)f(sed,)h(auctor)f(id,)h(tortor)-61
+b(.)366 b(Fusce)286 b(orci.)26142 19683 y(Duis)273 b(tellus)f(arcu,)i
+(euismod)h(sed,)f(consequat)h(sit)d(amet,)i(elemen-)26142
+21011 y(tum)316 b(v)-17 b(el,)327 b(mauris.)461 b(Curabitur)317
+b(leo)f(diam;)337 b(dapib)-22 b(us)317 b(quis,)326 b(condi-)26142
+22340 y(mentum)h(vitae,)339 b(dignissim)325 b(ut,)338
+b(diam.)491 b(Nulla)326 b(et)g(nulla)h(e)-17 b(get)327
+b(elit)26142 23668 y(v)-22 b(olutpat)278 b(sagittis.)26142
+27699 y Fa(2.2)1329 b(The)331 b(second)g(subsection)f(of)j(the)e
+(second)29131 29249 y(Section)26142 31622 y Fd(Lorem)434
+b(ipsum)h(dolor)f(sit)f(amet,)473 b(consectetur)436 b(adipiscing)f
+(elit.)26142 32950 y(Mauris)326 b(e)-17 b(get)327 b(mauris.)491
+b(Nulla)326 b(f)-11 b(acilisi.)490 b(Ut)325 b(condimentum)k(tem-)26142
+34279 y(por)290 b(eros?)383 b(Inte)-17 b(ger)292 b(metus)e(mauris,)j
+(consectetur)f(sit)d(amet,)k(tem-)26142 35607 y(por)243
+b(a,)249 b(f)-11 b(acilisis)241 b(eu,)250 b(nisl.)331
+b(V)-123 b(estib)-22 b(ulum)243 b(at)f(turpis.)331 b(Ut)243
+b(vitae)g(tortor)26142 36935 y(pretium)350 b(nisl)g(v)-17
+b(estib)-22 b(ulum)352 b(blandit.)564 b(Nulla)350 b(nibh)h(urna,)370
+b(semper)26142 38264 y(et,)361 b(elementum)346 b(at,)361
+b(mattis)344 b(ut,)361 b(nisi!)545 b(Cum)345 b(sociis)f(natoque)j(pe-)
+26142 39592 y(natib)-22 b(us)289 b(et)f(magnis)i(dis)e(parturient)h
+(montes,)j(nascetur)d(ridiculus)26142 40920 y(mus.)463
+b(Morbi)317 b(v)-17 b(el)318 b(ligula)g(e)-17 b(get)318
+b(lacus)g(con)-44 b(v)-28 b(allis)318 b(v)-17 b(enenatis.)465
+b(Ali-)26142 42249 y(quam)278 b(lacinia)g(tincidunt)g(felis.)342
+b(Ut)277 b(dui.)26142 46847 y Fb(Refer)-29 b(ences)26142
+49619 y Fd([1])553 b(Ramse)-17 b(y)-72 b(,)309 b(N.:)569
+b(Learn)303 b(technical)g(writing)e(in)h(tw)-11 b(o)302
+b(hours)g(per)27986 50947 y(week.)400 b(T)-77 b(echnical)279
+b(report,)e(Harv)-28 b(ard)278 b(Uni)-28 b(v)-17 b(ersity)278
+b(\(2006\))26142 53788 y([2])553 b(Hughes,)250 b(S.P)-123
+b(.J.J.L.J.:)404 b(Ho)-28 b(w)243 b(to)e(gi)-28 b(v)-17
+b(e)244 b(a)d(good)j(research)e(talk.)27986 55117 y(SIGPLAN)278
+b(Notices)g(\(1993\))p eop end
+%%Trailer
+
+userdict /end-hook known{end-hook}if
+%%EOF

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.3.21)  27 APR 2012 20:06
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.3.21)  17 MAY 2012 20:04
 entering extended mode
  %&-line parsing enabled.
 **Report.tex
@@ -268,29 +268,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 73--75
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 76.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 106.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 102.
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--117
+
+ []
+
+
+Package multicol Warning: Floats and marginpars not allowed inside `multicols' 
+environment!.
+
+
+Package multicol Warning: Floats and marginpars not allowed inside `multicols' 
+environment!.
+
 File: ./eps/placeholder.eps Graphic file (type eps)
 <./eps/placeholder.eps>
 File: ./eps/placeholder.eps Graphic file (type eps)
  <./eps/placeholder.eps> [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-Non-PDF special ignored!] (./Report.bbl) [2
+Non-PDF special ignored!]
+Underfull \hbox (badness 10000) in paragraph at lines 184--191
+
+ []
+
+(./Report.bbl) [2
 Non-PDF special ignored!] (./Report.aux) )
 (\end occurred when \ifx on line 769 was incomplete) 
 Here is how much of TeX's memory you used:
- 2985 strings out of 495061
- 38982 string characters out of 1182621
- 102829 words of memory out of 3000000
- 6156 multiletter control sequences out of 15000+50000
+ 2986 strings out of 495061
+ 38999 string characters out of 1182621
+ 108829 words of memory out of 3000000
+ 6157 multiletter control sequences out of 15000+50000
  26117 words of font info for 30 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 36i,4n,38p,222b,373s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,4n,38p,222b,372s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/f
 onts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/urw/times/utmb
 8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/t
 exmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (2 pages, 49453 bytes).
+Output written on Report.pdf (2 pages, 53171 bytes).
 PDF statistics:
  22 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
