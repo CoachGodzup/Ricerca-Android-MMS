@@ -75,10 +75,8 @@ Received: April, 01 2011\\
 
 \begin{myabstract} Abstract \end{myabstract}
 Android Operative System is the most diffuse OS in lots of devices (expecially smartphones and tablets).
-In this paper we will analyze some of the most used memory management systems used by Android OS.
-In the first part, we will focus on the first architecture used by Android (PMEM and ASHMEM), then we will move on
-the most used one, such as CMA (Contiguous Memory Management), integrated with DMABUF patch, and ION, the default one
-on the last release (4.0) of the OS by Google.
+In this paper we will analyze how Android manages memory on device. We discuss about application memory and
+some of the most used low level memory management systems used by Android OS.
 
 \vspace{4ex}	% Please do not remove or reduce this space here.
 \begin{multicols}{2}
@@ -99,6 +97,15 @@ Praesent egestas.
 
 
 %-----------------------------------------------------------------------------
+\section{Low level memory management}
+In this part, we discuss about how the memory has managed in Android devices. For
+most of the releases in Android, it was used PMEM and ASHMEM. These kind of libraries
+was too simple, and was patched with some SoC patches, such as NVMAP for nVidia Tegra devices
+and CMEM for TI OMAP ones. The most important patch was CMA (Contiguous Memory Access), expecially
+with DMABUF patch. With the release of Android 4.0 (Ice Cream Sandwich) a brand new library has released,
+ION. We discuss about differences between ION and CMA approach, and, in the state-of-art, 
+we discuss of a future integration between them.
+
 \subsection{PMEM and ASHMEM}
 % Please avoid separations in titles
 % and separate text manually

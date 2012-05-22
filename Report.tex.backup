@@ -161,6 +161,14 @@ very short time after boot.
 Recently, the requirement of huge pages in applications raises, expecially for trasparent huge pages.
 Another question is devices (such as cameras) that needs DMA over areas phisically contiguous.
 
+CMA reserve an huge area of memory at boot time, only for huge request of memory.
+For every region, block of pages can be flaggable as three type.
+\begin{itemize}
+ \item movable : typically, cache pages or anonymous pages, accessed by page table or page cache radix tree
+ \item kernel recallable : they can be given back to the kernel by request.
+ \item inamovable : these are typically pointer referred pages (such as pages invoked by a kmalloc()) 
+\end{itemize}
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et ligula. Nullam
 in libero. Donec dictum pede in justo. Lorem ipsum dolor sit amet, consectetur
 adipiscing elit. Aliquam congue. Aliquam egestas. Nunc eu est ac nibh mattis
