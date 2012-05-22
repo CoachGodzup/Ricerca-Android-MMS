@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.3.21)  17 MAY 2012 20:04
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.3.21)  22 MAY 2012 17:34
 entering extended mode
  %&-line parsing enabled.
 **Report.tex
@@ -284,33 +284,47 @@ environment!.
 
 File: ./eps/placeholder.eps Graphic file (type eps)
 <./eps/placeholder.eps>
-File: ./eps/placeholder.eps Graphic file (type eps)
- <./eps/placeholder.eps> [1
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 167.
+
+ (/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 167.
+
+[1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 Non-PDF special ignored!]
-Underfull \hbox (badness 10000) in paragraph at lines 184--191
+File: ./eps/placeholder.eps Graphic file (type eps)
+ <./eps/placeholder.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 200--207
 
  []
 
-(./Report.bbl) [2
+(./Report.bbl
+
+LaTeX Warning: Empty `thebibliography' environment on input line 3.
+
+) [2] [3
 Non-PDF special ignored!] (./Report.aux) )
 (\end occurred when \ifx on line 769 was incomplete) 
 Here is how much of TeX's memory you used:
- 2986 strings out of 495061
- 38999 string characters out of 1182621
- 108829 words of memory out of 3000000
- 6157 multiletter control sequences out of 15000+50000
+ 3001 strings out of 495061
+ 39250 string characters out of 1182621
+ 111823 words of memory out of 3000000
+ 6169 multiletter control sequences out of 15000+50000
  26117 words of font info for 30 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 36i,4n,38p,222b,372s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,4n,38p,222b,376s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/f
-onts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/urw/times/utmb
-8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/t
-exmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (2 pages, 53171 bytes).
+onts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></us
+r/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-texliv
+e/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Report.pdf (3 pages, 61118 bytes).
 PDF statistics:
- 22 PDF objects out of 1000 (max. 8388607)
+ 29 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
