@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[latin1]{inputenc}
 \pagestyle{empty}
+\usepackage{array}
 \usepackage{amsmath}
 \usepackage{amssymb}
 
@@ -135,26 +136,21 @@ releasable by the kernel. Apparently, ASHMEM supports low memory devices
 better than PMEM, because it could free shared memory units when it
 is needed. 
 
-\begin{figure}
-\caption{}
-\end{figure}
-\begin{table}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|>{\centering}p{0.33\columnwidth}||>{\centering}p{0.4\columnwidth}|}
 \hline 
 PMEM & ASHMEM\tabularnewline
 \hline 
 \hline 
 Uses physically contiguous addresses & Uses virtual memory\tabularnewline
 \hline 
-The first process who instantiate a memory heap must keep them till
-the last of the users won't release file descriptor, thus to keep
-contiguity & Memory is handled by instances (object oriented like). It is managed
+\hline 
+The first process who instantiate a memory heap must keep that till
+the last one of the users won't free the file descriptor. Thus to
+preserve contiguity & Memory is handled by instances (object oriented like). It is managed
 by a reference counter\tabularnewline
 \hline 
 \end{tabular}
 
-\caption{PMEM vs ASHMEM}
-\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      PMEM VS ASHMEM should be here
 
 
@@ -250,14 +246,13 @@ to the programmer only if the buffer is physically contiguous. Buffer
 can be prepared or deallocated to be used with DMA, or with virtual
 kernel addressing. Using a file descriptor, it can be also mapped
 in the user-space. There are three kind of allocable ION heap. Other
-ones can be defined by SoC producers (like ION\textbackslash{}\_HEAP\textbackslash{}\_TYPE\textbackslash{}\_SYSTEM\textbackslash{}\_IOMMU
+ones can be defined by SoC producers (like ION\_HEAP\_TYPE\_SYSTEM\_IOMMU
 for hardware blocks equipped with IOMMU driver). 
 \begin{itemize}
-\item ION\textbackslash{}\_HEAP\textbackslash{}\_TYPE\textbackslash{}\_SYSTEM
-\item ION\textbackslash{}\_HEAP\textbackslash{}\_TYPE\textbackslash{}\_SYSTEM\textbackslash{}\_CONTIG
-\item ION\textbackslash{}\_HEAP\textbackslash{}\_TYPE\textbackslash{}\_CARVEOUT
-: in this case, carveout memory is physically contiguous and set as
-boot. 
+\item ION\_HEAP\_TYPE\_SYSTEM
+\item ION\_HEAP\_TYPE\_SYSTEM\_CONTIG
+\item ION\_HEAP\_TYPE\_CARVEOUT : in this case, carveout memory is physically
+contiguous and set as boot. 
 \end{itemize}
 Typically, in the user-space case, libraries uses ION to alloc large
 continuous buffers. For instance, camera library can alloc a capture
@@ -270,19 +265,86 @@ file descriptors (fd). It can be maximum one client for user process.
 Clients interacts from user-space with ION using ioctl() system interface.
 Android processes can share memory using their fd. To obtain shared
 buffer, the second user process must obtain a client handle through
-a system call open('/dev/ion', O\textbackslash{}\_RDONLY). ION manage
-user space client through process PID (in particular, the 'group leader
-' one). Fd will be instantiated pointing at the same client structure
-in the kernel. To free a buffer, the second client must invalidate
-the mmap() effect, with an explicit call at munmap(), and the first
-client must close the fd, calling ION\_IOC\_FREE. This function decrements
-the reference counter of the handle. When it reaches zero, the ion\_handle
-is destroyed, and the data structure that manages ION is updated. 
+a system call open('/dev/ion', O\_RDONLY). ION manage user space client
+through process PID (in particular, the 'group leader ' one). Fd will
+be instantiated pointing at the same client structure in the kernel.
+To free a buffer, the second client must invalidate the mmap() effect,
+with an explicit call at munmap(), and the first client must close
+the fd, calling ION\_IOC\_FREE. This function decrements the reference
+counter of the handle. When it reaches zero, the ion\_handle is destroyed,
+and the data structure that manages ION is updated. While managing
+client calls, ION validates input from fd, from client and from handler
+arguments. This validation mechanism reduce the probability of undesired
+access and memory leaks. Ion\_buffers is somewhere similar to DMABUF.
+Both uses anonymous fd, reference counted, as shareable objects.
 
-While managing client calls, ION validates input from fd, from client
-and from handler arguments. This validation mechanism reduce the probability
-of undesired access and memory leaks. Ion\_buffers is somewhere similar
-to DMABUF. 
+\begin{tabular}[t]{|>{\centering}p{0.2\columnwidth}|>{\raggedright}p{0.4\columnwidth}|>{\raggedright}p{0.4\columnwidth}|}
+\hline 
+ & ION buffers & DMABUF\tabularnewline
+\hline 
+\hline 
+Application level MMU & Alloc and free memory from memory pools in a shareable and trackable
+way & It focus on import, export and syncronization in a consisten way with
+buffer sharing solution for non arm architectures\tabularnewline
+\hline 
+Role of Memory manager  & ION replace PMEM as memory pools manager. ION heap lists can be extended
+by the device.  & DMABUF is a buffer sharing framework , designed to be integrated with
+memory allocator in contiguous DMA mapping framewors, such as CMA.
+DMABUF exporters can implement custom allocator.\tabularnewline
+\hline 
+User Space access control  & ION offers /dev/ion interface to user space program, letting them
+to alloc and share buffers. Every user process with ION access can
+suspend the system overlapping ION heap. Android chech user and groupID
+blocking non authorized access to ION heap & DMABUF offers only kernel API.
+
+Access control is a function of the permissions on device that uses
+DMABUF feature\tabularnewline
+\hline 
+Global Client and Buffer Database.  & ION has a driver associated to /dev/ion. The device structure has
+a database that keeps ION buffers allocated, handlers and fd, grouped
+by user client and kernel client. ION validates all the client calls
+to be valid for database rules. For instance, an handle can't have
+two buffers associated. & The debub structure of DMA implements a global hashtable, dma\_entry\_hash,
+tracking DMA buffers, but only when kernel is build with CONFIG\_DMA\_API\_
+
+DEBUG option.\tabularnewline
+\hline 
+Cross- architecture usage & ION usage now is limited on architectures that runs kernel Android & DMABUF usage is cross architecture. DMA mapping redesign let his implementation
+in 9 architectures beside the ARM one. \tabularnewline
+\hline 
+\end{tabular}
+
+\begin{tabular}[t]{|>{\centering}p{0.18\columnwidth}|>{\centering}p{0.35\columnwidth}|>{\centering}p{0.35\columnwidth}|}
+\hline 
+ & ION\_buffer & DMABUF\tabularnewline
+\hline 
+\hline 
+Buffer Syncronization & Ion consider the syncronization problem as an orthogonal problem & DMABUF gives a pair of API for synchronization. Buffer user invokes
+dma\_buf\_map\_
+
+attachment() everywhere he desires to use buffer for DMA. Once he
+finished using that, signals \textquotedbl{}endOfDMA\textquotedbl{}
+to exporter using dma\_buf\_unmap\_
+
+attachment()\tabularnewline
+\hline 
+\hline 
+Buffer delayed allocation & ION allocs physical memory before the buffer is shared & DMABUF can delay allocation till the first call of dma\_buf\_map\_
+
+attachment(). DMA buffer exporter has the opportunity of scans every
+client attachment, collecting all the constraints and choose the most
+efficient storage\tabularnewline
+\hline 
+Integration with Video4
+
+Linux2 API  & Processes that uses these API tends to use PMEM. So, the migration
+from PMEM to ION has a relatively small impact. & DMABUF integration with Video4Linux is hard and asked for lots of
+modifies in DMABUF. But in a long time that will be a smart choice,
+because DMABUF sharing mechanism is fitted for DMA, so it is well
+written for CMA and IOMMU. Both of them reduces carveout memory needs
+to build an Android smartphone.\tabularnewline
+\hline 
+\end{tabular}
 
 
 \section{The Second Section}
