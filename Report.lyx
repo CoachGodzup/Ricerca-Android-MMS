@@ -182,9 +182,15 @@ Received: April, 01 2011
 \end_layout
 
 \begin_layout Abstract
-Android Operative System is the most diffuse OS in lots of devices (expecially
- smartphones and tablets).
- In this paper we will analyze how Android manages memory on device.
+Android Operative System
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OVERVIEW"
+
+\end_inset
+
+ is the most diffuse OS in mobile devices.
+ In this paper we will analyze how Android manages memory.
  We discuss in particular about application memory and some of the most
  used MMUs used by Android OS.
 \end_layout
@@ -199,7 +205,32 @@ status open
 
 \begin_layout Plain Layout
 
-% Please do not remove or reduce this space here.
+% ASSIGNMENT:
+\end_layout
+
+\begin_layout Plain Layout
+
+Analyze and document how the Android specific memory management systems
+ work and integrate with hardware resources.
+ In particular, describe how application and hardware resources are managed
+ (OOM killer, PMEM and HWMEM drivers).
+\end_layout
+
+\begin_layout Plain Layout
+
+Project Goals: Understanding the Android memory management Required skills:
+ Linux kernel and UNIX process management basics Peoples: This project is
+ suited for one student or a group with maximum two people.
+\end_layout
+
+\begin_layout Plain Layout
+
+Project Status: Working on: anyone
+\end_layout
+
+\begin_layout Plain Layout
+
+NOTE: still available for other students/groups
 \end_layout
 
 \begin_layout Plain Layout
@@ -265,6 +296,10 @@ status open
 \end_layout
 
 \begin_layout Section
+Kernel Memory Management
+\end_layout
+
+\begin_layout Subsection
 Introduction
 \end_layout
 
@@ -272,11 +307,109 @@ Introduction
 Android
 \begin_inset CommandInset citation
 LatexCommand cite
+key "WIKI,OVERVIEW"
+
+\end_inset
+
+ is a Linux-based operative system, written in C and C++.
+ Android application software runs on a framework which includes Java-compatible
+ libraries.
+ Android uses the Dalvik virtual machine with just-in-time compilation to
+ run Dalvik dex-code (Dalvik Executable), which is usually translated from
+ Java bytecode.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Android distribution diffusion"
+
+\end_inset
+
+ shows the actual
+\begin_inset CommandInset citation
+LatexCommand cite
 key "WIKI"
 
 \end_inset
 
+ distribution of Android version between devices with this kernel:
+\end_layout
 
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/coach/Dropbox/RTOS/Android_chart.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "Android distribution diffusion"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can notice that now the common kernel distributions still use Linux 2.6.x
+ kernel.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Android structure"
+
+\end_inset
+
+ shows Android System Architecture schema 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "WIKI"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /home/coach/Dropbox/RTOS/System-architecture.jpg
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "Android structure"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Android 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OVERVIEW"
+
+\end_inset
+
+ provides some modification to main Linux kernel, such as an improved power
+ management, ASHMEM virtual memory, some specific-component drivers, and
+ a low memory killer.
+ The latter's mission is to free memory when the system run Out of Memory
+ (OOM).
 \end_layout
 
 \begin_layout Standard
@@ -290,6 +423,46 @@ status collapsed
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% TODO: 
+\end_layout
+
+\begin_layout Plain Layout
+
+ - ampliare l'introduzione
+\end_layout
+
+\begin_layout Plain Layout
+
+ - rivedere parte su CMA: guardarsi gli altri articoli, condensare le notizie
+ importanti
+\end_layout
+
+\begin_layout Plain Layout
+
+ - finire ION con gli sviluppi futuri: integrazione CMA con ION.
+\end_layout
+
+\begin_layout Plain Layout
+
+ - TUTTA la parte su OOM killer
+\end_layout
+
+\begin_layout Plain Layout
+
+ - 
 \end_layout
 
 \end_inset
@@ -848,7 +1021,7 @@ Clients interacts from user-space with ION using ioctl() system interface.
 <features tabularvalignment="top">
 <column alignment="center" valignment="top" width="20col%">
 <column alignment="left" valignment="top" width="40col%">
-<column alignment="left" valignment="top" width="40col%">
+<column alignment="left" valignment="top" width="30col%">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -1063,7 +1236,7 @@ DMABUF usage is cross architecture.
 <features tabularvalignment="top">
 <column alignment="center" valignment="top" width="18col%">
 <column alignment="center" valignment="top" width="35col%">
-<column alignment="center" valignment="top" width="35col%">
+<column alignment="center" valignment="top" width="33col%">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -1103,7 +1276,7 @@ Buffer Syncronization
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1211,6 +1384,258 @@ DMABUF integration with Video4Linux is hard and asked for lots of modifies
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+OOM Killer
+\end_layout
+
+\begin_layout Subsection
+Introduction
+\end_layout
+
+\begin_layout Standard
+Mobile devices become more and more rich of memory over time, due to Moore's
+ Law.
+ However, there's always a limit over wich memory isn't available, and a
+ well form kernel needs some politics to free bunch of memory when needed.
+ Android provides an OOM killer, who kills processes using heuristics, developed
+ over time.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OOM_TAMING"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%%copincollato dall'articolo!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Major distribution kernels set the default value of /proc/sys/vm/overcommit_memo
+ry to zero, which means that processes can request more memory than is currently
+ free in the system.
+ This is done based on the heuristics that allocated memory is not used
+ immediately, and that processes, over their lifetime, also do not use all
+ of the memory they allocate.
+ Without overcommit, a system will not fully utilize its memory, thus wasting
+ some of it.
+ Overcommiting memory allows the system to use the memory in a more efficient
+ way, but at the risk of OOM situations.
+ Programs that asks lots of memory can consume all the system's memory,
+ stopping the whole system.
+ This can lead to a situation, when memory is so low, that even a single
+ page cannot be allocated to a user process, to allow the administrator
+ to kill an appropriate task, or to the kernel to carry out important operations
+ such as freeing memory.
+ In such a situation, the OOM-killer kicks in and identifies the process
+ to be killed for the benefit of the rest of the system.
+\end_layout
+
+\begin_layout Subsection
+OOM euristics
+\end_layout
+
+\begin_layout Standard
+To facilitate OOM system control, the /proc/<pid>/oom_adj knob was introduced
+ to save important processes in the system from being killed, and define
+ an order of processes to be killed.
+ The possible values of oom_adj range from -17 to +15.
+ The higher the score, more likely the associated process is to be killed
+ by OOM-killer.
+ If oom_adj is set to -17, the process is not considered for OOM-killing.
+\end_layout
+
+\begin_layout Standard
+Who's Bad? The process to be killed in an out-of-memory situation is selected
+ based on its badness score.
+ The badness score is reflected in /proc/<pid>/oom_score.
+ 
+\end_layout
+
+\begin_layout Standard
+This euristic value is determined on the basis of four characteristics:
+\end_layout
+
+\begin_layout Itemize
+that the system loses the minimum amount of work done, 
+\end_layout
+
+\begin_layout Itemize
+recovers a large amount of memory, 
+\end_layout
+
+\begin_layout Itemize
+doesn't kill any innocent process eating tons of memory, 
+\end_layout
+
+\begin_layout Itemize
+kills the minimum number of processes (if possible limited to one)
+\end_layout
+
+\begin_layout Standard
+The badness score is computed using 
+\end_layout
+
+\begin_layout Itemize
+the original memory size of the process, 
+\end_layout
+
+\begin_layout Itemize
+its CPU time (utime + stime), 
+\end_layout
+
+\begin_layout Itemize
+the run time (uptime - start time) 
+\end_layout
+
+\begin_layout Itemize
+its oom_adj value.
+ 
+\end_layout
+
+\begin_layout Standard
+The more memory the process uses, the higher the score.
+ The longer a process is alive in the system, the smaller the score.
+\end_layout
+
+\begin_layout Standard
+Any process unlucky enough to be in the swapoff() system call (which removes
+ a swap file from the system) will be selected to be killed first.
+ For the rest, the initial memory size becomes the original badness score
+ of the process.
+ Half of each child's memory size is added to the parent's score if they
+ do not share the same memory.
+ Thus forking servers are the prime candidates to be killed.
+ Having only one "hungry" child will make the parent less preferable than
+ the child.
+ Finally, the following heuristics are applied to save important processes:
+\end_layout
+
+\begin_layout Itemize
+if the task has nice value above zero, its score doubles 
+\end_layout
+
+\begin_layout Itemize
+superuser or direct hardware access tasks (CAP_SYS_ADMIN, CAP_SYS_RESOURCE
+ or CAP_SYS_RAWIO) have their score divided by 4.
+ This is cumulative, i.e., a super-user task with hardware access would have
+ its score divided by 16.
+ 
+\end_layout
+
+\begin_layout Itemize
+if OOM condition happened in one cpuset and checked task does not belong
+ to that set, its score is divided by 8.
+ 
+\end_layout
+
+\begin_layout Itemize
+the resulting score is multiplied by two to the power of oom_adj (i.e.
+ points <<= oom_adj when it is positive and points >>= -(oom_adj) otherwise).
+ 
+\end_layout
+
+\begin_layout Itemize
+The task with the highest badness score is then selected and its children
+ are killed.
+ The process itself will be killed in an OOM situation when it does not
+ have children.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%%che ne dici di un bel grafico riassuntivo qui?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+User space OOM killer control 
+\end_layout
+
+\begin_layout Standard
+There's a problem in using purely heuristics: value of /proc/<pid>/oom_score
+ is dynamic and very difficult to guess.
+ Also, it could not be as flexible as an administrator needs.
+ It is difficult to determine which process will be killed in case of an
+ OOM condition.
+ The administrator must adjust the score for every process created, and
+ for every process which exits.
+ This could be quite a task in a system with quickly-spawning processes.
+ In an attempt to make OOM-killer policy implementation easier, a name-based
+ solution was proposed.
+\end_layout
+
+\begin_layout Standard
+With his patch, the process to die first is the one running the program
+ whose name is found in /proc/sys/vm/oom_victim.
+ A name based solution has its limitations:
+\end_layout
+
+\begin_layout Itemize
+task name is not a reliable indicator of true name and is truncated in the
+ process name fields.
+ 
+\end_layout
+
+\begin_layout Itemize
+Moreover, symlinks to executing binaries, but with different names will
+ not work with this approach 
+\end_layout
+
+\begin_layout Itemize
+This approach can specify only one name at a time, ruling out the possibility
+ of a hierarchy 
+\end_layout
+
+\begin_layout Itemize
+There could be multiple processes of the same name but from different binaries.
+ 
+\end_layout
+
+\begin_layout Standard
+The behavior boils down to the default current implementation if there is
+ no process by the name defined by /proc/sys/vm/oom_victim.
+ This increases the number of scans required to find the victim process.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%% da finire la lettura di taming the oom system
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+S
 \end_layout
 
 \begin_layout Standard
