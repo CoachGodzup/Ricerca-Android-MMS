@@ -122,11 +122,15 @@ status open
 
 \end_inset
 
- Garza Matteo
-\begin_inset Newline newline
-\end_inset
 
- Matr.
+\end_layout
+
+\begin_layout Standard
+Garza Matteo
+\end_layout
+
+\begin_layout Standard
+Matr.
  755295, (matteo.garza@mail.polimi.it)
 \end_layout
 
@@ -135,7 +139,10 @@ Tania Suarez Legra
 \end_layout
 
 \begin_layout Standard
-Matr ()
+Matr 748927 (tania.suarez@mail.polimi.it)
+\end_layout
+
+\begin_layout Standard
 \begin_inset space \hspace{}
 \length 10ex
 \end_inset
@@ -262,7 +269,14 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-TODO
+Android
+\begin_inset CommandInset citation
+LatexCommand cite
+key "WIKI"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -283,8 +297,8 @@ status collapsed
 
 \end_layout
 
-\begin_layout Subsection
-Memory Management
+\begin_layout Section
+Low level management and integration with HW resources
 \end_layout
 
 \begin_layout Standard
@@ -294,7 +308,7 @@ In this part, we discuss about how the memory has managed in Android devices.
  such as NVMAP for nVidia Tegra devices and CMEM for TI OMAP ones.
  The most important patch was CMA (Contiguous Memory Access), expecially
  with DMABUF patch.
- With the release of Android 4.0 (Ice Cream Sandwich) a brand new library
+ With the release of Android 4.0 (Ice Cream Sandwich) a brand new driver
  has released, ION.
  We discuss about differences between ION and CMA approach, and, in the
  state-of-art, we discuss of a future integration between them.
@@ -323,8 +337,14 @@ PMEM and ASHMEM
 \end_layout
 
 \begin_layout Standard
-PMEM (Process MEMory) is the first memory driver implemented on Android
- devices (since G1).
+PMEM (Process MEMory)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AKF"
+
+\end_inset
+
+ is the first memory driver implemented on Android devices (since G1).
  It is used to manage shared memory regions sufficiently large (from 1 to
  16MB).
 \end_layout
@@ -337,7 +357,14 @@ This regions must be physically contiguous between user space and kernel
 \end_layout
 
 \begin_layout Standard
-ASHMEM (Android SHared MEMory) is a shared memory allocator subsystem, similar
+ASHMEM
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ASHMEM"
+
+\end_inset
+
+ (Android SHared MEMory) is a shared memory allocator subsystem, similar
  to POSIX, but with a different behavior.
  It also gives to the developer an easier and file-based API.
  It used named memory, releasable by the kernel.
@@ -483,12 +510,20 @@ Memory is handled by instances (object oriented like).
 \end_layout
 
 \begin_layout Subsection
-CMA e DMABUF
+CMA and DMABUF
 \end_layout
 
 \begin_layout Standard
-CMA (Contiguous Memory Allocator) is a well known patch that let the device
- to alloc big chunk of memory after the system has booted.
+CMA (Contiguous Memory Allocator)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "CMAdoc"
+
+\end_inset
+
+ is a well known framework, which allows setting up a machine-specific configura
+tion for physically-contiguous memory management.
+ Memory for devices is then allocated according to that configuration.
  Differently from similar framework, it let regions of system-reserved memory
  to be reused in a transparent way, letting memory not to be wasted.
  When an alloc is instantiated, this framework migrates all the system page.
@@ -496,8 +531,14 @@ CMA (Contiguous Memory Allocator) is a well known patch that let the device
 \end_layout
 
 \begin_layout Standard
-Why do an OS have to use chunks of memory? Because virtual memory tends
- to fragment pages.
+Why do an OS have to use chunks of memory?
+\begin_inset CommandInset citation
+LatexCommand cite
+key "CMA,RCMA"
+
+\end_inset
+
+ Because virtual memory tends to fragment pages.
  An intensive use of memory let the system not able to find contiguous memory
  in a very short time after boot.
  Recently, the requirement of huge pages in applications raises, especially
@@ -579,7 +620,7 @@ DMA buffers has different request despise of huge pages.
 <lyxtabular version="3" rows="3" columns="2">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="33col%">
-<column alignment="center" valignment="top" width="33col%">
+<column alignment="center" valignment="middle" width="33col%">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -662,25 +703,6 @@ DMA requires less alignment than THP
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    qui la tabella
- di confronto
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 CMA patches provides a set of function that can prepare regions of memory
  and the creation of contest area of a well known size using function cm_alloc
  and cm_free to keep and release buffers.
@@ -706,7 +728,14 @@ ION
 
 \begin_layout Standard
 In december 2011, PMEM is marked as deprecated, and then replaced by ION
- memory allocator.
+ memory allocator
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ION"
+
+\end_inset
+
+.
  ION is a memory manager that Google has developed from the 4.0 release of
  Android (Ice Cream Sandwich), mainly to resolve the interface issue between
  different memory management between different Android device.
@@ -719,11 +748,25 @@ NVMAP, implemented on nVidia Tegra
 \end_layout
 
 \begin_layout Itemize
-CMEM, implemented on TI OMAP 
+CMEM
+\begin_inset CommandInset citation
+LatexCommand cite
+key "CMEM"
+
+\end_inset
+
+, implemented on TI OMAP 
 \end_layout
 
 \begin_layout Itemize
-HWMEM, implemented on ST-Ericsonn devices 
+HWMEM
+\begin_inset CommandInset citation
+LatexCommand cite
+key "HWMEM"
+
+\end_inset
+
+, implemented on ST-Ericsonn devices 
 \end_layout
 
 \begin_layout Standard
@@ -1170,122 +1213,12 @@ DMABUF integration with Video4Linux is hard and asked for lots of modifies
 
 \end_layout
 
-\begin_layout Section
-The Second Section
-\end_layout
-
 \begin_layout Standard
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Aenean magna.
- Nunc non ante eget nibh condimentum tempor.
- Nullam ullamcorper lectus eget mauris.
- Nam neque orci; rhoncus at, pulvinar quis, elementum sit amet, turpis.
- Mauris posuere nisi ut justo.
- Morbi non lorem vitae mauris interdum faucibus.
- Vestibulum ut sapien in augue faucibus fringilla.
- Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
- cubilia Curae; Etiam vestibulum fringilla libero.
- Curabitur libero diam, hendrerit sit amet, ornare eget, imperdiet vel,
- purus!
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-%-----------------------------------------------------------------------------
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-The first subsection of the second 
-\begin_inset Newline newline
-\end_inset
-
- Section
-\end_layout
-
-\begin_layout Standard
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Nam consectetur ante at eros.
- Vestibulum mi nisi, venenatis sollicitudin, tempus sed, auctor id, tortor.
- Fusce orci.
- Duis tellus arcu, euismod sed, consequat sit amet, elementum vel, mauris.
- Curabitur leo diam; dapibus quis, condimentum vitae, dignissim ut, diam.
- Nulla et nulla eget elit volutpat sagittis.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-%-----------------------------------------------------------------------------
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-The second subsection of the second 
-\begin_inset Newline newline
-\end_inset
-
- Section
-\end_layout
-
-\begin_layout Standard
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Mauris eget mauris.
- Nulla facilisi.
- Ut condimentum tempor eros? Integer metus mauris, consectetur sit amet,
- tempor a, facilisis eu, nisl.
- Vestibulum at turpis.
- Ut vitae tortor pretium nisl vestibulum blandit.
- Nulla nibh urna, semper et, elementum at, mattis ut, nisi! Cum sociis natoque
- penatibus et magnis dis parturient montes, nascetur ridiculus mus.
- Morbi vel ligula eget lacus convallis venenatis.
- Aliquam lacinia tincidunt felis.
- Ut dui.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-% We suggest the use of JabRef for editing your bibliography file (Report.bib)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
- 
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
+btprint "btPrintAll"
 bibfiles "Report"
-options "splncs"
+options "savetrees"
 
 \end_inset
 

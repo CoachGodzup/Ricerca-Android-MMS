@@ -68,9 +68,17 @@
 
 \maketitle
 %
- Garza Matteo\\
- Matr. 755295, (matteo.garza@mail.polimi.it)\\
- \hspace{10ex} 
+
+
+Garza Matteo
+
+Matr. 755295, (matteo.garza@mail.polimi.it)
+
+Tania Suarez Legra
+
+Matr 748927 (tania.suarez@mail.polimi.it)
+
+\hspace{10ex} 
 
 \begin{flushright}
 \emph{Report for the master course of Real Time Operative System (RTOS)}\\
@@ -96,13 +104,13 @@ OS.
 
 \section{Introduction}
 
-TODO
+Android\cite{WIKI}
 
 %-----------------------------------------------------------------------------
 
 
 
-\subsection{Memory Management}
+\section{Low level management and integration with HW resources}
 
 In this part, we discuss about how the memory has managed in Android
 devices. For most of the releases in Android, it was used PMEM and
@@ -110,7 +118,7 @@ ASHMEM. These kind of libraries was too simple, and was patched with
 some SoC patches, such as NVMAP for nVidia Tegra devices and CMEM
 for TI OMAP ones. The most important patch was CMA (Contiguous Memory
 Access), expecially with DMABUF patch. With the release of Android
-4.0 (Ice Cream Sandwich) a brand new library has released, ION. We
+4.0 (Ice Cream Sandwich) a brand new driver has released, ION. We
 discuss about differences between ION and CMA approach, and, in the
 state-of-art, we discuss of a future integration between them.
 
@@ -120,21 +128,21 @@ state-of-art, we discuss of a future integration between them.
 
 \subsection{PMEM and ASHMEM}
 
-PMEM (Process MEMory) is the first memory driver implemented on Android
-devices (since G1). It is used to manage shared memory regions sufficiently
-large (from 1 to 16MB).
+PMEM (Process MEMory)\cite{AKF} is the first memory driver implemented
+on Android devices (since G1). It is used to manage shared memory
+regions sufficiently large (from 1 to 16MB).
 
 This regions must be physically contiguous between user space and
 kernel drivers (such as GPU, or DSP). It was written specifically
 to be used in a very limited hardware platform, and it could be disabled
 on x86 architectures.
 
-ASHMEM (Android SHared MEMory) is a shared memory allocator subsystem,
-similar to POSIX, but with a different behavior. It also gives to
-the developer an easier and file-based API. It used named memory,
-releasable by the kernel. Apparently, ASHMEM supports low memory devices
-better than PMEM, because it could free shared memory units when it
-is needed. 
+ASHMEM\cite{ASHMEM} (Android SHared MEMory) is a shared memory allocator
+subsystem, similar to POSIX, but with a different behavior. It also
+gives to the developer an easier and file-based API. It used named
+memory, releasable by the kernel. Apparently, ASHMEM supports low
+memory devices better than PMEM, because it could free shared memory
+units when it is needed. 
 
 \begin{tabular}{|>{\centering}p{0.33\columnwidth}||>{\centering}p{0.4\columnwidth}|}
 \hline 
@@ -151,27 +159,27 @@ by a reference counter\tabularnewline
 \hline 
 \end{tabular}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      PMEM VS ASHMEM should be here
 
+\subsection{CMA and DMABUF}
 
+CMA (Contiguous Memory Allocator)\cite{CMAdoc} is a well known framework,
+which allows setting up a machine-specific configuration for physically-contiguous
+memory management. Memory for devices is then allocated according
+to that configuration. Differently from similar framework, it let
+regions of system-reserved memory to be reused in a transparent way,
+letting memory not to be wasted. When an alloc is instantiated, this
+framework migrates all the system page. Thus to build a big chunk
+of physically contiguous memory.
 
-\subsection{CMA e DMABUF}
-
-CMA (Contiguous Memory Allocator) is a well known patch that let the
-device to alloc big chunk of memory after the system has booted. Differently
-from similar framework, it let regions of system-reserved memory to
-be reused in a transparent way, letting memory not to be wasted. When
-an alloc is instantiated, this framework migrates all the system page.
-Thus to build a big chunk of physically contiguous memory.
-
-Why do an OS have to use chunks of memory? Because virtual memory
-tends to fragment pages. An intensive use of memory let the system
-not able to find contiguous memory in a very short time after boot.
-Recently, the requirement of huge pages in applications raises, especially
-for transparent huge pages. Another question is devices (such as cameras)
-that needs DMA over areas physically contiguous. CMA reserve an huge
-area of memory at boot time, only for huge request of memory. For
-every region, block of pages can be flaggable as three type. 
+Why do an OS have to use chunks of memory?\cite{CMA,RCMA} Because
+virtual memory tends to fragment pages. An intensive use of memory
+let the system not able to find contiguous memory in a very short
+time after boot. Recently, the requirement of huge pages in applications
+raises, especially for transparent huge pages. Another question is
+devices (such as cameras) that needs DMA over areas physically contiguous.
+CMA reserve an huge area of memory at boot time, only for huge request
+of memory. For every region, block of pages can be flaggable as three
+type. 
 \begin{itemize}
 \item movable : typically, cache pages or anonymous pages, accessed by page
 table or page cache radix tree 
@@ -200,8 +208,19 @@ amount of memory without worrying about strictly request of alignment.
 
 DMA buffers has different request despise of huge pages.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    qui la tabella di confronto
+\begin{tabular}{|>{\centering}p{0.33\columnwidth}|>{\centering}m{0.33\columnwidth}|}
+\hline 
+DMABUF & Transparent Huge Pages\tabularnewline
+\hline 
+\hline 
+Normally larger than Transparent Huge Pages. 10 Mb.
 
+It could be needed specific memory area, if underlying hardware is
+sufficiently ``strange'' & Almost 2Mb large\tabularnewline
+\hline 
+DMA requires less alignment than THP & 2MB of THP needs 2Mb of Alignment\tabularnewline
+\hline 
+\end{tabular}
 
 CMA patches provides a set of function that can prepare regions of
 memory and the creation of contest area of a well known size using
@@ -222,15 +241,15 @@ be executed by the mainline.
 \subsection{ION}
 
 In december 2011, PMEM is marked as deprecated, and then replaced
-by ION memory allocator. ION is a memory manager that Google has developed
-from the 4.0 release of Android (Ice Cream Sandwich), mainly to resolve
-the interface issue between different memory management between different
-Android device. In fact, some SoC developer implemented different
-memory manager. We can cite some of them:
+by ION memory allocator\cite{ION}. ION is a memory manager that Google
+has developed from the 4.0 release of Android (Ice Cream Sandwich),
+mainly to resolve the interface issue between different memory management
+between different Android device. In fact, some SoC developer implemented
+different memory manager. We can cite some of them:
 \begin{itemize}
 \item NVMAP, implemented on nVidia Tegra 
-\item CMEM, implemented on TI OMAP 
-\item HWMEM, implemented on ST-Ericsonn devices 
+\item CMEM\cite{CMEM}, implemented on TI OMAP 
+\item HWMEM\cite{HWMEM}, implemented on ST-Ericsonn devices 
 \end{itemize}
 All this vendor will pass to ION soon
 
@@ -346,50 +365,8 @@ to build an Android smartphone.\tabularnewline
 \hline 
 \end{tabular}
 
-
-\section{The Second Section}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean magna.
-Nunc non ante eget nibh condimentum tempor. Nullam ullamcorper lectus
-eget mauris. Nam neque orci; rhoncus at, pulvinar quis, elementum
-sit amet, turpis. Mauris posuere nisi ut justo. Morbi non lorem vitae
-mauris interdum faucibus. Vestibulum ut sapien in augue faucibus fringilla.
-Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-cubilia Curae; Etiam vestibulum fringilla libero. Curabitur libero
-diam, hendrerit sit amet, ornare eget, imperdiet vel, purus!
-
-%-----------------------------------------------------------------------------
-
-
-
-\subsection{The first subsection of the second \protect \\
- Section}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consectetur
-ante at eros. Vestibulum mi nisi, venenatis sollicitudin, tempus sed,
-auctor id, tortor. Fusce orci. Duis tellus arcu, euismod sed, consequat
-sit amet, elementum vel, mauris. Curabitur leo diam; dapibus quis,
-condimentum vitae, dignissim ut, diam. Nulla et nulla eget elit volutpat
-sagittis.
-
-%-----------------------------------------------------------------------------
-
-
-
-\subsection{The second subsection of the second \protect \\
- Section}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget
-mauris. Nulla facilisi. Ut condimentum tempor eros? Integer metus
-mauris, consectetur sit amet, tempor a, facilisis eu, nisl. Vestibulum
-at turpis. Ut vitae tortor pretium nisl vestibulum blandit. Nulla
-nibh urna, semper et, elementum at, mattis ut, nisi! Cum sociis natoque
-penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-Morbi vel ligula eget lacus convallis venenatis. Aliquam lacinia tincidunt
-felis. Ut dui.
-
-% We suggest the use of JabRef for editing your bibliography file (Report.bib)
- \bibliographystyle{splncs}
+\bibliographystyle{savetrees}
+\nocite{*}
 \bibliography{Report}
 
 
