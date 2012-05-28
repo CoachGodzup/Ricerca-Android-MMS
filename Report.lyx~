@@ -128,10 +128,14 @@ status open
 
  Matr.
  755295, (matteo.garza@mail.polimi.it)
-\begin_inset Newline newline
-\end_inset
+\end_layout
 
- 
+\begin_layout Standard
+Tania Suarez Legra
+\end_layout
+
+\begin_layout Standard
+Matr ()
 \begin_inset space \hspace{}
 \length 10ex
 \end_inset
@@ -478,25 +482,6 @@ Memory is handled by instances (object oriented like).
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      PMEM VS ASHMEM
- should be here
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 CMA e DMABUF
 \end_layout
@@ -587,6 +572,93 @@ When a driver ask for a huge contiguous allocation of memory, CMA allocator
 
 \begin_layout Standard
 DMA buffers has different request despise of huge pages.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="33col%">
+<column alignment="center" valignment="top" width="33col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMABUF
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Transparent Huge Pages
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Normally larger than Transparent Huge Pages.
+ 10 Mb.
+\end_layout
+
+\begin_layout Plain Layout
+It could be needed specific memory area, if underlying hardware is sufficiently
+ 
+\begin_inset Quotes eld
+\end_inset
+
+strange
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Almost 2Mb large
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMA requires less alignment than THP
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2MB of THP needs 2Mb of Alignment
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -719,19 +791,11 @@ Clients interacts from user-space with ION using ioctl() system interface.
  This function decrements the reference counter of the handle.
  When it reaches zero, the ion_handle is destroyed, and the data structure
  that manages ION is updated.
- 
-\end_layout
-
-\begin_layout Standard
-While managing client calls, ION validates input from fd, from client and
+ While managing client calls, ION validates input from fd, from client and
  from handler arguments.
  This validation mechanism reduce the probability of undesired access and
  memory leaks.
- 
-\end_layout
-
-\begin_layout Standard
-Ion_buffers is somewhere similar to DMABUF.
+ Ion_buffers is somewhere similar to DMABUF.
  Both uses anonymous fd, reference counted, as shareable objects.
 \end_layout
 

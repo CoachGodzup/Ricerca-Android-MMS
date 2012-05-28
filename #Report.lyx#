@@ -662,25 +662,6 @@ DMA requires less alignment than THP
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    qui la tabella
- di confronto
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 CMA patches provides a set of function that can prepare regions of memory
  and the creation of contest area of a well known size using function cm_alloc
  and cm_free to keep and release buffers.
