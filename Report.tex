@@ -7,7 +7,6 @@
 \usepackage{array}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{graphicx}
 
 \makeatletter
 
@@ -17,9 +16,6 @@
 
 %% Because html converters don't know tabularnewline
 \providecommand{\tabularnewline}{\\}
-%% A simple dot to overcome graphicx limitations
-\newcommand{\lyxdot}{.}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 % VDE Template for EUSAR Papers
@@ -92,67 +88,29 @@ Matr 748927 (tania.suarez@mail.polimi.it)
 Received: April, 01 2011\\
  \hspace{10ex}
 \begin{abstract}
-Android Operative System\cite{OVERVIEW} is the most diffuse OS in
-mobile devices. In this paper we will analyze how Android manages
-memory. We discuss in particular about application memory and some
-of the most used MMUs used by Android OS.
+Android Operative System is the most diffuse OS in lots of devices
+(expecially smartphones and tablets). In this paper we will analyze
+how Android manages memory on device. We discuss in particular about
+application memory and some of the most used MMUs used by Android
+OS.
 \end{abstract}
 \vspace{4ex}
- % ASSIGNMENT:
-Analyze and document how the Android specific memory management systems work and integrate with hardware resources. In particular, describe how application and hardware resources are managed (OOM killer, PMEM and HWMEM drivers).
-Project Goals: Understanding the Android memory management Required skills: Linux kernel and UNIX process management basics Peoples: This project is suited for one student or a group with maximum two people.
-Project Status: Working on: anyone
-NOTE: still available for other students/groups
+ % Please do not remove or reduce this space here.
 \begin{multicols}{2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
-\section{Kernel Memory Management}
+\section{Introduction}
 
-
-\subsection{Introduction}
-
-Android\cite{WIKI,OVERVIEW} is a Linux-based operative system, written
-in C and C++. Android application software runs on a framework which
-includes Java-compatible libraries. Android uses the Dalvik virtual
-machine with just-in-time compilation to run Dalvik dex-code (Dalvik
-Executable), which is usually translated from Java bytecode. Figure
-\ref{Android distribution diffusion} shows the actual\cite{WIKI}
-distribution of Android version between devices with this kernel:
-
-\includegraphics[scale=0.3]{/home/coach/Dropbox/RTOS/Android_chart}
-
-\label{Android distribution diffusion}
-
-We can notice that now the common kernel distributions still use Linux
-2.6.x kernel.
-
-Figure \ref{Android structure} shows Android System Architecture
-schema \cite{WIKI}.
-
-\includegraphics[scale=0.3]{/home/coach/Dropbox/RTOS/System-architecture}
-
-\label{Android structure}
-
-Android \cite{OVERVIEW} provides some modification to main Linux
-kernel, such as an improved power management, ASHMEM virtual memory,
-some specific-component drivers, and a low memory killer. The latter's
-mission is to free memory when the system run Out of Memory (OOM).
+Android\cite{WIKI}
 
 %-----------------------------------------------------------------------------
 
 
-% TODO: 
- - ampliare l'introduzione
- - rivedere parte su CMA: guardarsi gli altri articoli, condensare le notizie importanti
- - finire ION con gli sviluppi futuri: integrazione CMA con ION.
- - TUTTA la parte su OOM killer
- - 
 
-
-\subsection{Low level management and integration with HW resources}
+\section{Low level management and integration with HW resources}
 
 In this part, we discuss about how the memory has managed in Android
 devices. For most of the releases in Android, it was used PMEM and
@@ -339,7 +297,7 @@ arguments. This validation mechanism reduce the probability of undesired
 access and memory leaks. Ion\_buffers is somewhere similar to DMABUF.
 Both uses anonymous fd, reference counted, as shareable objects.
 
-\begin{tabular}[t]{|>{\centering}p{0.2\columnwidth}|>{\raggedright}p{0.4\columnwidth}|>{\raggedright}p{0.3\columnwidth}|}
+\begin{tabular}[t]{|>{\centering}p{0.2\columnwidth}|>{\raggedright}p{0.4\columnwidth}|>{\raggedright}p{0.4\columnwidth}|}
 \hline 
  & ION buffers & DMABUF\tabularnewline
 \hline 
@@ -375,12 +333,12 @@ in 9 architectures beside the ARM one. \tabularnewline
 \hline 
 \end{tabular}
 
-\begin{tabular}[t]{|>{\centering}p{0.18\columnwidth}|>{\centering}p{0.35\columnwidth}|>{\centering}p{0.33\columnwidth}|}
+\begin{tabular}[t]{|>{\centering}p{0.18\columnwidth}|>{\centering}p{0.35\columnwidth}|>{\centering}p{0.35\columnwidth}|}
 \hline 
  & ION\_buffer & DMABUF\tabularnewline
 \hline 
 \hline 
-Buffer Syncronization & \multicolumn{1}{>{\centering}p{0.35\columnwidth}||}{Ion consider the syncronization problem as an orthogonal problem} & DMABUF gives a pair of API for synchronization. Buffer user invokes
+Buffer Syncronization & Ion consider the syncronization problem as an orthogonal problem & DMABUF gives a pair of API for synchronization. Buffer user invokes
 dma\_buf\_map\_
 
 attachment() everywhere he desires to use buffer for DMA. Once he
@@ -407,121 +365,7 @@ to build an Android smartphone.\tabularnewline
 \hline 
 \end{tabular}
 
-
-\section{OOM Killer}
-
-
-\subsection{Introduction}
-
-Mobile devices become more and more rich of memory over time, due
-to Moore's Law. However, there's always a limit over wich memory isn't
-available, and a well form kernel needs some politics to free bunch
-of memory when needed. Android provides an OOM killer, who kills processes
-using heuristics, developed over time.\cite{OOM_TAMING}
-
-%%copincollato dall'articolo!
-
-Major distribution kernels set the default value of /proc/sys/vm/overcommit\_memory
-to zero, which means that processes can request more memory than is
-currently free in the system. This is done based on the heuristics
-that allocated memory is not used immediately, and that processes,
-over their lifetime, also do not use all of the memory they allocate.
-Without overcommit, a system will not fully utilize its memory, thus
-wasting some of it. Overcommiting memory allows the system to use
-the memory in a more efficient way, but at the risk of OOM situations.
-Programs that asks lots of memory can consume all the system's memory,
-stopping the whole system. This can lead to a situation, when memory
-is so low, that even a single page cannot be allocated to a user process,
-to allow the administrator to kill an appropriate task, or to the
-kernel to carry out important operations such as freeing memory. In
-such a situation, the OOM-killer kicks in and identifies the process
-to be killed for the benefit of the rest of the system.
-
-
-\subsection{OOM euristics}
-
-To facilitate OOM system control, the /proc/<pid>/oom\_adj knob was
-introduced to save important processes in the system from being killed,
-and define an order of processes to be killed. The possible values
-of oom\_adj range from -17 to +15. The higher the score, more likely
-the associated process is to be killed by OOM-killer. If oom\_adj
-is set to -17, the process is not considered for OOM-killing.
-
-Who's Bad? The process to be killed in an out-of-memory situation
-is selected based on its badness score. The badness score is reflected
-in /proc/<pid>/oom\_score. 
-
-This euristic value is determined on the basis of four characteristics:
-\begin{itemize}
-\item that the system loses the minimum amount of work done, 
-\item recovers a large amount of memory, 
-\item doesn't kill any innocent process eating tons of memory, 
-\item kills the minimum number of processes (if possible limited to one)
-\end{itemize}
-The badness score is computed using 
-\begin{itemize}
-\item the original memory size of the process, 
-\item its CPU time (utime + stime), 
-\item the run time (uptime - start time) 
-\item its oom\_adj value. 
-\end{itemize}
-The more memory the process uses, the higher the score. The longer
-a process is alive in the system, the smaller the score.
-
-Any process unlucky enough to be in the swapoff() system call (which
-removes a swap file from the system) will be selected to be killed
-first. For the rest, the initial memory size becomes the original
-badness score of the process. Half of each child's memory size is
-added to the parent's score if they do not share the same memory.
-Thus forking servers are the prime candidates to be killed. Having
-only one \textquotedbl{}hungry\textquotedbl{} child will make the
-parent less preferable than the child. Finally, the following heuristics
-are applied to save important processes:
-\begin{itemize}
-\item if the task has nice value above zero, its score doubles 
-\item superuser or direct hardware access tasks (CAP\_SYS\_ADMIN, CAP\_SYS\_RESOURCE
-or CAP\_SYS\_RAWIO) have their score divided by 4. This is cumulative,
-i.e., a super-user task with hardware access would have its score
-divided by 16. 
-\item if OOM condition happened in one cpuset and checked task does not
-belong to that set, its score is divided by 8. 
-\item the resulting score is multiplied by two to the power of oom\_adj
-(i.e. points <\textcompwordmark{}<= oom\_adj when it is positive and
-points >\textcompwordmark{}>= -(oom\_adj) otherwise). 
-\item The task with the highest badness score is then selected and its children
-are killed. The process itself will be killed in an OOM situation
-when it does not have children.
-\end{itemize}
-%%che ne dici di un bel grafico riassuntivo qui?
-
-
-\subsection{User space OOM killer control }
-
-There's a problem in using purely heuristics: value of /proc/<pid>/oom\_score
-is dynamic and very difficult to guess. Also, it could not be as flexible
-as an administrator needs. It is difficult to determine which process
-will be killed in case of an OOM condition. The administrator must
-adjust the score for every process created, and for every process
-which exits. This could be quite a task in a system with quickly-spawning
-processes. In an attempt to make OOM-killer policy implementation
-easier, a name-based solution was proposed.
-
-With his patch, the process to die first is the one running the program
-whose name is found in /proc/sys/vm/oom\_victim. A name based solution
-has its limitations:
-\begin{itemize}
-\item task name is not a reliable indicator of true name and is truncated
-in the process name fields. 
-\item Moreover, symlinks to executing binaries, but with different names
-will not work with this approach 
-\item This approach can specify only one name at a time, ruling out the
-possibility of a hierarchy 
-\item There could be multiple processes of the same name but from different
-binaries. 
-\end{itemize}
-The behavior boils down to the default current implementation if there
-is no process by the name defined by /proc/sys/vm/oom\_victim. This
-increases the number of scans required to find the victim process.\bibliographystyle{savetrees}
+\bibliographystyle{savetrees}
 \nocite{*}
 \bibliography{Report}
 
