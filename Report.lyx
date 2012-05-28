@@ -1,0 +1,1240 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+% VDE Template for EUSAR Papers
+% Provided by Barbara Lang und Siegmar Lampe
+% University of Bremen, January 2002
+% English version by Jens Fischer
+% German Aerospace Center (DLR), December 2005
+% Additional modifications by Matthias Wei{\ss}
+% FGAN, January 2009
+
+%-----------------------------------------------------------------------------
+% Type of publication
+
+%-----------------------------------------------------------------------------
+% Other packets: Most packets may be downloaded from www.dante.de and
+% "tcilatex.tex" can be found at (December 2005):
+% http://www.mackichan.com/techtalk/v30/UsingFloat.htm
+% Not all packets are necessarily needed:
+%\usepackage{ngerman} % in german language if required
+\usepackage[nooneline,bf]{caption}% Figure descriptions from left margin
+\usepackage{times}\usepackage{multicol}\usepackage{epsfig}\input{tcilatex}
+%-----------------------------------------------------------------------------
+% Page Setup
+\textheight24cm \textwidth17cm \columnsep6mm
+\oddsidemargin-5mm                 % depending on print drivers!
+\evensidemargin-5mm                % required margin size: 2cm
+\headheight0cm \headsep0cm \topmargin0cm \parindent0cm
+                  % delete footer and header
+%----------------------------------------------------------------------------
+% Environment definitions
+%-----------------------------------------------------------------------------
+% Using Pictures and tables:
+% - Instead "table" write "tablehere" without parameters
+% - Instead "figure" write "figurehere " without parameters
+% - Please insert a blank line before and after \begin{figurehere} ... \end{figurehere}
+%
+% CAUTION:   The first reference to a figure/table in the text should be formatted fat.
+%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding latin1
+\fontencoding T1
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 10
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry false
+\use_amsmath 2
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle empty
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Survey on Android Memory Management System
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ Garza Matteo
+\begin_inset Newline newline
+\end_inset
+
+ Matr.
+ 755295, (matteo.garza@mail.polimi.it)
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset space \hspace{}
+\length 10ex
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\align right
+
+\emph on
+Report for the master course of Real Time Operative System (RTOS)
+\emph default
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\emph on
+Reviser: PhD.
+ Patrick Bellasi (bellasi@elet.polimi.it)
+\emph default
+ 
+\end_layout
+
+\begin_layout Standard
+Received: April, 01 2011
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset space \hspace{}
+\length 10ex
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+Android Operative System is the most diffuse OS in lots of devices (expecially
+ smartphones and tablets).
+ In this paper we will analyze how Android manages memory on device.
+ We discuss in particular about application memory and some of the most
+ used MMUs used by Android OS.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 4ex
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% Please do not remove or reduce this space here.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{multicols}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+2
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+TODO
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%-----------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Memory Management
+\end_layout
+
+\begin_layout Standard
+In this part, we discuss about how the memory has managed in Android devices.
+ For most of the releases in Android, it was used PMEM and ASHMEM.
+ These kind of libraries was too simple, and was patched with some SoC patches,
+ such as NVMAP for nVidia Tegra devices and CMEM for TI OMAP ones.
+ The most important patch was CMA (Contiguous Memory Access), expecially
+ with DMABUF patch.
+ With the release of Android 4.0 (Ice Cream Sandwich) a brand new library
+ has released, ION.
+ We discuss about differences between ION and CMA approach, and, in the
+ state-of-art, we discuss of a future integration between them.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%-----------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+PMEM and ASHMEM
+\end_layout
+
+\begin_layout Standard
+PMEM (Process MEMory) is the first memory driver implemented on Android
+ devices (since G1).
+ It is used to manage shared memory regions sufficiently large (from 1 to
+ 16MB).
+\end_layout
+
+\begin_layout Standard
+This regions must be physically contiguous between user space and kernel
+ drivers (such as GPU, or DSP).
+ It was written specifically to be used in a very limited hardware platform,
+ and it could be disabled on x86 architectures.
+\end_layout
+
+\begin_layout Standard
+ASHMEM (Android SHared MEMory) is a shared memory allocator subsystem, similar
+ to POSIX, but with a different behavior.
+ It also gives to the developer an easier and file-based API.
+ It used named memory, releasable by the kernel.
+ Apparently, ASHMEM supports low memory devices better than PMEM, because
+ it could free shared memory units when it is needed.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="33col%">
+<column alignment="center" valignment="top" width="40col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+PMEM
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ASHMEM
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Uses physically contiguous addresses
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Uses virtual memory
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row endhead="true">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+The first process who instantiate a memory heap must keep that till the
+ last one of the users won't free the file descriptor.
+ Thus to preserve contiguity
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Memory is handled by instances (object oriented like).
+ It is managed by a reference counter
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      PMEM VS ASHMEM
+ should be here
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+CMA e DMABUF
+\end_layout
+
+\begin_layout Standard
+CMA (Contiguous Memory Allocator) is a well known patch that let the device
+ to alloc big chunk of memory after the system has booted.
+ Differently from similar framework, it let regions of system-reserved memory
+ to be reused in a transparent way, letting memory not to be wasted.
+ When an alloc is instantiated, this framework migrates all the system page.
+ Thus to build a big chunk of physically contiguous memory.
+\end_layout
+
+\begin_layout Standard
+Why do an OS have to use chunks of memory? Because virtual memory tends
+ to fragment pages.
+ An intensive use of memory let the system not able to find contiguous memory
+ in a very short time after boot.
+ Recently, the requirement of huge pages in applications raises, especially
+ for transparent huge pages.
+ Another question is devices (such as cameras) that needs DMA over areas
+ physically contiguous.
+ CMA reserve an huge area of memory at boot time, only for huge request
+ of memory.
+ For every region, block of pages can be flaggable as three type.
+ 
+\end_layout
+
+\begin_layout Itemize
+movable : typically, cache pages or anonymous pages, accessed by page table
+ or page cache radix tree 
+\end_layout
+
+\begin_layout Itemize
+kernel recallable : they can be given back to the kernel by request.
+ 
+\end_layout
+
+\begin_layout Itemize
+immovable : these are typically pointer referred pages (such as pages invoked
+ by a kmalloc()) 
+\end_layout
+
+\begin_layout Standard
+The memory manager subsystem try to keep movable pages as near as possible.
+ Grouping these pages, kernel try to ensure more and more contiguous free
+ space available for further request.
+ CMA extends this mechanism.
+ It adds a new type of migration (CMA).
+ Pages flagged as cma behave like the movable ones, with some differences:
+ 
+\end_layout
+
+\begin_layout Itemize
+they are 
+\begin_inset Quotes eld
+\end_inset
+
+sticky
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+Their migration type can't be modified by the kernel 
+\end_layout
+
+\begin_layout Itemize
+In CMA Area, the kernel cannot instantiate pages not movable.
+\end_layout
+
+\begin_layout Standard
+In other words, memory flagged as CMA keep available for the rest of the
+ system with the only restriction to be movable.
+ 
+\end_layout
+
+\begin_layout Standard
+When a driver ask for a huge contiguous allocation of memory, CMA allocator
+ can try to free in his own area some contiguous pages to create a buffer
+ large as needed.
+ When the buffer is no longer requested, memory can be used for other needs.
+ CMA can just take only the needed amount of memory without worrying about
+ strictly request of alignment.
+\end_layout
+
+\begin_layout Standard
+DMA buffers has different request despise of huge pages.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    qui la tabella
+ di confronto
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+CMA patches provides a set of function that can prepare regions of memory
+ and the creation of contest area of a well known size using function cm_alloc
+ and cm_free to keep and release buffers.
+ CMA must not be invoked by the driver, but from DMA support functions.
+ When a driver call a function like dma_alloc_coherent(), CMA should be
+ invoked automatically to satisfying the request.
+ This should work in normal condition.
+\end_layout
+
+\begin_layout Standard
+One of the issue about CMA is how to initially alloc this area of memory.
+ Current scheme needs that some of special calls should be done by the board
+ file system, with a very arm-like approach.
+ The idea is to do that without board files.
+ The ending result is that it should be at least one iteration of that patch
+ set before it will be executed by the mainline.
+ 
+\end_layout
+
+\begin_layout Subsection
+ION
+\end_layout
+
+\begin_layout Standard
+In december 2011, PMEM is marked as deprecated, and then replaced by ION
+ memory allocator.
+ ION is a memory manager that Google has developed from the 4.0 release of
+ Android (Ice Cream Sandwich), mainly to resolve the interface issue between
+ different memory management between different Android device.
+ In fact, some SoC developer implemented different memory manager.
+ We can cite some of them:
+\end_layout
+
+\begin_layout Itemize
+NVMAP, implemented on nVidia Tegra 
+\end_layout
+
+\begin_layout Itemize
+CMEM, implemented on TI OMAP 
+\end_layout
+
+\begin_layout Itemize
+HWMEM, implemented on ST-Ericsonn devices 
+\end_layout
+
+\begin_layout Standard
+All this vendor will pass to ION soon
+\end_layout
+
+\begin_layout Standard
+Besides ION being a memory pool manager, it also enables his clients to
+ share buffers (so, it works like DMABUF, the DMA buffer sharing framework).
+ Like PMEM, ION manages one or more pools of memory, some of them instantiated
+ at boot time or from hardware blocks with specific memory needs.
+ Some devices like that are GPU, display controllers and cameras.
+ ION let his pools to be available as heap ION.
+ Every kind of android device can have different ION heaps, depending on
+ device memory.
+ Phisical address and heap dimension can be returned to the programmer only
+ if the buffer is physically contiguous.
+ Buffer can be prepared or deallocated to be used with DMA, or with virtual
+ kernel addressing.
+ Using a file descriptor, it can be also mapped in the user-space.
+ There are three kind of allocable ION heap.
+ Other ones can be defined by SoC producers (like ION_HEAP_TYPE_SYSTEM_IOMMU
+ for hardware blocks equipped with IOMMU driver).
+ 
+\end_layout
+
+\begin_layout Itemize
+ION_HEAP_TYPE_SYSTEM
+\end_layout
+
+\begin_layout Itemize
+ION_HEAP_TYPE_SYSTEM_CONTIG
+\end_layout
+
+\begin_layout Itemize
+ION_HEAP_TYPE_CARVEOUT : in this case, carveout memory is physically contiguous
+ and set as boot.
+ 
+\end_layout
+
+\begin_layout Standard
+Typically, in the user-space case, libraries uses ION to alloc large continuous
+ buffers.
+ For instance, camera library can alloc a capture buffer to be used from
+ the camera device.
+ Once the buffer is fulfilled with video data, the library gives the buffer
+ to kernel to be processed by jpeg encoder block.
+ A c/c++ program must have access to '/dev/ion' before it can alloc memory
+ thanks to ION.
+ He can alloc data using file descriptors (fd).
+ It can be maximum one client for user process.
+\end_layout
+
+\begin_layout Standard
+Clients interacts from user-space with ION using ioctl() system interface.
+ Android processes can share memory using their fd.
+ To obtain shared buffer, the second user process must obtain a client handle
+ through a system call open('/dev/ion', O_RDONLY).
+ ION manage user space client through process PID (in particular, the 'group
+ leader ' one).
+ Fd will be instantiated pointing at the same client structure in the kernel.
+ To free a buffer, the second client must invalidate the mmap() effect,
+ with an explicit call at munmap(), and the first client must close the
+ fd, calling ION_IOC_FREE.
+ This function decrements the reference counter of the handle.
+ When it reaches zero, the ion_handle is destroyed, and the data structure
+ that manages ION is updated.
+ While managing client calls, ION validates input from fd, from client and
+ from handler arguments.
+ This validation mechanism reduce the probability of undesired access and
+ memory leaks.
+ Ion_buffers is somewhere similar to DMABUF.
+ Both uses anonymous fd, reference counted, as shareable objects.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="3">
+<features tabularvalignment="top">
+<column alignment="center" valignment="top" width="20col%">
+<column alignment="left" valignment="top" width="40col%">
+<column alignment="left" valignment="top" width="40col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ION buffers
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMABUF
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Application level MMU
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Alloc and free memory from memory pools in a shareable and trackable way
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+It focus on import, export and syncronization in a consisten way with buffer
+ sharing solution for non arm architectures
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Role of Memory manager 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ION replace PMEM as memory pools manager.
+ ION heap lists can be extended by the device.
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMABUF is a buffer sharing framework , designed to be integrated with memory
+ allocator in contiguous DMA mapping framewors, such as CMA.
+ DMABUF exporters can implement custom allocator.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+User Space access control 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ION offers /dev/ion interface to user space program, letting them to alloc
+ and share buffers.
+ Every user process with ION access can suspend the system overlapping ION
+ heap.
+ Android chech user and groupID blocking non authorized access to ION heap
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMABUF offers only kernel API.
+\end_layout
+
+\begin_layout Plain Layout
+Access control is a function of the permissions on device that uses DMABUF
+ feature
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Global Client and Buffer Database.
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ION has a driver associated to /dev/ion.
+ The device structure has a database that keeps ION buffers allocated, handlers
+ and fd, grouped by user client and kernel client.
+ ION validates all the client calls to be valid for database rules.
+ For instance, an handle can't have two buffers associated.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The debub structure of DMA implements a global hashtable, dma_entry_hash,
+ tracking DMA buffers, but only when kernel is build with CONFIG_DMA_API_
+\end_layout
+
+\begin_layout Plain Layout
+DEBUG option.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Cross- architecture usage
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ION usage now is limited on architectures that runs kernel Android
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMABUF usage is cross architecture.
+ DMA mapping redesign let his implementation in 9 architectures beside the
+ ARM one.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features tabularvalignment="top">
+<column alignment="center" valignment="top" width="18col%">
+<column alignment="center" valignment="top" width="35col%">
+<column alignment="center" valignment="top" width="35col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ION_buffer
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMABUF
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Buffer Syncronization
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Ion consider the syncronization problem as an orthogonal problem
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMABUF gives a pair of API for synchronization.
+ Buffer user invokes dma_buf_map_
+\end_layout
+
+\begin_layout Plain Layout
+attachment() everywhere he desires to use buffer for DMA.
+ Once he finished using that, signals "endOfDMA" to exporter using dma_buf_unmap
+_
+\end_layout
+
+\begin_layout Plain Layout
+attachment()
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Buffer delayed allocation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ION allocs physical memory before the buffer is shared
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMABUF can delay allocation till the first call of dma_buf_map_
+\end_layout
+
+\begin_layout Plain Layout
+attachment().
+ DMA buffer exporter has the opportunity of scans every client attachment,
+ collecting all the constraints and choose the most efficient storage
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Integration with Video4
+\end_layout
+
+\begin_layout Plain Layout
+Linux2 API 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Processes that uses these API tends to use PMEM.
+ So, the migration from PMEM to ION has a relatively small impact.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DMABUF integration with Video4Linux is hard and asked for lots of modifies
+ in DMABUF.
+ But in a long time that will be a smart choice, because DMABUF sharing
+ mechanism is fitted for DMA, so it is well written for CMA and IOMMU.
+ Both of them reduces carveout memory needs to build an Android smartphone.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Second Section
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ Aenean magna.
+ Nunc non ante eget nibh condimentum tempor.
+ Nullam ullamcorper lectus eget mauris.
+ Nam neque orci; rhoncus at, pulvinar quis, elementum sit amet, turpis.
+ Mauris posuere nisi ut justo.
+ Morbi non lorem vitae mauris interdum faucibus.
+ Vestibulum ut sapien in augue faucibus fringilla.
+ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
+ cubilia Curae; Etiam vestibulum fringilla libero.
+ Curabitur libero diam, hendrerit sit amet, ornare eget, imperdiet vel,
+ purus!
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%-----------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The first subsection of the second 
+\begin_inset Newline newline
+\end_inset
+
+ Section
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ Nam consectetur ante at eros.
+ Vestibulum mi nisi, venenatis sollicitudin, tempus sed, auctor id, tortor.
+ Fusce orci.
+ Duis tellus arcu, euismod sed, consequat sit amet, elementum vel, mauris.
+ Curabitur leo diam; dapibus quis, condimentum vitae, dignissim ut, diam.
+ Nulla et nulla eget elit volutpat sagittis.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%-----------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The second subsection of the second 
+\begin_inset Newline newline
+\end_inset
+
+ Section
+\end_layout
+
+\begin_layout Standard
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ Mauris eget mauris.
+ Nulla facilisi.
+ Ut condimentum tempor eros? Integer metus mauris, consectetur sit amet,
+ tempor a, facilisis eu, nisl.
+ Vestibulum at turpis.
+ Ut vitae tortor pretium nisl vestibulum blandit.
+ Nulla nibh urna, semper et, elementum at, mattis ut, nisi! Cum sociis natoque
+ penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+ Morbi vel ligula eget lacus convallis venenatis.
+ Aliquam lacinia tincidunt felis.
+ Ut dui.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% We suggest the use of JabRef for editing your bibliography file (Report.bib)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "Report"
+options "splncs"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{multicols}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_body
+\end_document

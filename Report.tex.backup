@@ -246,16 +246,26 @@ A c/c++ program must have access to /dev/ion before it can alloc memory thanks t
 It can be maximum one client for user process.\\
 Clients interacts from user-space with ION using ioctl() system interface.
 Android processes can share memory using their fd. To obtain shared buffer, the second user process must obtain a client handle
-through a system call \`open(\`/dev/ion\`O_RDONLY)\`.
+through a system call open(/dev/ion, O\_RDONLY).
 ION manage user space client through process PID (in particular, the \`group leader \` one). Fd will be instantiated pointing at
 the same client structure in the kernel.
 To free a buffer, the second client must invalidate the mmap() effect, with an explicit call at munmap(), and the first client 
 must close the fd, calling ION\_IOC\_FREE. This function decrements the reference counter of the handle. When it reaches zero,
-the ion_handle is destroyed, and the data structure that manages ION is updated.
+the ion\_handle is destroyed, and the data structure that manages ION is updated.
 \\
-When 
-Quando gestisce le chiamate da un client, ION valida sempre l’input del file descriptor, del client e degli argomenti dell’handler. Per esempio, quando viene importato un fd, ION controlla che sia stato effettivamente realizzato  tramite ION_IOC_SHARE.  Questo meccanismo di validazione ridu-ce la probabilità di accessi indesiderati e di perdite di memoria.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+While managing client calls, ION validates input from fd, from client and from handler arguments.
+This validation mechanism reduce the probability of undesired access and memory leaks.
+\\
+\\
+Ion\_buffers is somewhere similar to DMABUF.
+re al momento in cui una release del mainline kernel può bootare nello user space di Android, deve essere conservata l'interfaccia /dev/ion.
+Dal punto di vista del kernel, i drivers ION dovrebbero essere capaci di usare alcune delle API di DMABUF per avvantaggiarsi delle capacità dei subsystem CMA e IOMMU.
+Dall'altro punto di vista, DMABUF deve avvantaggiarsi delle capacità di ION per presentare un'unica interfaccia allo user space, specialmente per lo user space di Android.
+DMABUF può inoltre avvantaggiarsi di alcune feature di debugging degli ION heap per diventare più developer friendly.
+
+Il futuro di Android (quello su cui puntano Linaro, Google e la kernel community è un'integrazione tra ION e DMABUF
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Second Section}
 
 TODO
