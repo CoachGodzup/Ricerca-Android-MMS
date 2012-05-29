@@ -1399,7 +1399,9 @@ Mobile devices become more and more rich of memory over time, due to Moore's
  Law.
  However, there's always a limit over wich memory isn't available, and a
  well form kernel needs some politics to free bunch of memory when needed.
- Android provides an OOM killer, who kills processes with heuristics.
+ Android provides an OOM killer, who kills processes with some heuristics,
+ letting memory to be used from someone else.
+ OOM killer mechanism are implemented in most of Linux kernel.
 \end_layout
 
 \begin_layout Standard
@@ -1418,8 +1420,11 @@ status open
 
 \begin_layout Standard
 Major distribution kernels set the default value of /proc/sys/vm/overcommit_memo
-ry to zero, which means that processes can request more memory than is currently
- free in the system.
+ry to zero, which means that 
+\series bold
+processes can request more memory than is currently free in the system
+\series default
+.
  This is done based on the heuristics that allocated memory is not used
  immediately, and that processes, over their lifetime, also do not use all
  of the memory they allocate.
@@ -1427,14 +1432,10 @@ ry to zero, which means that processes can request more memory than is currently
  some of it.
  Overcommiting memory allows the system to use the memory in a more efficient
  way, but at the risk of OOM situations.
- Memory-hogging programs can deplete the system's memory, bringing the whole
- system to a grinding halt.
- This can lead to a situation, when memory is so low, that even a single
- page cannot be allocated to a user process, to allow the administrator
- to kill an appropriate task, or to the kernel to carry out important operations
- such as freeing memory.
+ Programs who need lots of memory can consume all the system's memory, stopping
+ the whole system.
  In such a situation, the OOM-killer kicks in and identifies the process
- to be killed.
+ to be terminated.
 \end_layout
 
 \begin_layout Subsection
@@ -1460,14 +1461,51 @@ status open
 The process to be killed in an out-of-memory situation is selected based
  on its badness score.
  The badness score is reflected in /proc/<pid>/oom_score.
- This value is determined on the basis that the system loses the minimum
- amount of work done, recovers a large amount of memory, doesn't kill any
- innocent process eating tons of memory, and kills the minimum number of
- processes (if possible limited to one).
- The badness score is computed using the original memory size of the process,
- its CPU time (utime + stime), the run time (uptime - start time) and its
- oom_adj value.
- The more memory the process uses, the higher the score.
+ This value is determined on the basis of four characteristics:
+\end_layout
+
+\begin_layout Itemize
+the system loses the minimum amount of work done,
+\end_layout
+
+\begin_layout Itemize
+recovers a large amount of memory,
+\end_layout
+
+\begin_layout Itemize
+doesn't kill any innocent process, 
+\end_layout
+
+\begin_layout Itemize
+and kills the minimum number of processes (if possible limited to one).
+ 
+\end_layout
+
+\begin_layout Standard
+The badness score is computed using 
+\end_layout
+
+\begin_layout Itemize
+the original memory size of the process, 
+\end_layout
+
+\begin_layout Itemize
+its CPU time (utime + stime), 
+\end_layout
+
+\begin_layout Itemize
+the run time (uptime - start time) 
+\end_layout
+
+\begin_layout Itemize
+and its oom_adj value.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+The more memory the process uses, the higher the score.
  The longer a process is alive in the system, the smaller the score.
 \end_layout
 
@@ -1484,24 +1522,41 @@ Any process unlucky enough to be in the swapoff() system call (which removes
  Finally, the following heuristics are applied to save important processes:
 \end_layout
 
-\begin_layout Standard
-if the task has nice value above zero, its score doubles superuser or direct
- hardware access tasks (CAP_SYS_ADMIN, CAP_SYS_RESOURCE or CAP_SYS_RAWIO)
- have their score divided by 4.
+\begin_layout Itemize
+if the task has nice value above zero, its score doubles 
+\end_layout
+
+\begin_layout Itemize
+superuser or direct hardware access tasks (CAP_SYS_ADMIN, CAP_SYS_RESOURCE
+ or CAP_SYS_RAWIO) have their score divided by 4.
  This is cumulative, i.e., a super-user task with hardware access would have
  its score divided by 16.
- if OOM condition happened in one cpuset and checked task does not belong
+\end_layout
+
+\begin_layout Itemize
+if OOM condition happened in one cpuset and checked task does not belong
  to that set, its score is divided by 8.
- the resulting score is multiplied by two to the power of oom_adj (i.e.
+\end_layout
+
+\begin_layout Itemize
+the resulting score is multiplied by two to the power of oom_adj (i.e.
  points <<= oom_adj when it is positive and points >>= -(oom_adj) otherwise).
- The task with the highest badness score is then selected and its children
- are killed.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+The task with the highest badness score is then selected and its children
+ are killed
+\series default
+.
  The process itself will be killed in an OOM situation when it does not
  have children.
 \end_layout
 
 \begin_layout Subsection
-OOM Killer in Android
+lowmemory driver in Android
 \end_layout
 
 \begin_layout Standard
@@ -1520,15 +1575,26 @@ status open
 
 \begin_layout Standard
 The Android developers required a greater degree of control over the low
- memory situation because the OOM killer does not kick in till late in the
- low memory situation, i.e.
+ memory situation because the OOM killer does not interfere till late in
+ the low memory situation, i.e.
  till all the cache is emptied.
  Android wanted a solution which would start early while the free memory
  is being depleted.
- So they introduced the "lowmemory" driver, which has multiple thresholds
- of low memory.
- In a low-memory situation, when the first thresholds are met, background
- processes are notified of the problem.
+ 
+\series bold
+So they introduced the "lowmemory" driver
+\series default
+, which has multiple thresholds of low memory.
+ 
+\end_layout
+
+\begin_layout Standard
+In a low-memory situation, 
+\series bold
+when the first thresholds are met, background processes are notified of
+ the problem
+\series default
+.
  They do not exit, but, instead, save their state.
  This affects the latency when switching applications, because the application
  has to reload on activation.
@@ -1549,12 +1615,28 @@ Keeping multiple low memory triggers gives the processes enough time to
 \end_layout
 
 \begin_layout Standard
-Killing processes based on kernel heuristics is not an optimal solution,
- and these new initiatives of offering better control to the user in selecting
- the process to be the sacrificial lamb are steps to a robust design to
- give more control to the user.
- However, it may take some time to come to a consensus on a final control
- solution.
+
+\series bold
+Killing processes based on kernel heuristics is not an optimal solution
+\series default
+, and these new initiatives of offering better control to the user in selecting
+ the process to be the chosen one to terminate are steps to a robust design
+ to give more control to the user.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%da segare, in quanto non necessaria?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1570,95 +1652,170 @@ status open
 %% da leggere e rivedere!
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
-/proc/<pid>/oom_score is a dynamic value which changes with time, and is
- not flexible with different and dynamic policies required by the administrator.
+/proc/<pid>/oom_score is a dynamic value, not so much controllable and checkable
+ i by the administrator.
  It is difficult to determine which process will be killed in case of an
  OOM condition.
- The administrator must adjust the score for every process created, and
- for every process which exits.
- This could be quite a task in a system with quickly-spawning processes.
- In an attempt to make OOM-killer policy implementation easier, a name-based
- solution was proposed by Evgeniy Polyakov.
+ 
+\series bold
+The system must let the administrator to modify the score
+\series default
+ for every process created, and for every process which exits.
+ In an attempt to make OOM-killer policy implementation easier, a 
+\series bold
+name-based solution
+\series default
+ was proposed.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%by Evgeniy Polyakov.
+ Citare nella bibliografia, se possibile
+\end_layout
+
+\end_inset
+
+.
  With his patch, the process to die first is the one running the program
  whose name is found in /proc/sys/vm/oom_victim.
  A name based solution has its limitations:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 task name is not a reliable indicator of true name and is truncated in the
  process name fields.
  Moreover, symlinks to executing binaries, but with different names will
- not work with this approach This approach can specify only one name at
- a time, ruling out the possibility of a hierarchy There could be multiple
- processes of the same name but from different binaries.
- The behavior boils down to the default current implementation if there
- is no process by the name defined by /proc/sys/vm/oom_victim.
+ not work with this approach 
+\end_layout
+
+\begin_layout Itemize
+This approach can specify only one name at a time, ruling out the possibility
+ of a hierarchy 
+\end_layout
+
+\begin_layout Itemize
+There could be multiple processes of the same name but from different binaries.
+ 
+\end_layout
+
+\begin_layout Itemize
+The behavior boils down to the default current implementation if there is
+ no process by the name defined by /proc/sys/vm/oom_victim.
  This increases the number of scans required to find the victim process.
- Alan Cox disliked this solution, suggesting that containers are the most
- appropriate way to control the problem.
- In response to this suggestion, the oom_killer controller, contributed
- by Nikanth Karthikesan, provides control of the sequence of processes to
- be killed when the system runs out of memory.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%altra citazione necessaria : "Alan Cox disliked this solution, suggesting
+ that"
+\end_layout
+
+\end_inset
+
+Another possible solution is using containers.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% citazione di prima: In response to this suggestion, the oom_killer controller,
+ contributed by Nikanth Karthikesan, provides control of the sequence of
+ processes to be killed when the system runs out of memory.
+\end_layout
+
+\end_inset
+
  The patch introduces an OOM control group (cgroup) with an oom.priority
  field.
- The process to be killed is selected from the processes having the highest
+ 
+\series bold
+The process to be killed is selected from the processes having the highest
  oom.priority value.
 \end_layout
 
 \begin_layout Standard
-To take control of the OOM-killer, mount the cgroup OOM pseudo-filesystem
- introduced by the patch:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%implementazione, non citabile.
+ To take control of the OOM-killer, mount the cgroup OOM pseudo-filesystem
+ %introduced by the patch:
 \end_layout
 
-\begin_layout Standard
-# mount -t cgroup -o oom oom /mnt/oom-killer The OOM-killer directory contains
+\begin_layout Plain Layout
+
+%# mount -t cgroup -o oom oom /mnt/oom-killer The OOM-killer directory contains
  the list of all processes in the file tasks, and their OOM priority in
  oom.priority.
  By default, oom.priority is set to one.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
+
 If you want to create a special control group containing the list of processes
  which should be the first to receive the OOM killer's attention, create
  a directory under /mnt/oom-killer to represent it:
 \end_layout
 
-\begin_layout Standard
-# mkdir lambs Set oom.priority to a value high enough:
+\begin_layout Plain Layout
+
+%# mkdir lambs Set oom.priority to a value high enough:
 \end_layout
 
-\begin_layout Standard
-# echo 256 > /mnt/oom-killer/lambs/oom.priority oom.priority is a 64-bit unsigned
- integer, and can have a maximum value an unsigned 64-bit number can hold.
+\begin_layout Plain Layout
+
+%# echo 256 > /mnt/oom-killer/lambs/oom.priority oom.priority is a 64-bit
+ unsigned integer, and can have a maximum value an unsigned 64-bit number
+ can hold.
  While scanning for the process to be killed, the OOM-killer selects a process
  from the list of tasks with the highest oom.priority value.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
+
 Add the PID of the process to be added to the list of tasks:
 \end_layout
 
-\begin_layout Standard
-# echo <pid> > /mnt/oom-killer/lambs/tasks To create a list of processes,
+\begin_layout Plain Layout
+
+%# echo <pid> > /mnt/oom-killer/lambs/tasks To create a list of processes,
  which will not be killed by the OOM-killer, make a directory to contain
  the processes:
 \end_layout
 
-\begin_layout Standard
-# mkdir invincibles Setting oom.priority to zero makes all the process in
+\begin_layout Plain Layout
+
+%# mkdir invincibles Setting oom.priority to zero makes all the process in
  this cgroup to be excluded from the list of target processes to be killed.
 \end_layout
 
-\begin_layout Standard
-# echo 0 > /mnt/oom-killer/invincibles/oom.priority To add more processes
+\begin_layout Plain Layout
+
+%# echo 0 > /mnt/oom-killer/invincibles/oom.priority To add more processes
  to this group, add the pid of the task to the list of tasks in the invincible
  group:
 \end_layout
 
-\begin_layout Standard
-# echo <pid> > /mnt/oom-killer/invincibles/tasks Important processes, such
+\begin_layout Plain Layout
+
+%# echo <pid> > /mnt/oom-killer/invincibles/tasks Important processes, such
  as database processes and their controllers, can be added to this group,
  so they are ignored when OOM-killer searches for processes to be killed.
  All children of the processes listed in tasks automatically are added to
@@ -1667,50 +1824,100 @@ Add the PID of the process to be added to the list of tasks:
  the process based on the oom_score and oom_adj.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-This approach did not appeal to cpuset users, though.
+This approach could have some trouble, in presence of multiple cpuset.
  Consider two cpusets, A and B.
  If a process in cpuset A has a high oom.priority value, it will be killed
  if cpuset B runs out of memory, even though there is enough memory in cpuset
  A.
- This calls for a different design to tame the OOM killer.
+ 
 \end_layout
 
 \begin_layout Standard
 An interesting outcome of the discussion has been handling OOM situations
  in user space.
- The kernel sends notification to user space, and applications respond by
- dropping their user-space caches.
+ 
+\series bold
+The kernel sends notification to user space, and applications respond by
+ dropping their user-space caches
+\series default
+.
  In case the user-space processes are not able to free enough memory, or
- the processes ignore the kernel's requests to free memory, the kernel resorts
- to the good old method of killing processes.
- mem_notify, developed by Kosaki Motohiro, is one such attempt made in the
- past.
+ the processes ignore the kernel's requests to free memory, the kernel will
+ kill them.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%cita che ti ricita: mem_notify, developed by Kosaki Motohiro, is one such
+ attempt made in the past.
  However, the mem_notify patch cannot be applied to versions beyond 2.6.28
  because the memory management reclaiming sequence have changed, but the
  design principles and goals can be reused.
- David Rientjes suggests having one of the two hybrid solutions:
+ 
 \end_layout
 
-\begin_layout Standard
-One is the cgroup OOM notifier that allows you to attach a task to wait
- on an OOM condition for a collection of tasks.
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%David Rientjes
+\end_layout
+
+\end_inset
+
+ Other hybrid solutions are:
+\end_layout
+
+\begin_layout Itemize
+the cgroup OOM notifier allows you to attach a task to wait on an OOM condition
+ for a collection of tasks.
  This allows userspace to respond to the condition by dropping caches, adding
  nodes to a cpuset, elevating memory controller limits, sending a signal,
  etc.
  It can also defer to the kernel OOM killer as a last resort.
- The other is /dev/mem_notify that allows you to poll() on a device file
- and be informed of low memory events.
+\end_layout
+
+\begin_layout Itemize
+/dev/mem_notify allows you to poll() on a device file and be informed of
+ low memory events.
  This can include the cgroup oom notifier behavior when a collection of
  tasks is completely out of memory, but can also warn when such a condition
  may be imminent.
- I suggested that this be implemented as a client of cgroups so that different
- handlers can be responsible for different aggregates of tasks.
- Most developers prefer making /dev/mem_notify a client of control groups.
- This can be further extended to merge with the proposed oom-controller.
+ 
 \end_layout
 
 \begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OOMarticle"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%da citare ora l'articolo OOM dei cinesi
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
