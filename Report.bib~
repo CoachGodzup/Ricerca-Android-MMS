@@ -87,6 +87,12 @@ url = {http://elinux.org/Android_Kernel_Features},
       url    = {}
 }
 
+@MISC{AndPortal,
+title = {Android Portal on eLinux},
+type = {eLinux Wiki Page},
+url = {hhtp://elinux.org/Android_portal}
+}
+
 @article{ARMDMAslide,
       author      = {Marek Szyprowski, 
 		
@@ -98,3 +104,26 @@ url = {http://elinux.org/Android_Kernel_Features},
       organizator = {Samsung Poland R&D Center, Samsung Electronics corp.},
 
 }
+
+@article{OOMarticle,
+	author = {Joongjin Kook, Sukil Hong, Wooseung Lee, Eunkyeung Jae, JungYeop Kim},
+	title  = {Optimization of Out of Memory Killer for Embedded Linux Environments},
+	year   = {2011},
+}
+
+@article{swaplessEmbeddedSystems,
+ author = {Lin, Mauricio and Medeiros, Ville and Novellino, Raoni and Biris, Ilias and Mota, Edjard},
+ title = {A memory management approach for swapless embedded systems},
+ journal = {Linux J.},
+ issue_date = {December 2005},
+ volume = {2005},
+ number = {140},
+ month = dec,
+ year = {2005},
+ issn = {1075-3583},
+ pages = {11--},
+ url = {http://dl.acm.org/citation.cfm?id=1103141.1103152},
+ acmid = {1103152},
+ publisher = {Belltown Media},
+ address = {Houston, TX},
+} 

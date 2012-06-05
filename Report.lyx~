@@ -1898,6 +1898,26 @@ the cgroup OOM notifier allows you to attach a task to wait on an OOM condition
 \end_layout
 
 \begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OOMarticle"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%da citare ora l'articolo OOM dei cinesi
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
