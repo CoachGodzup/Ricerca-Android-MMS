@@ -23,6 +23,7 @@
 %\usepackage{ngerman} % in german language if required
 \usepackage[nooneline,bf]{caption}% Figure descriptions from left margin
 \usepackage{times}\usepackage{multicol}\usepackage{epsfig}\input{tcilatex}
+\usepackage{url}\usepackage[numbers]{natbib}
 %-----------------------------------------------------------------------------
 % Page Setup
 \textheight24cm \textwidth17cm \columnsep6mm
@@ -116,10 +117,6 @@ status open
 %
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -205,36 +202,6 @@ status open
 
 \begin_layout Plain Layout
 
-% ASSIGNMENT:
-\end_layout
-
-\begin_layout Plain Layout
-
-Analyze and document how the Android specific memory management systems
- work and integrate with hardware resources.
- In particular, describe how application and hardware resources are managed
- (OOM killer, PMEM and HWMEM drivers).
-\end_layout
-
-\begin_layout Plain Layout
-
-Project Goals: Understanding the Android memory management Required skills:
- Linux kernel and UNIX process management basics Peoples: This project is
- suited for one student or a group with maximum two people.
-\end_layout
-
-\begin_layout Plain Layout
-
-Project Status: Working on: anyone
-\end_layout
-
-\begin_layout Plain Layout
-
-NOTE: still available for other students/groups
-\end_layout
-
-\begin_layout Plain Layout
-
 \end_layout
 
 \end_inset
@@ -307,7 +274,7 @@ Introduction
 Android
 \begin_inset CommandInset citation
 LatexCommand cite
-key "WIKI,OVERVIEW,AndPortal"
+key "WIKI,OVERVIEW,AndPortal,StatusFeb2012"
 
 \end_inset
 
@@ -320,18 +287,25 @@ key "WIKI,OVERVIEW,AndPortal"
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "Android distribution diffusion"
+reference "Android distribution diffusion (July 2012)"
 
 \end_inset
 
- shows the actual
+ shows the actual (July 2012)
 \begin_inset CommandInset citation
 LatexCommand cite
 key "WIKI"
 
 \end_inset
 
- distribution of Android version between devices with this kernel:
+ distribution of Android version between devices with this kernel
+\begin_inset CommandInset citation
+LatexCommand cite
+key "GoogleDashboard"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
@@ -347,7 +321,7 @@ key "WIKI"
 \begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
-name "Android distribution diffusion"
+name "Android distribution diffusion (July 2012)"
 
 \end_inset
 
@@ -356,14 +330,14 @@ name "Android distribution diffusion"
 
 \begin_layout Standard
 We can notice that now the common kernel distributions still use Linux 2.6.x
- kernel.
+ kernel and in particular Android 2.3.
 \end_layout
 
 \begin_layout Standard
 Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "Android structure"
+reference "Android structure (in red, linux kernel parts, in green C++ libraries, in blue Dalvik-interpreted Java applications)"
 
 \end_inset
 
@@ -390,7 +364,7 @@ key "WIKI"
 \begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
-name "Android structure"
+name "Android structure (in red, linux kernel parts, in green C++ libraries, in blue Dalvik-interpreted Java applications)"
 
 \end_inset
 
@@ -475,14 +449,38 @@ Low level management and integration with HW resources
 \end_layout
 
 \begin_layout Standard
-In this part, we discuss about how the memory has managed in Android devices.
+In this part, we discuss about how the memory has managed in Android devices,
+ focusing on generation of large contiguous buffers.
  For most of the releases in Android, it was used PMEM and ASHMEM.
- These kind of libraries was too simple, and was patched with some SoC patches,
- such as NVMAP for nVidia Tegra devices and CMEM for TI OMAP ones.
+ These kind of drivers are way too simple, and was patched with some SoC
+ patches, such as NVMAP for nVidia Tegra devices and CMEM for TI OMAP ones.
  The most important patch was CMA (Contiguous Memory Access), expecially
- with DMABUF patch.
+ with DMABUF patch, developed both by Samsung.
+ The most important reason 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "StatusFeb2012"
+
+\end_inset
+
+ is that 
+\series bold
+PMEM is not fitted to be used massively with graphics
+\series default
+.
+ Graphical devices (such as camera) needs large amount of memory in a very
+ short time (or even in real time), so the device need to 
+\series bold
+avoid memory fragmentation
+\series default
+, that is space-consuming and mainly time consuming.
  With the release of Android 4.0 (Ice Cream Sandwich) a brand new driver
  has released, ION.
+ Thus is needed to 
+\series bold
+unify etherogeneal MMU approaches in a brand new standardization
+\series default
+.
  We discuss about differences between ION and CMA approach, and, in the
  state-of-art, we discuss of a future integration between them.
 \end_layout
@@ -517,7 +515,11 @@ key "AKF"
 
 \end_inset
 
- is the first memory driver implemented on Android devices (since G1).
+ is the 
+\series bold
+first memory driver
+\series default
+ implemented on Android devices (since G1).
  It is used to manage shared memory regions sufficiently large (from 1 to
  16MB).
 \end_layout
@@ -527,6 +529,28 @@ This regions must be physically contiguous between user space and kernel
  drivers (such as GPU, or DSP).
  It was written specifically to be used in a very limited hardware platform,
  and it could be disabled on x86 architectures.
+ It works in a very simple way: 
+\series bold
+it allocs a bunch of memory at boot time
+\series default
+.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Dec2011Merging"
+
+\end_inset
+
+This is dedicated memory usable for contiguous buffer.
+ As is written above, Pmem is not suitable for massive use of graphics.
+ The main problem of PMEM is that 
+\series bold
+it exports a device to user space
+\series default
+, giving the applications the right to alloc direcly buffers to be passed
+ to drivers.
+ Kernel provides only a low level interface to be used by applications,
+ thus causing problems of usability and security.
+ The majority of application is written using PMEM approach.
 \end_layout
 
 \begin_layout Standard
@@ -538,9 +562,13 @@ key "ASHMEM"
 \end_inset
 
  (Android SHared MEMory) is a shared memory allocator subsystem, similar
- to POSIX, but with a different behavior.
+ to POSIX (the classical Linux OS approach), but with a different behavior.
  It also gives to the developer an easier and file-based API.
- It used named memory, releasable by the kernel.
+ It used 
+\series bold
+named memory
+\series default
+, releasable by the kernel.
  Apparently, ASHMEM supports low memory devices better than PMEM, because
  it could free shared memory units when it is needed.
  
@@ -687,6 +715,8 @@ CMA and DMABUF
 \end_layout
 
 \begin_layout Standard
+
+\series bold
 CMA (Contiguous Memory Allocator)
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -694,11 +724,19 @@ key "CMAdoc"
 
 \end_inset
 
- is a well known framework, which allows setting up a machine-specific configura
-tion for physically-contiguous memory management.
+ is a well known framework
+\series default
+, which allows setting up 
+\series bold
+machine-specific configuration
+\series default
+ for physically-contiguous memory management.
  Memory for devices is then allocated according to that configuration.
- Differently from similar framework, it let regions of system-reserved memory
- to be reused in a transparent way, letting memory not to be wasted.
+ Differently from similar framework, it let regions of 
+\series bold
+system-reserved memory to be reused in a transparent way
+\series default
+, letting memory not to be wasted.
  When an alloc is instantiated, this framework migrates all the system page.
  Thus to build a big chunk of physically contiguous memory.
 \end_layout
@@ -711,15 +749,22 @@ key "CMA,RCMA"
 
 \end_inset
 
- Because virtual memory tends to fragment pages.
- An intensive use of memory let the system not able to find contiguous memory
- in a very short time after boot.
+ Because 
+\series bold
+virtual memory tends to fragment pages
+\series default
+.
+ An intensive use of memory let the system not to be able to find contiguous
+ memory in a very short time after boot.
  Recently, the requirement of huge pages in applications raises, especially
  for transparent huge pages.
  Another question is devices (such as cameras) that needs DMA over areas
  physically contiguous.
- CMA reserve an huge area of memory at boot time, only for huge request
- of memory.
+ 
+\series bold
+CMA reserve an huge area of memory at boot time
+\series default
+, only for huge request of memory.
  For every region, block of pages can be flaggable as three type.
  
 \end_layout
@@ -740,7 +785,11 @@ immovable : these are typically pointer referred pages (such as pages invoked
 \end_layout
 
 \begin_layout Standard
-The memory manager subsystem try to keep movable pages as near as possible.
+The memory manager subsystem 
+\series bold
+try to keep movable pages as near as possible
+\series default
+.
  Grouping these pages, kernel try to ensure more and more contiguous free
  space available for further request.
  CMA extends this mechanism.
@@ -758,7 +807,7 @@ sticky
 \begin_inset Quotes erd
 \end_inset
 
- 
+, CMA movable pages tends to stay together
 \end_layout
 
 \begin_layout Itemize
@@ -776,12 +825,65 @@ In other words, memory flagged as CMA keep available for the rest of the
 \end_layout
 
 \begin_layout Standard
-When a driver ask for a huge contiguous allocation of memory, CMA allocator
- can try to free in his own area some contiguous pages to create a buffer
- large as needed.
+When a driver ask for a huge contiguous allocation of memory, 
+\series bold
+CMA allocator can try to free in his own area some contiguous pages to create
+ a buffer large as needed
+\series default
+.
  When the buffer is no longer requested, memory can be used for other needs.
  CMA can just take only the needed amount of memory without worrying about
  strictly request of alignment.
+\end_layout
+
+\begin_layout Standard
+CMA patches provides a
+\series bold
+ set of function that can prepare regions of memory and the creation of
+ contest area of a well known size
+\series default
+ using function cm_alloc and cm_free to keep and release buffers.
+ 
+\series bold
+CMA must not be invoked by the driver, but from DMA support functions
+\series default
+.
+ When a driver call a function like dma_alloc_coherent(), CMA should be
+ invoked automatically to satisfying the request.
+ This should work in normal condition.
+\end_layout
+
+\begin_layout Standard
+One of the issue about CMA is 
+\series bold
+how to initially alloc this area of memory
+\series default
+.
+ Current scheme needs that some of special calls should be done by the board
+ file system, with a very arm-like approach.
+ The idea is to do that without board files.
+ The ending result is that it should be at least one iteration of that patch
+ set before it will be executed by the mainline.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%E a un certo punto, scrivo di un altro argomento, DMABUF...
+ un minimo di introduzione servirebbe :P
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+DMABUF is the DMA buffer sharing framework.
 \end_layout
 
 \begin_layout Standard
@@ -875,33 +977,16 @@ DMA requires less alignment than THP
 
 \end_layout
 
-\begin_layout Standard
-CMA patches provides a set of function that can prepare regions of memory
- and the creation of contest area of a well known size using function cm_alloc
- and cm_free to keep and release buffers.
- CMA must not be invoked by the driver, but from DMA support functions.
- When a driver call a function like dma_alloc_coherent(), CMA should be
- invoked automatically to satisfying the request.
- This should work in normal condition.
-\end_layout
-
-\begin_layout Standard
-One of the issue about CMA is how to initially alloc this area of memory.
- Current scheme needs that some of special calls should be done by the board
- file system, with a very arm-like approach.
- The idea is to do that without board files.
- The ending result is that it should be at least one iteration of that patch
- set before it will be executed by the mainline.
- 
-\end_layout
-
 \begin_layout Subsection
 ION
 \end_layout
 
 \begin_layout Standard
-In december 2011, PMEM is marked as deprecated, and then replaced by ION
- memory allocator
+In december 2011,
+\series bold
+ PMEM is marked as deprecated, and then replaced by ION memory allocator
+\series default
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "ION"
@@ -910,8 +995,12 @@ key "ION"
 
 .
  ION is a memory manager that Google has developed from the 4.0 release of
- Android (Ice Cream Sandwich), mainly to resolve the interface issue between
- different memory management between different Android device.
+ And
+\series bold
+roid (Ice Cream Sandwich), mainly to resolve the interface issue between
+ different memory management on each Android device
+\series default
+.
  In fact, some SoC developer implemented different memory manager.
  We can cite some of them:
 \end_layout
@@ -943,23 +1032,43 @@ key "HWMEM"
 \end_layout
 
 \begin_layout Standard
-All this vendor will pass to ION soon
+All this vendor will pass to ION soon.
 \end_layout
 
 \begin_layout Standard
 Besides ION being a memory pool manager, it also enables his clients to
- share buffers (so, it works like DMABUF, the DMA buffer sharing framework).
- Like PMEM, ION manages one or more pools of memory, some of them instantiated
- at boot time or from hardware blocks with specific memory needs.
+ 
+\series bold
+share buffers
+\series default
+ (so, it works like DMABUF, the DMA buffer sharing framework).
+ Like PMEM, 
+\series bold
+ION manages one or more pools of memory, some of them instantiated at boot
+ time or from hardware blocks with specific memory needs
+\series default
+.
  Some devices like that are GPU, display controllers and cameras.
- ION let his pools to be available as heap ION.
+ ION let his pools to be available as 
+\series bold
+heap ION
+\series default
+.
  Every kind of android device can have different ION heaps, depending on
  device memory.
- Phisical address and heap dimension can be returned to the programmer only
- if the buffer is physically contiguous.
+ 
+\series bold
+Physical address and heap dimension can be returned to the programmer only
+ if the buffer is physically contiguous
+\series default
+.
  Buffer can be prepared or deallocated to be used with DMA, or with virtual
  kernel addressing.
- Using a file descriptor, it can be also mapped in the user-space.
+ 
+\series bold
+Using a file descriptor, it can be also mapped in the user-space
+\series default
+.
  There are three kind of allocable ION heap.
  Other ones can be defined by SoC producers (like ION_HEAP_TYPE_SYSTEM_IOMMU
  for hardware blocks equipped with IOMMU driver).
@@ -987,19 +1096,30 @@ Typically, in the user-space case, libraries uses ION to alloc large continuous
  the camera device.
  Once the buffer is fulfilled with video data, the library gives the buffer
  to kernel to be processed by jpeg encoder block.
- A c/c++ program must have access to '/dev/ion' before it can alloc memory
- thanks to ION.
+ 
+\series bold
+A c/c++ program must have access to '/dev/ion' before it can alloc memory
+ thanks to ION
+\series default
+.
  He can alloc data using file descriptors (fd).
  It can be maximum one client for user process.
 \end_layout
 
 \begin_layout Standard
-Clients interacts from user-space with ION using ioctl() system interface.
+Clients interacts from user-space with ION using 
+\series bold
+ioctl() system interface
+\series default
+.
  Android processes can share memory using their fd.
  To obtain shared buffer, the second user process must obtain a client handle
  through a system call open('/dev/ion', O_RDONLY).
- ION manage user space client through process PID (in particular, the 'group
- leader ' one).
+ 
+\series bold
+ION manage user space client through process PID
+\series default
+ (in particular, the 'group leader ' one).
  Fd will be instantiated pointing at the same client structure in the kernel.
  To free a buffer, the second client must invalidate the mmap() effect,
  with an explicit call at munmap(), and the first client must close the
@@ -1574,16 +1694,23 @@ status open
 \end_layout
 
 \begin_layout Standard
-The Android developers required a greater degree of control over the low
- memory situation because the OOM killer does not interfere till late in
- the low memory situation, i.e.
+Android developers required a greater degree of control over the low memory
+ situation because the OOM killer does not interfere till late in the low
+ memory situation, i.e.
  till all the cache is emptied.
- Android wanted a solution which would start early while the free memory
- is being depleted.
+ Android need a solution which would start early while the free memory is
+ being completely depleted.
  
 \series bold
-So they introduced the "lowmemory" driver
+So developers introduced the "lowmemory" driver
 \series default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OOMTAME"
+
+\end_inset
+
 , which has multiple thresholds of low memory.
  
 \end_layout
@@ -1598,15 +1725,21 @@ when the first thresholds are met, background processes are notified of
  They do not exit, but, instead, save their state.
  This affects the latency when switching applications, because the application
  has to reload on activation.
- On further pressure, the lowmemory killer kills the non-critical background
- processes whose state had been saved in the previous threshold and, finally,
- the foreground applications.
+ On further pressure, the 
+\series bold
+lowmemory killer kills the non-critical background processes whose state
+ had been saved
+\series default
+ in the previous threshold and, finally, the foreground applications.
 \end_layout
 
 \begin_layout Standard
-Keeping multiple low memory triggers gives the processes enough time to
- free memory from their caches because in an OOM situation, user-space processes
- may not be able to run at all.
+Keeping 
+\series bold
+multiple low memory triggers
+\series default
+ gives the processes enough time to free memory from their caches because
+ in an OOM situation, user-space processes may not be able to run at all.
  All it takes is a single allocation from the kernel's internal structures,
  or a page fault to make the system run out of memory.
  An earlier notification of a low-memory situation could avoid the OOM situation
@@ -1623,6 +1756,19 @@ Killing processes based on kernel heuristics is not an optimal solution
  the process to be the chosen one to terminate are steps to a robust design
  to give more control to the user.
  
+\end_layout
+
+\begin_layout Standard
+This approach can be improved in many parts, for instance 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OOMarticle"
+
+\end_inset
+
+ implementing a more efficient way to select the process to be killed, such
+ as ordering processes in a red-black tree, improving OOM Killer response
+ time11.
 \end_layout
 
 \begin_layout Standard
@@ -1749,87 +1895,6 @@ The process to be killed is selected from the processes having the highest
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%implementazione, non citabile.
- To take control of the OOM-killer, mount the cgroup OOM pseudo-filesystem
- %introduced by the patch:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# mount -t cgroup -o oom oom /mnt/oom-killer The OOM-killer directory contains
- the list of all processes in the file tasks, and their OOM priority in
- oom.priority.
- By default, oom.priority is set to one.
-\end_layout
-
-\begin_layout Plain Layout
-
-If you want to create a special control group containing the list of processes
- which should be the first to receive the OOM killer's attention, create
- a directory under /mnt/oom-killer to represent it:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# mkdir lambs Set oom.priority to a value high enough:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# echo 256 > /mnt/oom-killer/lambs/oom.priority oom.priority is a 64-bit
- unsigned integer, and can have a maximum value an unsigned 64-bit number
- can hold.
- While scanning for the process to be killed, the OOM-killer selects a process
- from the list of tasks with the highest oom.priority value.
-\end_layout
-
-\begin_layout Plain Layout
-
-Add the PID of the process to be added to the list of tasks:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# echo <pid> > /mnt/oom-killer/lambs/tasks To create a list of processes,
- which will not be killed by the OOM-killer, make a directory to contain
- the processes:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# mkdir invincibles Setting oom.priority to zero makes all the process in
- this cgroup to be excluded from the list of target processes to be killed.
-\end_layout
-
-\begin_layout Plain Layout
-
-%# echo 0 > /mnt/oom-killer/invincibles/oom.priority To add more processes
- to this group, add the pid of the task to the list of tasks in the invincible
- group:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# echo <pid> > /mnt/oom-killer/invincibles/tasks Important processes, such
- as database processes and their controllers, can be added to this group,
- so they are ignored when OOM-killer searches for processes to be killed.
- All children of the processes listed in tasks automatically are added to
- the same control group and inherit the oom.priority of the parent.
- When multiple tasks have the highest oom.priority, the OOM killer selects
- the process based on the oom_score and oom_adj.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 This approach could have some trouble, in presence of multiple cpuset.
  Consider two cpusets, A and B.
  If a process in cpuset A has a high oom.priority value, it will be killed
@@ -1898,33 +1963,8 @@ the cgroup OOM notifier allows you to attach a task to wait on an OOM condition
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset citation
-LatexCommand cite
-key "OOMarticle"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%da citare ora l'articolo OOM dei cinesi
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
-btprint "btPrintAll"
 bibfiles "Report"
 options "savetrees"
 
