@@ -202,8 +202,11 @@ status open
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_7L9mzm
 <<<<<<< .merge_file_l1f85B
 =======
+=======
+>>>>>>> .merge_file_xHuYMm
 % ASSIGNMENT:
 \end_layout
 
@@ -307,11 +310,15 @@ Introduction
 Android
 \begin_inset CommandInset citation
 LatexCommand cite
+<<<<<<< .merge_file_7L9mzm
 <<<<<<< .merge_file_l1f85B
 key "WIKI,OVERVIEW,AndPortal,StatusFeb2012"
 =======
 key "WIKI,OVERVIEW,AndPortal"
 >>>>>>> .merge_file_3MFrwz
+=======
+key "WIKI,OVERVIEW,AndPortal"
+>>>>>>> .merge_file_xHuYMm
 
 \end_inset
 
@@ -324,6 +331,7 @@ key "WIKI,OVERVIEW,AndPortal"
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
+<<<<<<< .merge_file_7L9mzm
 <<<<<<< .merge_file_l1f85B
 reference "Android distribution diffusion (July 2012)"
 
@@ -331,6 +339,8 @@ reference "Android distribution diffusion (July 2012)"
 
  shows the actual (July 2012)
 =======
+=======
+>>>>>>> .merge_file_xHuYMm
 reference "Android distribution diffusion"
 
 \end_inset
@@ -379,6 +389,7 @@ reference "Android structure"
 \end_inset
 
  shows Android System Architecture schema 
+<<<<<<< .merge_file_7L9mzm
 >>>>>>> .merge_file_3MFrwz
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -443,6 +454,8 @@ reference "Android structure (in red, linux kernel parts, in green C++ libraries
 \end_inset
 
  shows Android System Architecture schema 
+=======
+>>>>>>> .merge_file_xHuYMm
 \begin_inset CommandInset citation
 LatexCommand cite
 key "WIKI"
@@ -465,7 +478,11 @@ key "WIKI"
 \begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
+<<<<<<< .merge_file_7L9mzm
 name "Android structure (in red, linux kernel parts, in green C++ libraries, in blue Dalvik-interpreted Java applications)"
+=======
+name "Android structure"
+>>>>>>> .merge_file_xHuYMm
 
 \end_inset
 
@@ -479,6 +496,7 @@ LatexCommand cite
 key "OVERVIEW"
 
 \end_inset
+<<<<<<< .merge_file_7L9mzm
 
 =======
 
@@ -491,6 +509,9 @@ key "OVERVIEW"
 \end_inset
 
 >>>>>>> .merge_file_3MFrwz
+=======
+
+>>>>>>> .merge_file_xHuYMm
  provides some modification to main Linux kernel, such as an improved power
  management, ASHMEM virtual memory, some specific-component drivers, and
  a low memory killer.
@@ -1809,6 +1830,7 @@ status open
 \end_layout
 
 \begin_layout Standard
+<<<<<<< .merge_file_7L9mzm
 <<<<<<< .merge_file_l1f85B
 Android developers required a greater degree of control over the low memory
  situation because the OOM killer does not interfere till late in the low
@@ -1828,6 +1850,8 @@ key "OOMTAME"
 \end_inset
 
 =======
+=======
+>>>>>>> .merge_file_xHuYMm
 The Android developers required a greater degree of control over the low
  memory situation because the OOM killer does not interfere till late in
  the low memory situation, i.e.
@@ -1838,7 +1862,10 @@ The Android developers required a greater degree of control over the low
 \series bold
 So they introduced the "lowmemory" driver
 \series default
+<<<<<<< .merge_file_7L9mzm
 >>>>>>> .merge_file_3MFrwz
+=======
+>>>>>>> .merge_file_xHuYMm
 , which has multiple thresholds of low memory.
  
 \end_layout
@@ -1853,6 +1880,7 @@ when the first thresholds are met, background processes are notified of
  They do not exit, but, instead, save their state.
  This affects the latency when switching applications, because the application
  has to reload on activation.
+<<<<<<< .merge_file_7L9mzm
 <<<<<<< .merge_file_l1f85B
  On further pressure, the 
 \series bold
@@ -1870,6 +1898,8 @@ multiple low memory triggers
  gives the processes enough time to free memory from their caches because
  in an OOM situation, user-space processes may not be able to run at all.
 =======
+=======
+>>>>>>> .merge_file_xHuYMm
  On further pressure, the lowmemory killer kills the non-critical background
  processes whose state had been saved in the previous threshold and, finally,
  the foreground applications.
@@ -1879,7 +1909,10 @@ multiple low memory triggers
 Keeping multiple low memory triggers gives the processes enough time to
  free memory from their caches because in an OOM situation, user-space processes
  may not be able to run at all.
+<<<<<<< .merge_file_7L9mzm
 >>>>>>> .merge_file_3MFrwz
+=======
+>>>>>>> .merge_file_xHuYMm
  All it takes is a single allocation from the kernel's internal structures,
  or a page fault to make the system run out of memory.
  An earlier notification of a low-memory situation could avoid the OOM situation
@@ -1899,6 +1932,7 @@ Killing processes based on kernel heuristics is not an optimal solution
 \end_layout
 
 \begin_layout Standard
+<<<<<<< .merge_file_7L9mzm
 <<<<<<< .merge_file_l1f85B
 This approach can be improved in many parts, for instance 
 \begin_inset CommandInset citation
@@ -1915,6 +1949,8 @@ key "OOMarticle"
 \begin_layout Standard
 =======
 >>>>>>> .merge_file_3MFrwz
+=======
+>>>>>>> .merge_file_xHuYMm
 \begin_inset ERT
 status open
 
@@ -2038,8 +2074,11 @@ The process to be killed is selected from the processes having the highest
 \end_layout
 
 \begin_layout Standard
+<<<<<<< .merge_file_7L9mzm
 <<<<<<< .merge_file_l1f85B
 =======
+=======
+>>>>>>> .merge_file_xHuYMm
 \begin_inset ERT
 status open
 
@@ -2121,7 +2160,10 @@ Add the PID of the process to be added to the list of tasks:
 \end_layout
 
 \begin_layout Standard
+<<<<<<< .merge_file_7L9mzm
 >>>>>>> .merge_file_3MFrwz
+=======
+>>>>>>> .merge_file_xHuYMm
 This approach could have some trouble, in presence of multiple cpuset.
  Consider two cpusets, A and B.
  If a process in cpuset A has a high oom.priority value, it will be killed
@@ -2189,8 +2231,11 @@ the cgroup OOM notifier allows you to attach a task to wait on an OOM condition
  
 \end_layout
 
+<<<<<<< .merge_file_7L9mzm
 <<<<<<< .merge_file_l1f85B
 =======
+=======
+>>>>>>> .merge_file_xHuYMm
 \begin_layout Standard
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2215,7 +2260,10 @@ status open
 
 \end_layout
 
+<<<<<<< .merge_file_7L9mzm
 >>>>>>> .merge_file_3MFrwz
+=======
+>>>>>>> .merge_file_xHuYMm
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex

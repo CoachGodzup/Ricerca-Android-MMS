@@ -202,8 +202,11 @@ status open
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_hnpNDm
 <<<<<<< .merge_file_nsvioB
 =======
+=======
+>>>>>>> .merge_file_jRr27l
 % ASSIGNMENT:
 \end_layout
 
@@ -307,11 +310,15 @@ Introduction
 Android
 \begin_inset CommandInset citation
 LatexCommand cite
+<<<<<<< .merge_file_hnpNDm
 <<<<<<< .merge_file_nsvioB
 key "WIKI,OVERVIEW,AndPortal,StatusFeb2012"
 =======
 key "WIKI,OVERVIEW"
 >>>>>>> .merge_file_3SrSCx
+=======
+key "WIKI,OVERVIEW"
+>>>>>>> .merge_file_jRr27l
 
 \end_inset
 
@@ -324,6 +331,7 @@ key "WIKI,OVERVIEW"
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
+<<<<<<< .merge_file_hnpNDm
 <<<<<<< .merge_file_nsvioB
 reference "Android distribution diffusion (July 2012)"
 
@@ -331,11 +339,14 @@ reference "Android distribution diffusion (July 2012)"
 
  shows the actual (July 2012)
 =======
+=======
+>>>>>>> .merge_file_jRr27l
 reference "Android distribution diffusion"
 
 \end_inset
 
  shows the actual
+<<<<<<< .merge_file_hnpNDm
 >>>>>>> .merge_file_3SrSCx
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -443,6 +454,73 @@ reference "Android structure (in red, linux kernel parts, in green C++ libraries
 \end_inset
 
  shows Android System Architecture schema 
+=======
+>>>>>>> .merge_file_jRr27l
+\begin_inset CommandInset citation
+LatexCommand cite
+key "WIKI"
+
+\end_inset
+
+<<<<<<< .merge_file_hnpNDm
+.
+=======
+ distribution of Android version between devices with this kernel:
+>>>>>>> .merge_file_jRr27l
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+<<<<<<< .merge_file_hnpNDm
+	filename /home/coach/Dropbox/RTOS/roba su github/System-architecture.jpg
+=======
+	filename /home/coach/Dropbox/RTOS/Android_chart.png
+>>>>>>> .merge_file_jRr27l
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+<<<<<<< .merge_file_hnpNDm
+name "Android structure (in red, linux kernel parts, in green C++ libraries, in blue Dalvik-interpreted Java applications)"
+=======
+name "Android distribution diffusion"
+>>>>>>> .merge_file_jRr27l
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+<<<<<<< .merge_file_hnpNDm
+Android 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OVERVIEW"
+
+\end_inset
+
+=======
+=======
+We can notice that now the common kernel distributions still use Linux 2.6.x
+ kernel.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Android structure"
+
+\end_inset
+
+ shows Android System Architecture schema 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "WIKI"
@@ -454,7 +532,7 @@ key "WIKI"
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename /home/coach/Dropbox/RTOS/roba su github/System-architecture.jpg
+	filename /home/coach/Dropbox/RTOS/System-architecture.jpg
 	scale 30
 
 \end_inset
@@ -465,12 +543,13 @@ key "WIKI"
 \begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
-name "Android structure (in red, linux kernel parts, in green C++ libraries, in blue Dalvik-interpreted Java applications)"
+name "Android structure"
 
 \end_inset
 
 
 \end_layout
+>>>>>>> .merge_file_jRr27l
 
 \begin_layout Standard
 Android 
@@ -480,17 +559,10 @@ key "OVERVIEW"
 
 \end_inset
 
-=======
-
-\begin_layout Standard
-Android 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "OVERVIEW"
-
-\end_inset
-
+<<<<<<< .merge_file_hnpNDm
 >>>>>>> .merge_file_3SrSCx
+=======
+>>>>>>> .merge_file_jRr27l
  provides some modification to main Linux kernel, such as an improved power
  management, ASHMEM virtual memory, some specific-component drivers, and
  a low memory killer.
@@ -527,48 +599,68 @@ status open
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_hnpNDm
 <<<<<<< .merge_file_nsvioB
 %- ampliare l'introduzione
 =======
  - ampliare l'introduzione
 >>>>>>> .merge_file_3SrSCx
+=======
+ - ampliare l'introduzione
+>>>>>>> .merge_file_jRr27l
 \end_layout
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_hnpNDm
 <<<<<<< .merge_file_nsvioB
 % - rivedere parte su CMA: guardarsi gli altri articoli, condensare le notizie
 =======
  - rivedere parte su CMA: guardarsi gli altri articoli, condensare le notizie
 >>>>>>> .merge_file_3SrSCx
+=======
+ - rivedere parte su CMA: guardarsi gli altri articoli, condensare le notizie
+>>>>>>> .merge_file_jRr27l
  importanti
 \end_layout
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_hnpNDm
 <<<<<<< .merge_file_nsvioB
 % - finire ION con gli sviluppi futuri: integrazione CMA con ION.
 =======
  - finire ION con gli sviluppi futuri: integrazione CMA con ION.
 >>>>>>> .merge_file_3SrSCx
+=======
+ - finire ION con gli sviluppi futuri: integrazione CMA con ION.
+>>>>>>> .merge_file_jRr27l
 \end_layout
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_hnpNDm
 <<<<<<< .merge_file_nsvioB
 % - TUTTA la parte su OOM killer
 =======
  - TUTTA la parte su OOM killer
 >>>>>>> .merge_file_3SrSCx
+=======
+ - TUTTA la parte su OOM killer
+>>>>>>> .merge_file_jRr27l
 \end_layout
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_hnpNDm
 <<<<<<< .merge_file_nsvioB
 % 
 =======
  - 
 >>>>>>> .merge_file_3SrSCx
+=======
+ - 
+>>>>>>> .merge_file_jRr27l
 \end_layout
 
 \end_inset
@@ -1652,6 +1744,7 @@ Mobile devices become more and more rich of memory over time, due to Moore's
  Law.
  However, there's always a limit over wich memory isn't available, and a
  well form kernel needs some politics to free bunch of memory when needed.
+<<<<<<< .merge_file_hnpNDm
 <<<<<<< .merge_file_nsvioB
  Android provides an OOM killer, who kills processes with some heuristics,
  letting memory to be used from someone else.
@@ -2098,6 +2191,10 @@ the cgroup OOM notifier allows you to attach a task to wait on an OOM condition
  Android provides an OOM killer, who kills processes with some politics,
  to free some memory.
 >>>>>>> .merge_file_3SrSCx
+=======
+ Android provides an OOM killer, who kills processes with some politics,
+ to free some memory.
+>>>>>>> .merge_file_jRr27l
 \end_layout
 
 \begin_layout Standard

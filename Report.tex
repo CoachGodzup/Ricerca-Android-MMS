@@ -98,9 +98,12 @@ memory. We discuss in particular about application memory and some
 of the most used MMUs used by Android OS.
 \end{abstract}
 \vspace{4ex}
+<<<<<<< .merge_file_SfA3tq
 <<<<<<< .merge_file_dMvs8p
  \begin{multicols}{2}
 =======
+=======
+>>>>>>> .merge_file_6I9nyp
  % ASSIGNMENT:
 Analyze and document how the Android specific memory management systems work and integrate with hardware resources. In particular, describe how application and hardware resources are managed (OOM killer, PMEM and HWMEM drivers).
 Project Goals: Understanding the Android memory management Required skills: Linux kernel and UNIX process management basics Peoples: This project is suited for one student or a group with maximum two people.
@@ -118,6 +121,7 @@ NOTE: still available for other students/groups
 
 \subsection{Introduction}
 
+<<<<<<< .merge_file_SfA3tq
 <<<<<<< .merge_file_dMvs8p
 Android\cite{WIKI,OVERVIEW,AndPortal,StatusFeb2012} is a Linux-based
 operative system, written in C and C++. Android application software
@@ -142,6 +146,8 @@ shows Android System Architecture schema \cite{WIKI}.
 
 \label{Android structure (in red, linux kernel parts, in green C++ libraries, in blue Dalvik-interpreted Java applications)}
 =======
+=======
+>>>>>>> .merge_file_6I9nyp
 Android\cite{WIKI,OVERVIEW,AndPortal} is a Linux-based operative
 system, written in C and C++. Android application software runs on
 a framework which includes Java-compatible libraries. Android uses
@@ -156,6 +162,7 @@ distribution of Android version between devices with this kernel:
 
 We can notice that now the common kernel distributions still use Linux
 2.6.x kernel.
+<<<<<<< .merge_file_SfA3tq
 
 Figure \ref{Android structure} shows Android System Architecture
 schema \cite{WIKI}.
@@ -164,6 +171,15 @@ schema \cite{WIKI}.
 
 \label{Android structure}
 >>>>>>> .merge_file_bniexb
+=======
+
+Figure \ref{Android structure} shows Android System Architecture
+schema \cite{WIKI}.
+
+\includegraphics[scale=0.3]{\string"/home/coach/Dropbox/RTOS/roba su github/System-architecture\string".jpg}
+
+\label{Android structure}
+>>>>>>> .merge_file_6I9nyp
 
 Android \cite{OVERVIEW} provides some modification to main Linux
 kernel, such as an improved power management, ASHMEM virtual memory,
@@ -566,6 +582,7 @@ OOM situation when it does not have children.
 
 %%da ricontrollare in toto!
 
+<<<<<<< .merge_file_SfA3tq
 <<<<<<< .merge_file_dMvs8p
 Android developers required a greater degree of control over the low
 memory situation because the OOM killer does not interfere till late
@@ -574,18 +591,24 @@ need a solution which would start early while the free memory is being
 completely depleted. \textbf{So developers introduced the \textquotedbl{}lowmemory\textquotedbl{}
 driver}\cite{OOMTAME}, which has multiple thresholds of low memory. 
 =======
+=======
+>>>>>>> .merge_file_6I9nyp
 The Android developers required a greater degree of control over the
 low memory situation because the OOM killer does not interfere till
 late in the low memory situation, i.e. till all the cache is emptied.
 Android wanted a solution which would start early while the free memory
 is being depleted. \textbf{So they introduced the \textquotedbl{}lowmemory\textquotedbl{}
 driver}, which has multiple thresholds of low memory. 
+<<<<<<< .merge_file_SfA3tq
 >>>>>>> .merge_file_bniexb
+=======
+>>>>>>> .merge_file_6I9nyp
 
 In a low-memory situation, \textbf{when the first thresholds are met,
 background processes are notified of the problem}. They do not exit,
 but, instead, save their state. This affects the latency when switching
 applications, because the application has to reload on activation.
+<<<<<<< .merge_file_SfA3tq
 <<<<<<< .merge_file_dMvs8p
 On further pressure, the \textbf{lowmemory killer kills the non-critical
 background processes whose state had been saved} in the previous threshold
@@ -600,6 +623,8 @@ of a low-memory situation could avoid the OOM situation with a little
 help from the user space applications which respond to low memory
 notifications.
 =======
+=======
+>>>>>>> .merge_file_6I9nyp
 On further pressure, the lowmemory killer kills the non-critical background
 processes whose state had been saved in the previous threshold and,
 finally, the foreground applications.
@@ -611,13 +636,17 @@ allocation from the kernel's internal structures, or a page fault
 to make the system run out of memory. An earlier notification of a
 low-memory situation could avoid the OOM situation with a little help
 from the user space applications which respond to low memory notifications.
+<<<<<<< .merge_file_SfA3tq
 >>>>>>> .merge_file_bniexb
+=======
+>>>>>>> .merge_file_6I9nyp
 
 \textbf{Killing processes based on kernel heuristics is not an optimal
 solution}, and these new initiatives of offering better control to
 the user in selecting the process to be the chosen one to terminate
 are steps to a robust design to give more control to the user. 
 
+<<<<<<< .merge_file_SfA3tq
 <<<<<<< .merge_file_dMvs8p
 This approach can be improved in many parts, for instance \cite{OOMarticle}
 implementing a more efficient way to select the process to be killed,
@@ -626,6 +655,8 @@ response time11.
 
 =======
 >>>>>>> .merge_file_bniexb
+=======
+>>>>>>> .merge_file_6I9nyp
 %da segare, in quanto non necessaria?
 
 
@@ -660,8 +691,11 @@ The patch introduces an OOM control group (cgroup) with an oom.priority
 field. \textbf{The process to be killed is selected from the processes
 having the highest oom.priority value.}
 
+<<<<<<< .merge_file_SfA3tq
 <<<<<<< .merge_file_dMvs8p
 =======
+=======
+>>>>>>> .merge_file_6I9nyp
 %implementazione, non citabile. To take control of the OOM-killer, mount the cgroup OOM pseudo-filesystem %introduced by the patch:
 %# mount -t cgroup -o oom oom /mnt/oom-killer The OOM-killer directory contains the list of all processes in the file tasks, and their OOM priority in oom.priority. By default, oom.priority is set to one.
 If you want to create a special control group containing the list of processes which should be the first to receive the OOM killer's attention, create a directory under /mnt/oom-killer to represent it:
@@ -673,7 +707,10 @@ Add the PID of the process to be added to the list of tasks:
 %# echo 0 > /mnt/oom-killer/invincibles/oom.priority To add more processes to this group, add the pid of the task to the list of tasks in the invincible group:
 %# echo <pid> > /mnt/oom-killer/invincibles/tasks Important processes, such as database processes and their controllers, can be added to this group, so they are ignored when OOM-killer searches for processes to be killed. All children of the processes listed in tasks automatically are added to the same control group and inherit the oom.priority of the parent. When multiple tasks have the highest oom.priority, the OOM killer selects the process based on the oom_score and oom_adj.
 
+<<<<<<< .merge_file_SfA3tq
 >>>>>>> .merge_file_bniexb
+=======
+>>>>>>> .merge_file_6I9nyp
 This approach could have some trouble, in presence of multiple cpuset.
 Consider two cpusets, A and B. If a process in cpuset A has a high
 oom.priority value, it will be killed if cpuset B runs out of memory,
@@ -697,13 +734,19 @@ of low memory events. This can include the cgroup oom notifier behavior
 when a collection of tasks is completely out of memory, but can also
 warn when such a condition may be imminent. 
 \end{itemize}
+<<<<<<< .merge_file_SfA3tq
 <<<<<<< .merge_file_dMvs8p
 =======
+=======
+>>>>>>> .merge_file_6I9nyp
 \cite{OOMarticle}
 
 %da citare ora l'articolo OOM dei cinesi
 
+<<<<<<< .merge_file_SfA3tq
 >>>>>>> .merge_file_bniexb
+=======
+>>>>>>> .merge_file_6I9nyp
 \bibliographystyle{savetrees}
 \bibliography{Report}
 
