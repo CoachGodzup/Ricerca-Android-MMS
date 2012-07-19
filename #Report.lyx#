@@ -202,6 +202,39 @@ status open
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_nsvioB
+=======
+% ASSIGNMENT:
+\end_layout
+
+\begin_layout Plain Layout
+
+Analyze and document how the Android specific memory management systems
+ work and integrate with hardware resources.
+ In particular, describe how application and hardware resources are managed
+ (OOM killer, PMEM and HWMEM drivers).
+\end_layout
+
+\begin_layout Plain Layout
+
+Project Goals: Understanding the Android memory management Required skills:
+ Linux kernel and UNIX process management basics Peoples: This project is
+ suited for one student or a group with maximum two people.
+\end_layout
+
+\begin_layout Plain Layout
+
+Project Status: Working on: anyone
+\end_layout
+
+\begin_layout Plain Layout
+
+NOTE: still available for other students/groups
+\end_layout
+
+\begin_layout Plain Layout
+
+>>>>>>> .merge_file_3SrSCx
 \end_layout
 
 \end_inset
@@ -274,7 +307,11 @@ Introduction
 Android
 \begin_inset CommandInset citation
 LatexCommand cite
+<<<<<<< .merge_file_nsvioB
 key "WIKI,OVERVIEW,AndPortal,StatusFeb2012"
+=======
+key "WIKI,OVERVIEW"
+>>>>>>> .merge_file_3SrSCx
 
 \end_inset
 
@@ -287,17 +324,26 @@ key "WIKI,OVERVIEW,AndPortal,StatusFeb2012"
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
+<<<<<<< .merge_file_nsvioB
 reference "Android distribution diffusion (July 2012)"
 
 \end_inset
 
  shows the actual (July 2012)
+=======
+reference "Android distribution diffusion"
+
+\end_inset
+
+ shows the actual
+>>>>>>> .merge_file_3SrSCx
 \begin_inset CommandInset citation
 LatexCommand cite
 key "WIKI"
 
 \end_inset
 
+<<<<<<< .merge_file_nsvioB
  distribution of Android version between devices with this kernel
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -306,11 +352,13 @@ key "GoogleDashboard"
 \end_inset
 
 :
+=======
+ distribution of Android version between devices with this kernel:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename /home/coach/Dropbox/RTOS/roba su github/Android_chart.png
+	filename /home/coach/Dropbox/RTOS/Android_chart.png
 	scale 30
 
 \end_inset
@@ -321,12 +369,65 @@ key "GoogleDashboard"
 \begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
-name "Android distribution diffusion (July 2012)"
+name "Android distribution diffusion"
 
 \end_inset
 
 
 \end_layout
+
+\begin_layout Standard
+We can notice that now the common kernel distributions still use Linux 2.6.x
+ kernel.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Android structure"
+
+\end_inset
+
+ shows Android System Architecture schema 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "WIKI"
+
+\end_inset
+
+.
+>>>>>>> .merge_file_3SrSCx
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+<<<<<<< .merge_file_nsvioB
+	filename /home/coach/Dropbox/RTOS/roba su github/Android_chart.png
+=======
+	filename /home/coach/Dropbox/RTOS/System-architecture.jpg
+>>>>>>> .merge_file_3SrSCx
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+<<<<<<< .merge_file_nsvioB
+name "Android distribution diffusion (July 2012)"
+=======
+name "Android structure"
+>>>>>>> .merge_file_3SrSCx
+
+\end_inset
+
+
+\end_layout
+<<<<<<< .merge_file_nsvioB
 
 \begin_layout Standard
 We can notice that now the common kernel distributions still use Linux 2.6.x
@@ -379,6 +480,17 @@ key "OVERVIEW"
 
 \end_inset
 
+=======
+
+\begin_layout Standard
+Android 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "OVERVIEW"
+
+\end_inset
+
+>>>>>>> .merge_file_3SrSCx
  provides some modification to main Linux kernel, such as an improved power
  management, ASHMEM virtual memory, some specific-component drivers, and
  a low memory killer.
@@ -415,28 +527,48 @@ status open
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_nsvioB
 %- ampliare l'introduzione
+=======
+ - ampliare l'introduzione
+>>>>>>> .merge_file_3SrSCx
 \end_layout
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_nsvioB
 % - rivedere parte su CMA: guardarsi gli altri articoli, condensare le notizie
+=======
+ - rivedere parte su CMA: guardarsi gli altri articoli, condensare le notizie
+>>>>>>> .merge_file_3SrSCx
  importanti
 \end_layout
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_nsvioB
 % - finire ION con gli sviluppi futuri: integrazione CMA con ION.
+=======
+ - finire ION con gli sviluppi futuri: integrazione CMA con ION.
+>>>>>>> .merge_file_3SrSCx
 \end_layout
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_nsvioB
 % - TUTTA la parte su OOM killer
+=======
+ - TUTTA la parte su OOM killer
+>>>>>>> .merge_file_3SrSCx
 \end_layout
 
 \begin_layout Plain Layout
 
+<<<<<<< .merge_file_nsvioB
 % 
+=======
+ - 
+>>>>>>> .merge_file_3SrSCx
 \end_layout
 
 \end_inset
@@ -1520,6 +1652,7 @@ Mobile devices become more and more rich of memory over time, due to Moore's
  Law.
  However, there's always a limit over wich memory isn't available, and a
  well form kernel needs some politics to free bunch of memory when needed.
+<<<<<<< .merge_file_nsvioB
  Android provides an OOM killer, who kills processes with some heuristics,
  letting memory to be used from someone else.
  OOM killer mechanism are implemented in most of Linux kernel.
@@ -1961,6 +2094,10 @@ the cgroup OOM notifier allows you to attach a task to wait on an OOM condition
  tasks is completely out of memory, but can also warn when such a condition
  may be imminent.
  
+=======
+ Android provides an OOM killer, who kills processes with some politics,
+ to free some memory.
+>>>>>>> .merge_file_3SrSCx
 \end_layout
 
 \begin_layout Standard
