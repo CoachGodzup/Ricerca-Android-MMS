@@ -202,11 +202,6 @@ status open
 
 \begin_layout Plain Layout
 
-<<<<<<< .merge_file_7L9mzm
-<<<<<<< .merge_file_l1f85B
-=======
-=======
->>>>>>> .merge_file_xHuYMm
 % ASSIGNMENT:
 \end_layout
 
@@ -310,15 +305,7 @@ Introduction
 Android
 \begin_inset CommandInset citation
 LatexCommand cite
-<<<<<<< .merge_file_7L9mzm
-<<<<<<< .merge_file_l1f85B
 key "WIKI,OVERVIEW,AndPortal,StatusFeb2012"
-=======
-key "WIKI,OVERVIEW,AndPortal"
->>>>>>> .merge_file_3MFrwz
-=======
-key "WIKI,OVERVIEW,AndPortal"
->>>>>>> .merge_file_xHuYMm
 
 \end_inset
 
@@ -331,21 +318,11 @@ key "WIKI,OVERVIEW,AndPortal"
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-<<<<<<< .merge_file_7L9mzm
-<<<<<<< .merge_file_l1f85B
 reference "Android distribution diffusion (July 2012)"
 
 \end_inset
 
  shows the actual (July 2012)
-=======
-=======
->>>>>>> .merge_file_xHuYMm
-reference "Android distribution diffusion"
-
-\end_inset
-
- shows the actual
 \begin_inset CommandInset citation
 LatexCommand cite
 key "WIKI"
@@ -388,17 +365,8 @@ reference "Android structure"
 
 \end_inset
 
- shows Android System Architecture schema 
-<<<<<<< .merge_file_7L9mzm
->>>>>>> .merge_file_3MFrwz
-\begin_inset CommandInset citation
-LatexCommand cite
-key "WIKI"
-
-\end_inset
-
-<<<<<<< .merge_file_l1f85B
- distribution of Android version between devices with this kernel
+ shows Android System Architecture schema  distribution of Android version
+ between devices with this kernel
 \begin_inset CommandInset citation
 LatexCommand cite
 key "GoogleDashboard"
@@ -406,19 +374,11 @@ key "GoogleDashboard"
 \end_inset
 
 :
-=======
-.
->>>>>>> .merge_file_3MFrwz
 \end_layout
 
 \begin_layout Standard
 \begin_inset Graphics
-<<<<<<< .merge_file_l1f85B
-	filename /home/coach/Dropbox/RTOS/roba su github/Android_chart.png
-=======
 	filename /home/coach/Dropbox/RTOS/roba su github/System-architecture.jpg
->>>>>>> .merge_file_3MFrwz
-	scale 30
 
 \end_inset
 
@@ -428,17 +388,12 @@ key "GoogleDashboard"
 \begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
-<<<<<<< .merge_file_l1f85B
 name "Android distribution diffusion (July 2012)"
-=======
-name "Android structure"
->>>>>>> .merge_file_3MFrwz
 
 \end_inset
 
 
 \end_layout
-<<<<<<< .merge_file_l1f85B
 
 \begin_layout Standard
 We can notice that now the common kernel distributions still use Linux 2.6.x
@@ -453,9 +408,7 @@ reference "Android structure (in red, linux kernel parts, in green C++ libraries
 
 \end_inset
 
- shows Android System Architecture schema 
-=======
->>>>>>> .merge_file_xHuYMm
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "WIKI"
@@ -478,11 +431,7 @@ key "WIKI"
 \begin_layout Standard
 \begin_inset CommandInset label
 LatexCommand label
-<<<<<<< .merge_file_7L9mzm
 name "Android structure (in red, linux kernel parts, in green C++ libraries, in blue Dalvik-interpreted Java applications)"
-=======
-name "Android structure"
->>>>>>> .merge_file_xHuYMm
 
 \end_inset
 
@@ -496,9 +445,9 @@ LatexCommand cite
 key "OVERVIEW"
 
 \end_inset
-<<<<<<< .merge_file_7L9mzm
 
-=======
+
+\end_layout
 
 \begin_layout Standard
 Android 
@@ -508,10 +457,6 @@ key "OVERVIEW"
 
 \end_inset
 
->>>>>>> .merge_file_3MFrwz
-=======
-
->>>>>>> .merge_file_xHuYMm
  provides some modification to main Linux kernel, such as an improved power
  management, ASHMEM virtual memory, some specific-component drivers, and
  a low memory killer.
@@ -1666,7 +1611,7 @@ status open
 
 \begin_layout Plain Layout
 
-%% da ricontrollare! è copincollato!
+%% da ricontrollare! Ãš copincollato!
 \end_layout
 
 \end_inset
@@ -1699,23 +1644,11 @@ OOM Killer parameters
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%% da ricontrollare! mettere elenchi puntati, magari un grafichino che renda
- l'idea
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The process to be killed in an out-of-memory situation is selected based
- on its badness score.
+The process to be killed in an out-of-memory situation is selected 
+\series bold
+based on its badness score
+\series default
+.
  The badness score is reflected in /proc/<pid>/oom_score.
  This value is determined on the basis of four characteristics:
 \end_layout
@@ -1830,8 +1763,6 @@ status open
 \end_layout
 
 \begin_layout Standard
-<<<<<<< .merge_file_7L9mzm
-<<<<<<< .merge_file_l1f85B
 Android developers required a greater degree of control over the low memory
  situation because the OOM killer does not interfere till late in the low
  memory situation, i.e.
@@ -1849,23 +1780,6 @@ key "OOMTAME"
 
 \end_inset
 
-=======
-=======
->>>>>>> .merge_file_xHuYMm
-The Android developers required a greater degree of control over the low
- memory situation because the OOM killer does not interfere till late in
- the low memory situation, i.e.
- till all the cache is emptied.
- Android wanted a solution which would start early while the free memory
- is being depleted.
- 
-\series bold
-So they introduced the "lowmemory" driver
-\series default
-<<<<<<< .merge_file_7L9mzm
->>>>>>> .merge_file_3MFrwz
-=======
->>>>>>> .merge_file_xHuYMm
 , which has multiple thresholds of low memory.
  
 \end_layout
@@ -1880,8 +1794,6 @@ when the first thresholds are met, background processes are notified of
  They do not exit, but, instead, save their state.
  This affects the latency when switching applications, because the application
  has to reload on activation.
-<<<<<<< .merge_file_7L9mzm
-<<<<<<< .merge_file_l1f85B
  On further pressure, the 
 \series bold
 lowmemory killer kills the non-critical background processes whose state
@@ -1897,22 +1809,6 @@ multiple low memory triggers
 \series default
  gives the processes enough time to free memory from their caches because
  in an OOM situation, user-space processes may not be able to run at all.
-=======
-=======
->>>>>>> .merge_file_xHuYMm
- On further pressure, the lowmemory killer kills the non-critical background
- processes whose state had been saved in the previous threshold and, finally,
- the foreground applications.
-\end_layout
-
-\begin_layout Standard
-Keeping multiple low memory triggers gives the processes enough time to
- free memory from their caches because in an OOM situation, user-space processes
- may not be able to run at all.
-<<<<<<< .merge_file_7L9mzm
->>>>>>> .merge_file_3MFrwz
-=======
->>>>>>> .merge_file_xHuYMm
  All it takes is a single allocation from the kernel's internal structures,
  or a page fault to make the system run out of memory.
  An earlier notification of a low-memory situation could avoid the OOM situation
@@ -1932,8 +1828,6 @@ Killing processes based on kernel heuristics is not an optimal solution
 \end_layout
 
 \begin_layout Standard
-<<<<<<< .merge_file_7L9mzm
-<<<<<<< .merge_file_l1f85B
 This approach can be improved in many parts, for instance 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1943,14 +1837,10 @@ key "OOMarticle"
 
  implementing a more efficient way to select the process to be killed, such
  as ordering processes in a red-black tree, improving OOM Killer response
- time11.
+ time.
 \end_layout
 
 \begin_layout Standard
-=======
->>>>>>> .merge_file_3MFrwz
-=======
->>>>>>> .merge_file_xHuYMm
 \begin_inset ERT
 status open
 
@@ -2052,19 +1942,6 @@ status open
 \end_inset
 
 Another possible solution is using containers.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-% citazione di prima: In response to this suggestion, the oom_killer controller,
- contributed by Nikanth Karthikesan, provides control of the sequence of
- processes to be killed when the system runs out of memory.
-\end_layout
-
-\end_inset
-
  The patch introduces an OOM control group (cgroup) with an oom.priority
  field.
  
@@ -2074,96 +1951,6 @@ The process to be killed is selected from the processes having the highest
 \end_layout
 
 \begin_layout Standard
-<<<<<<< .merge_file_7L9mzm
-<<<<<<< .merge_file_l1f85B
-=======
-=======
->>>>>>> .merge_file_xHuYMm
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%implementazione, non citabile.
- To take control of the OOM-killer, mount the cgroup OOM pseudo-filesystem
- %introduced by the patch:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# mount -t cgroup -o oom oom /mnt/oom-killer The OOM-killer directory contains
- the list of all processes in the file tasks, and their OOM priority in
- oom.priority.
- By default, oom.priority is set to one.
-\end_layout
-
-\begin_layout Plain Layout
-
-If you want to create a special control group containing the list of processes
- which should be the first to receive the OOM killer's attention, create
- a directory under /mnt/oom-killer to represent it:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# mkdir lambs Set oom.priority to a value high enough:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# echo 256 > /mnt/oom-killer/lambs/oom.priority oom.priority is a 64-bit
- unsigned integer, and can have a maximum value an unsigned 64-bit number
- can hold.
- While scanning for the process to be killed, the OOM-killer selects a process
- from the list of tasks with the highest oom.priority value.
-\end_layout
-
-\begin_layout Plain Layout
-
-Add the PID of the process to be added to the list of tasks:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# echo <pid> > /mnt/oom-killer/lambs/tasks To create a list of processes,
- which will not be killed by the OOM-killer, make a directory to contain
- the processes:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# mkdir invincibles Setting oom.priority to zero makes all the process in
- this cgroup to be excluded from the list of target processes to be killed.
-\end_layout
-
-\begin_layout Plain Layout
-
-%# echo 0 > /mnt/oom-killer/invincibles/oom.priority To add more processes
- to this group, add the pid of the task to the list of tasks in the invincible
- group:
-\end_layout
-
-\begin_layout Plain Layout
-
-%# echo <pid> > /mnt/oom-killer/invincibles/tasks Important processes, such
- as database processes and their controllers, can be added to this group,
- so they are ignored when OOM-killer searches for processes to be killed.
- All children of the processes listed in tasks automatically are added to
- the same control group and inherit the oom.priority of the parent.
- When multiple tasks have the highest oom.priority, the OOM killer selects
- the process based on the oom_score and oom_adj.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-<<<<<<< .merge_file_7L9mzm
->>>>>>> .merge_file_3MFrwz
-=======
->>>>>>> .merge_file_xHuYMm
 This approach could have some trouble, in presence of multiple cpuset.
  Consider two cpusets, A and B.
  If a process in cpuset A has a high oom.priority value, it will be killed
@@ -2183,34 +1970,7 @@ The kernel sends notification to user space, and applications respond by
 .
  In case the user-space processes are not able to free enough memory, or
  the processes ignore the kernel's requests to free memory, the kernel will
- kill them.
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%cita che ti ricita: mem_notify, developed by Kosaki Motohiro, is one such
- attempt made in the past.
- However, the mem_notify patch cannot be applied to versions beyond 2.6.28
- because the memory management reclaiming sequence have changed, but the
- design principles and goals can be reused.
- 
-\end_layout
-
-\end_inset
-
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%David Rientjes
-\end_layout
-
-\end_inset
-
- Other hybrid solutions are:
+ kill them.Other hybrid solutions are:
 \end_layout
 
 \begin_layout Itemize
@@ -2231,11 +1991,6 @@ the cgroup OOM notifier allows you to attach a task to wait on an OOM condition
  
 \end_layout
 
-<<<<<<< .merge_file_7L9mzm
-<<<<<<< .merge_file_l1f85B
-=======
-=======
->>>>>>> .merge_file_xHuYMm
 \begin_layout Standard
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2244,27 +1999,6 @@ key "OOMarticle"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-%da citare ora l'articolo OOM dei cinesi
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-<<<<<<< .merge_file_7L9mzm
->>>>>>> .merge_file_3MFrwz
-=======
->>>>>>> .merge_file_xHuYMm
-\begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "Report"
