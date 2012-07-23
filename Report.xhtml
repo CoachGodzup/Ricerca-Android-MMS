@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="GENERATOR" content="LyX 2.0.2" />
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>Survey on Android Memory Management System</title>
+
+<!-- Text Class Preamble -->
+<style type="text/css">
+div.toc {
+margin: 2em 0em;
+border-style: solid;
+border-width: 2px 0px;
+padding: 1em 0em;
+}
+div.tochead { font-size: x-large; font-weight: bold; }
+div.lyxtoc-0 {
+margin: 2em 0em 0em 0em;
+font-size: xx-large;
+font-weight: bold;
+}
+div.lyxtoc-1 {
+margin: 1em 0em 0em 0em;
+font-size: x-large;
+font-weight: bold;
+}
+div.lyxtoc-2 {
+margin: 0em 0em 0em 1em;
+font-size: large;
+font-weight: normal;
+}
+div.lyxtoc-3 { margin: 0em 0em 0em 0.5em; font-size: medium; }
+div.lyxtoc-4 { margin: 0em 0em 0em 0.5em; }
+div.lyxtoc-5 { margin: 0em 0em 0em 0.5em; }
+div.lyxtoc-6 { margin: 0em 0em 0em 0.5em; }
+a.tocentry {
+text-decoration: none;
+color: black;
+}
+a.tocentry:visited { color: black; }
+a.tocarrow {
+font-weight: bold;
+text-decoration: none;
+color: #909090;
+}
+a.tocarrow:visited { color: #C0C0C0; }
+</style>
+
+<!-- Preamble Snippets -->
+<style type="text/css">
+table { border: 1px solid black; display: inline-block; }
+td { border: 1px solid black; padding: 0.5ex; }
+</style>
+<style type="text/css">
+div.bibtexentry { margin-left: 2em; text-indent: -2em; }
+span.bibtexlabel:before{ content: "["; }
+span.bibtexlabel:after{ content: "] "; }
+</style>
+
+<!-- Layout-provided Styles -->
+<style type='text/css'>
+h1.title {
+font-size: x-large;
+margin-bottom: 1ex;
+text-align: center;
+
+}
+div.standard {
+margin-bottom: 2ex;
+}
+div.abstract {
+font-size: small;
+margin-top: 0.7ex;
+margin-bottom: 0.7ex;
+margin-left: 3ex;
+margin-right: 3ex;
+text-align: left;
+
+}
+div.abstract_label {
+font-weight: bold;
+font-size: large;
+text-align: center;
+
+}
+
+div.abstract {
+margin: 4ex;
+}
+div.abstract_item {
+font-size: small;
+padding-top: 1ex;
+}
+div.abstract_label {
+font-weight: bold;
+}
+h2.section {
+font-weight: bold;
+font-size: x-large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: left;
+
+}
+h3.subsection {
+font-weight: bold;
+font-size: large;
+margin-top: 0.9ex;
+margin-bottom: 0.5ex;
+text-align: left;
+
+}
+div.plain_layout {
+text-align: left;
+
+}
+ul.itemize {
+margin-top: 0.7ex;
+margin-bottom: 0.7ex;
+margin-left: 3ex;
+text-align: left;
+
+}
+</style>
+</head>
+<body>
+<h1 class="title"><a id='magicparlabel-3' />
+Survey on Android Memory Management System</h1>
+<div class="standard"><a id='magicparlabel-4' />
+</div>
+
+<div class="standard"><a id='magicparlabel-9' />
+Garza Matteo</div>
+
+<div class="standard"><a id='magicparlabel-10' />
+Matr. 755295, (matteo.garza@mail.polimi.it)</div>
+
+<div class="standard"><a id='magicparlabel-11' />
+Tania Suarez Legra</div>
+
+<div class="standard"><a id='magicparlabel-12' />
+Matr 748927 (tania.suarez@mail.polimi.it)</div>
+
+<div class="standard"><a id='magicparlabel-13' />
+ </div>
+
+<div class="standard" style='text-align: right;'><a id='magicparlabel-14' />
+<em>Report for the master course of Real Time Operative System (RTOS)</em>
+<br />
+
+ <em>Reviser: PhD. Patrick Bellasi (bellasi@elet.polimi.it)</em> </div>
+
+<div class="standard"><a id='magicparlabel-15' />
+Received: April, 01 2011
+<br />
+
+ </div>
+
+<div class="abstract"><div class="abstract_label">Abstract</div>
+<div class="abstract_item"><a id='magicparlabel-16' />
+Android Operative System[<a href='#OVERVIEW'>10</a>] is the most diffuse OS in mobile devices. In this paper we will analyze how Android manages memory. We discuss in particular about application memory and some of the most used MMUs used by Android OS.</div>
+</div>
+<div class="standard"><a id='magicparlabel-17' />
+ 2</div>
+<div style='height:4ex'></div>
+
+<div class="standard"><a id='magicparlabel-30' />
+</div>
+<h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-36' />
+Kernel Memory Management</h2>
+<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-37' />
+Introduction</h3>
+<div class="standard"><a id='magicparlabel-38' />
+Android[<a href='#WIKI'>14</a>, <a href='#OVERVIEW'>10</a>, <a href='#AndPortal'>2</a>, <a href='#StatusFeb2012'>3</a>] is a Linux-based operative system, written in C and C++. Android application software runs on a framework which includes Java-compatible libraries. Android uses the Dalvik virtual machine with just-in-time compilation to run Dalvik dex-code (Dalvik Executable), which is usually translated from Java bytecode. Figure <a href="#Android_distribution_diffusion__July_2012_">1.1</a> shows the actual (July 2012)[<a href='#WIKI'>14</a>] distribution of Android version between devices with this kernel:</div>
+
+<div class="standard"><a id='magicparlabel-39' />
+<img src='0_home_coach_Dropbox_RTOS_roba_su_github_Android_chart.png' alt='image: 0_home_coach_Dropbox_RTOS_roba_su_github_Android_chart.png' />
+</div>
+
+<div class="standard"><a id='magicparlabel-40' />
+<a id="Android_distribution_diffusion__July_2012_" />
+</div>
+
+<div class="standard"><a id='magicparlabel-41' />
+We can notice that now the common kernel distributions still use Linux 2.6.x kernel and in particular Android 2.3.</div>
+
+<div class="standard"><a id='magicparlabel-42' />
+Figure <a href="#Android_structure__in_red__linux_kernel_parts__in_green_C___libraries__in_blue_Dalvik_interpreted_Java_applications_">1.1</a>[<a href='#WIKI'>14</a>] shows Android OS structure.</div>
+
+<div class="standard"><a id='magicparlabel-43' />
+<img src='1_home_coach_Dropbox_RTOS_roba_su_github_System-architecture.jpg' alt='image: 1_home_coach_Dropbox_RTOS_roba_su_github_System-architecture.jpg' />
+</div>
+
+<div class="standard"><a id='magicparlabel-44' />
+<a id="Android_structure__in_red__linux_kernel_parts__in_green_C___libraries__in_blue_Dalvik_interpreted_Java_applications_" />
+</div>
+
+<div class="standard"><a id='magicparlabel-45' />
+Android [<a href='#OVERVIEW'>10</a>] provides some modification to main Linux kernel, such as an improved power management, ASHMEM virtual memory, some specific-component drivers, and a low memory killer. The latter's mission is to free memory when the system run Out of Memory (OOM).</div>
+
+<div class="standard"><a id='magicparlabel-46' />
+</div>
+<h3 class="subsection"><span class="subsection_label">1.2</span> <a id='magicparlabel-52' />
+Low level management and integration with HW resources</h3>
+<div class="standard"><a id='magicparlabel-53' />
+In this part, we discuss about how the memory has managed in Android devices, focusing on generation of large contiguous buffers. For most of the releases in Android, it was used PMEM and ASHMEM. These kind of drivers are way too simple, and was patched with some SoC patches, such as NVMAP for nVidia Tegra devices and CMEM for TI OMAP ones. The most important patch was CMA (Contiguous Memory Access), expecially with DMABUF patch, developed both by Samsung. The most important reason [<a href='#StatusFeb2012'>3</a>] is that <strong>PMEM is not fitted to be used massively with graphics</strong>. Graphical devices (such as camera) needs large amount of memory in a very short time (or even in real time), so the device need to <strong>avoid memory fragmentation</strong>, that is space-consuming and mainly time consuming. With the release of Android 4.0 (Ice Cream Sandwich) a brand new driver has released, ION. Thus is needed to <strong>unify etherogeneal MMU approaches in a brand new standardization</strong>. We discuss about differences between ION and CMA approach, and, in the state-of-art, we discuss of a future integration between them.</div>
+
+<div class="standard"><a id='magicparlabel-54' />
+</div>
+<h3 class="subsection"><span class="subsection_label">1.3</span> <a id='magicparlabel-60' />
+PMEM and ASHMEM</h3>
+<div class="standard"><a id='magicparlabel-61' />
+PMEM (Process MEMory)[<a href='#AKF'>1</a>] is the <strong>first memory driver</strong> implemented on Android devices (since G1). It is used to manage shared memory regions sufficiently large (from 1 to 16MB).</div>
+
+<div class="standard"><a id='magicparlabel-62' />
+This regions must be physically contiguous between user space and kernel drivers (such as GPU, or DSP). It was written specifically to be used in a very limited hardware platform, and it could be disabled on x86 architectures. It works in a very simple way: <strong>it allocs a bunch of memory at boot time</strong>.[<a href='#Dec2011Merging'>5</a>]This is dedicated memory usable for contiguous buffer. As is written above, Pmem is not suitable for massive use of graphics. The main problem of PMEM is that <strong>it exports a device to user space</strong>, giving the applications the right to alloc direcly buffers to be passed to drivers. Kernel provides only a low level interface to be used by applications, thus causing problems of usability and security. <strong>The majority of application is written using PMEM approach.</strong></div>
+
+<div class="standard"><a id='magicparlabel-63' />
+ASHMEM[<a href='#ASHMEM'>12</a>] (Android SHared MEMory) is a shared memory allocator subsystem, similar to POSIX (the classical Linux OS approach), but with a different behavior. It also gives to the developer an easier and file-based API. It used <strong>named memory</strong>, releasable by the kernel. Apparently, ASHMEM supports low memory devices better than PMEM, because it could free shared memory units when it is needed. </div>
+
+<div class="standard"><a id='magicparlabel-64' />
+
+
+
+<table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-87' />
+PMEM</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-90' />
+ASHMEM</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-93' />
+Uses physically contiguous addresses</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-96' />
+Uses virtual memory</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-99' />
+The first process who instantiate a memory heap must keep that till the last one of the users won't free the file descriptor. Thus to preserve contiguity</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-102' />
+Memory is handled by instances (object oriented like). It is managed by a reference counter</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+<h3 class="subsection"><span class="subsection_label">1.4</span> <a id='magicparlabel-103' />
+CMA and DMABUF</h3>
+<div class="standard"><a id='magicparlabel-104' />
+<strong>CMA (Contiguous Memory Allocator)[<a href='#CMAdoc'>6</a>] is a well known framework</strong>, which allows setting up <strong>machine-specific configuration</strong> for physically-contiguous memory management. Memory for devices is then allocated according to that configuration. Differently from similar framework, it let regions of <strong>system-reserved memory to be reused in a transparent way</strong>, letting memory not to be wasted. When an alloc is instantiated, this framework migrates all the system page. Thus to build a big chunk of physically contiguous memory.</div>
+
+<div class="standard"><a id='magicparlabel-105' />
+Why do an OS have to use chunks of memory?[<a href='#CMA'>13</a>, <a href='#RCMA'>4</a>] Because <strong>virtual memory tends to fragment pages</strong>. An intensive use of memory let the system not to be able to find contiguous memory in a very short time after boot. Recently, the requirement of huge pages in applications raises, especially for transparent huge pages. Another question is devices (such as cameras) that needs DMA over areas physically contiguous. <strong>CMA reserve an huge area of memory at boot time</strong>, only for huge request of memory. For every region, block of pages can be flaggable as three type. </div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-106' />
+movable : typically, cache pages or anonymous pages, accessed by page table or page cache radix tree </li>
+<li class="itemize_item"><a id='magicparlabel-107' />
+kernel recallable : they can be given back to the kernel by request. </li>
+<li class="itemize_item"><a id='magicparlabel-108' />
+immovable : these are typically pointer referred pages (such as pages invoked by a kmalloc()) </li>
+</ul>
+<div class="standard"><a id='magicparlabel-109' />
+The memory manager subsystem <strong>try to keep movable pages as near as possible</strong>. Grouping these pages, kernel try to ensure more and more contiguous free space available for further request. CMA extends this mechanism. It adds a new type of migration (CMA). Pages flagged as cma behave like the movable ones, with some differences: </div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-110' />
+they are &ldquo;sticky&rdquo;, CMA movable pages tends to stay together</li>
+<li class="itemize_item"><a id='magicparlabel-111' />
+Their migration type can't be modified by the kernel </li>
+<li class="itemize_item"><a id='magicparlabel-112' />
+In CMA Area, the kernel cannot instantiate pages not movable.</li>
+</ul>
+<div class="standard"><a id='magicparlabel-113' />
+In other words, memory flagged as CMA keep available for the rest of the system with the only restriction to be movable. </div>
+
+<div class="standard"><a id='magicparlabel-114' />
+When a driver ask for a huge contiguous allocation of memory, <strong>CMA allocator can try to free in his own area some contiguous pages to create a buffer large as needed</strong>. When the buffer is no longer requested, memory can be used for other needs. CMA can just take only the needed amount of memory without worrying about strictly request of alignment.</div>
+
+<div class="standard"><a id='magicparlabel-115' />
+CMA patches provides a<strong> set of function that can prepare regions of memory and the creation of contest area of a well known size</strong> using function cm_alloc and cm_free to keep and release buffers. <strong>CMA must not be invoked by the driver, but from DMA support functions</strong>. When a driver call a function like dma_alloc_coherent(), CMA should be invoked automatically to satisfying the request. This should work in normal condition.</div>
+
+<div class="standard"><a id='magicparlabel-116' />
+One of the issue about CMA is <strong>how to initially alloc this area of memory</strong>. Current scheme needs that some of special calls should be done by the board file system, with a very arm-like approach. The idea is to do that without board files. The ending result is that it should be at least one iteration of that patch set before it will be executed by the mainline. </div>
+
+<div class="standard"><a id='magicparlabel-117' />
+</div>
+
+<div class="standard"><a id='magicparlabel-122' />
+CMA could be extended letting processes to share buffers, and optimizing devices using DMA. DMABUF is the DMA buffer sharing framework.</div>
+
+<div class="standard"><a id='magicparlabel-123' />
+DMA buffers has different request despise of classical allocation of huge pages.</div>
+
+<div class="standard"><a id='magicparlabel-124' />
+
+
+
+<table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-147' />
+DMABUF</div>
+</td>
+
+<td align='center' valign='middle'><div class="plain_layout"><a id='magicparlabel-150' />
+Transparent Huge Pages</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-153' />
+Normally larger than Transparent Huge Pages. 10 Mb.</div>
+
+<div class="plain_layout"><a id='magicparlabel-154' />
+It could be needed specific memory area, if underlying hardware is sufficiently &ldquo;strange&rdquo;</div>
+</td>
+
+<td align='center' valign='middle'><div class="plain_layout"><a id='magicparlabel-157' />
+Almost 2Mb large</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-160' />
+DMA requires less alignment than THP</div>
+</td>
+
+<td align='center' valign='middle'><div class="plain_layout"><a id='magicparlabel-163' />
+2MB of THP needs 2Mb of Alignment</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-164' />
+</div>
+<h3 class="subsection"><span class="subsection_label">1.5</span> <a id='magicparlabel-169' />
+ION</h3>
+<div class="standard"><a id='magicparlabel-170' />
+In december 2011,<strong> PMEM is marked as deprecated, and then replaced by ION memory allocator</strong>[<a href='#ION'>15</a>]. ION is a memory manager that Google has developed from the 4.0 release of And<strong>roid (Ice Cream Sandwich), mainly to resolve the interface issue between different memory management on each Android device</strong>. In fact, some SoC developer implemented different memory manager. We can cite some of them:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-171' />
+NVMAP, implemented on nVidia Tegra </li>
+<li class="itemize_item"><a id='magicparlabel-172' />
+CMEM[<a href='#CMEM'>7</a>], implemented on TI OMAP </li>
+<li class="itemize_item"><a id='magicparlabel-173' />
+HWMEM[<a href='#HWMEM'>9</a>], implemented on ST-Ericsonn devices </li>
+</ul>
+<div class="standard"><a id='magicparlabel-174' />
+All this vendor will pass to ION soon.</div>
+
+<div class="standard"><a id='magicparlabel-175' />
+Besides ION being a memory pool manager, it also enables his clients to <strong>share buffers</strong> (so, it works like DMABUF, the DMA buffer sharing framework). Like PMEM, <strong>ION manages one or more pools of memory, some of them instantiated at boot time or from hardware blocks with specific memory needs</strong>. Some devices like that are GPU, display controllers and cameras. ION let his pools to be available as <strong>heap ION</strong>. Every kind of android device can have different ION heaps, depending on device memory. <strong>Physical address and heap dimension can be returned to the programmer only if the buffer is physically contiguous</strong>. Buffer can be prepared or deallocated to be used with DMA, or with virtual kernel addressing. <strong>Using a file descriptor, it can be also mapped in the user-space</strong>. There are three kind of allocable ION heap. Other ones can be defined by SoC producers (like ION_HEAP_TYPE_SYSTEM_IOMMU for hardware blocks equipped with IOMMU driver). </div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-176' />
+ION_HEAP_TYPE_SYSTEM</li>
+<li class="itemize_item"><a id='magicparlabel-177' />
+ION_HEAP_TYPE_SYSTEM_CONTIG</li>
+<li class="itemize_item"><a id='magicparlabel-178' />
+ION_HEAP_TYPE_CARVEOUT : in this case, carveout memory is physically contiguous and set as boot. </li>
+</ul>
+<div class="standard"><a id='magicparlabel-179' />
+Typically, in the user-space case, libraries uses ION to alloc large continuous buffers. For instance, camera library can alloc a capture buffer to be used from the camera device. Once the buffer is fulfilled with video data, the library gives the buffer to kernel to be processed by jpeg encoder block. <strong>A c/c++ program must have access to '/dev/ion' before it can alloc memory thanks to ION</strong>. He can alloc data using file descriptors (fd). It can be maximum one client for user process.</div>
+
+<div class="standard"><a id='magicparlabel-180' />
+Clients interacts from user-space with ION using <strong>ioctl() system interface</strong>. Android processes can share memory using their fd. To obtain shared buffer, the second user process must obtain a client handle through a system call open('/dev/ion', O_RDONLY). <strong>ION manage user space client through process PID</strong> (in particular, the 'group leader ' one). Fd will be instantiated pointing at the same client structure in the kernel. To free a buffer, the second client must invalidate the mmap() effect, with an explicit call at munmap(), and the first client must close the fd, calling ION_IOC_FREE. This function decrements the reference counter of the handle. When it reaches zero, the ion_handle is destroyed, and the data structure that manages ION is updated. While managing client calls, ION validates input from fd, from client and from handler arguments. This validation mechanism reduce the probability of undesired access and memory leaks. Ion_buffers is somewhere similar to DMABUF. Both uses anonymous fd, reference counted, as shareable objects.</div>
+
+<div class="standard"><a id='magicparlabel-181' />
+
+
+
+<table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-229' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-232' />
+ION buffers</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-235' />
+DMABUF</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-238' />
+Application level MMU</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-241' />
+Alloc and free memory from memory pools in a shareable and trackable way</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-244' />
+It focus on import, export and syncronization in a consisten way with buffer sharing solution for non arm architectures</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-247' />
+Role of Memory manager </div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-250' />
+ION replace PMEM as memory pools manager. ION heap lists can be extended by the device. </div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-253' />
+DMABUF is a buffer sharing framework , designed to be integrated with memory allocator in contiguous DMA mapping framewors, such as CMA. DMABUF exporters can implement custom allocator.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-256' />
+User Space access control </div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-259' />
+ION offers /dev/ion interface to user space program, letting them to alloc and share buffers. Every user process with ION access can suspend the system overlapping ION heap. Android chech user and groupID blocking non authorized access to ION heap</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-262' />
+DMABUF offers only kernel API.</div>
+
+<div class="plain_layout"><a id='magicparlabel-263' />
+Access control is a function of the permissions on device that uses DMABUF feature</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-266' />
+Global Client and Buffer Database. </div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-269' />
+ION has a driver associated to /dev/ion. The device structure has a database that keeps ION buffers allocated, handlers and fd, grouped by user client and kernel client. ION validates all the client calls to be valid for database rules. For instance, an handle can't have two buffers associated.</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-272' />
+The debub structure of DMA implements a global hashtable, dma_entry_hash, tracking DMA buffers, but only when kernel is build with CONFIG_DMA_API_</div>
+
+<div class="plain_layout"><a id='magicparlabel-273' />
+DEBUG option.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-276' />
+Cross- architecture usage</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-279' />
+ION usage now is limited on architectures that runs kernel Android</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-282' />
+DMABUF usage is cross architecture. DMA mapping redesign let his implementation in 9 architectures beside the ARM one. </div>
+</td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="standard"><a id='magicparlabel-283' />
+
+
+
+<table><tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-319' />
+</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-322' />
+ION_buffer</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-325' />
+DMABUF</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-328' />
+Buffer Syncronization</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-331' />
+Ion consider the syncronization problem as an orthogonal problem</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-334' />
+DMABUF gives a pair of API for synchronization. Buffer user invokes dma_buf_map_</div>
+
+<div class="plain_layout"><a id='magicparlabel-335' />
+attachment() everywhere he desires to use buffer for DMA. Once he finished using that, signals "endOfDMA" to exporter using dma_buf_unmap_</div>
+
+<div class="plain_layout"><a id='magicparlabel-336' />
+attachment()</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-339' />
+Buffer delayed allocation</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-342' />
+ION allocs physical memory before the buffer is shared</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-345' />
+DMABUF can delay allocation till the first call of dma_buf_map_</div>
+
+<div class="plain_layout"><a id='magicparlabel-346' />
+attachment(). DMA buffer exporter has the opportunity of scans every client attachment, collecting all the constraints and choose the most efficient storage</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-349' />
+Integration with Video4</div>
+
+<div class="plain_layout"><a id='magicparlabel-350' />
+Linux2 API </div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-353' />
+Processes that uses these API tends to use PMEM. So, the migration from PMEM to ION has a relatively small impact.</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-356' />
+DMABUF integration with Video4Linux is hard and asked for lots of modifies in DMABUF. But in a long time that will be a smart choice, because DMABUF sharing mechanism is fitted for DMA, so it is well written for CMA and IOMMU. Both of them reduces carveout memory needs to build an Android smartphone.</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-357' />
+OOM Killer</h2>
+<h3 class="subsection"><span class="subsection_label">2.1</span> <a id='magicparlabel-358' />
+Introduction</h3>
+<div class="standard"><a id='magicparlabel-359' />
+Mobile devices become more and more rich of memory over time, due to Moore's Law. However, there's always a limit over wich memory isn't available, and a well form kernel needs some politics to free bunch of memory when needed. Android provides an OOM killer, who kills processes with some heuristics, letting memory to be used from someone else. OOM killer mechanism are implemented in most of Linux kernel.</div>
+
+<div class="standard"><a id='magicparlabel-360' />
+</div>
+
+<div class="standard"><a id='magicparlabel-365' />
+Major distribution kernels set the default value of /proc/sys/vm/overcommit_memory to zero, which means that <strong>processes can request more memory than is currently free in the system</strong>. This is done based on the heuristics that allocated memory is not used immediately, and that processes, over their lifetime, also do not use all of the memory they allocate. Without overcommit, a system will not fully utilize its memory, thus wasting some of it. Overcommiting memory allows the system to use the memory in a more efficient way, but at the risk of OOM situations. Programs who need lots of memory can consume all the system's memory, stopping the whole system. In such a situation, the OOM-killer kicks in and identifies the process to be terminated.</div>
+<h3 class="subsection"><span class="subsection_label">2.2</span> <a id='magicparlabel-366' />
+OOM Killer parameters</h3>
+<div class="standard"><a id='magicparlabel-367' />
+The process to be killed in an out-of-memory situation is selected <strong>based on its badness score</strong>. The badness score is reflected in /proc/&lt;pid&gt;/oom_score. This value is determined on the basis of four characteristics:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-368' />
+the system loses the minimum amount of work done,</li>
+<li class="itemize_item"><a id='magicparlabel-369' />
+recovers a large amount of memory,</li>
+<li class="itemize_item"><a id='magicparlabel-370' />
+doesn't kill any innocent process, </li>
+<li class="itemize_item"><a id='magicparlabel-371' />
+and kills the minimum number of processes (if possible limited to one). </li>
+</ul>
+<div class="standard"><a id='magicparlabel-372' />
+The badness score is computed using </div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-373' />
+the original memory size of the process, </li>
+<li class="itemize_item"><a id='magicparlabel-374' />
+its CPU time (utime + stime), </li>
+<li class="itemize_item"><a id='magicparlabel-375' />
+the run time (uptime - start time) </li>
+<li class="itemize_item"><a id='magicparlabel-376' />
+and its oom_adj value. </li>
+</ul>
+<div class="standard"><a id='magicparlabel-377' />
+<strong>The more memory the process uses, the higher the score. The longer a process is alive in the system, the smaller the score.</strong></div>
+
+<div class="standard"><a id='magicparlabel-378' />
+Any process unlucky enough to be in the swapoff() system call (which removes a swap file from the system) will be selected to be killed first. For the rest, the initial memory size becomes the original badness score of the process. Half of each child's memory size is added to the parent's score if they do not share the same memory. Thus forking servers are the prime candidates to be killed. Having only one "hungry" child will make the parent less preferable than the child. Finally, the following heuristics are applied to save important processes:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-379' />
+if the task has nice value above zero, its score doubles </li>
+<li class="itemize_item"><a id='magicparlabel-380' />
+superuser or direct hardware access tasks (CAP_SYS_ADMIN, CAP_SYS_RESOURCE or CAP_SYS_RAWIO) have their score divided by 4. This is cumulative, i.e., a super-user task with hardware access would have its score divided by 16.</li>
+<li class="itemize_item"><a id='magicparlabel-381' />
+if OOM condition happened in one cpuset and checked task does not belong to that set, its score is divided by 8.</li>
+<li class="itemize_item"><a id='magicparlabel-382' />
+the resulting score is multiplied by two to the power of oom_adj (i.e. points &lt;&lt;= oom_adj when it is positive and points &gt;&gt;= -(oom_adj) otherwise). </li>
+</ul>
+<div class="standard"><a id='magicparlabel-383' />
+<strong>The task with the highest badness score is then selected and its children are killed</strong>. The process itself will be killed in an OOM situation when it does not have children.</div>
+<h3 class="subsection"><span class="subsection_label">2.3</span> <a id='magicparlabel-384' />
+lowmemory driver in Android</h3>
+<div class="standard"><a id='magicparlabel-385' />
+</div>
+
+<div class="standard"><a id='magicparlabel-390' />
+Android developers required a greater degree of control over the low memory situation because the OOM killer does not interfere till late in the low memory situation, i.e. till all the cache is emptied. Android need a solution which would start early while the free memory is being completely depleted. <strong>So developers introduced the "lowmemory" driver</strong>[<a href='#OOMTAME'>11</a>], which has multiple thresholds of low memory. </div>
+
+<div class="standard"><a id='magicparlabel-391' />
+In a low-memory situation, <strong>when the first thresholds are met, background processes are notified of the problem</strong>. They do not exit, but, instead, save their state. This affects the latency when switching applications, because the application has to reload on activation. On further pressure, the <strong>lowmemory killer kills the non-critical background processes whose state had been saved</strong> in the previous threshold and, finally, the foreground applications.</div>
+
+<div class="standard"><a id='magicparlabel-392' />
+Keeping <strong>multiple low memory triggers</strong> gives the processes enough time to free memory from their caches because in an OOM situation, user-space processes may not be able to run at all. All it takes is a single allocation from the kernel's internal structures, or a page fault to make the system run out of memory. An earlier notification of a low-memory situation could avoid the OOM situation with a little help from the user space applications which respond to low memory notifications.</div>
+
+<div class="standard"><a id='magicparlabel-393' />
+<strong>Killing processes based on kernel heuristics is not an optimal solution</strong>, and these new initiatives of offering better control to the user in selecting the process to be the chosen one to terminate are steps to a robust design to give more control to the user. </div>
+
+<div class="standard"><a id='magicparlabel-394' />
+This approach can be improved in many parts, for instance [<a href='#OOMarticle'>8</a>] implementing a more efficient way to select the process to be killed, such as ordering processes in a red-black tree, improving OOM Killer response time.</div>
+
+<div class="standard"><a id='magicparlabel-395' />
+</div>
+<h3 class="subsection"><span class="subsection_label">2.4</span> <a id='magicparlabel-400' />
+User space OOM control</h3>
+<div class="standard"><a id='magicparlabel-401' />
+/proc/&lt;pid&gt;/oom_score is a dynamic value, not so much controllable and checkable i by the administrator. It is difficult to determine which process will be killed in case of an OOM condition. <strong>The system must let the administrator to modify the score</strong> for every process created, and for every process which exits. In an attempt to make OOM-killer policy implementation easier, a <strong>name-based solution</strong> was proposed. . With his patch, the process to die first is the one running the program whose name is found in /proc/sys/vm/oom_victim. A name based solution has its limitations:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-411' />
+task name is not a reliable indicator of true name and is truncated in the process name fields. Moreover, symlinks to executing binaries, but with different names will not work with this approach </li>
+<li class="itemize_item"><a id='magicparlabel-412' />
+This approach can specify only one name at a time, ruling out the possibility of a hierarchy </li>
+<li class="itemize_item"><a id='magicparlabel-413' />
+There could be multiple processes of the same name but from different binaries. </li>
+<li class="itemize_item"><a id='magicparlabel-414' />
+The behavior boils down to the default current implementation if there is no process by the name defined by /proc/sys/vm/oom_victim. This increases the number of scans required to find the victim process. </li>
+</ul>
+<div class="standard"><a id='magicparlabel-415' />
+Another possible solution is using containers. The patch introduces an OOM control group (cgroup) with an oom.priority field. <strong>The process to be killed is selected from the processes having the highest oom.priority value.</strong></div>
+
+<div class="standard"><a id='magicparlabel-420' />
+This approach could have some trouble, in presence of multiple cpuset. Consider two cpusets, A and B. If a process in cpuset A has a high oom.priority value, it will be killed if cpuset B runs out of memory, even though there is enough memory in cpuset A. </div>
+
+<div class="standard"><a id='magicparlabel-421' />
+An interesting outcome of the discussion has been handling OOM situations in user space. <strong>The kernel sends notification to user space, and applications respond by dropping their user-space caches</strong>. In case the user-space processes are not able to free enough memory, or the processes ignore the kernel's requests to free memory, the kernel will kill them.Other hybrid solutions are:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-422' />
+the cgroup OOM notifier allows you to attach a task to wait on an OOM condition for a collection of tasks. This allows userspace to respond to the condition by dropping caches, adding nodes to a cpuset, elevating memory controller limits, sending a signal, etc. It can also defer to the kernel OOM killer as a last resort.</li>
+<li class="itemize_item"><a id='magicparlabel-423' />
+/dev/mem_notify allows you to poll() on a device file and be informed of low memory events. This can include the cgroup oom notifier behavior when a collection of tasks is completely out of memory, but can also warn when such a condition may be imminent. </li>
+</ul>
+<div class="standard"><a id='magicparlabel-424' />
+<h2 class='bibtex'>References</h2><div class='bibtex'><div class='bibtexentry'><a id='AKF' />
+<span class='bibtexlabel'>1</span><span class='bibtexinfo'>"Android Kernel Features".</span></div>
+<div class='bibtexentry'><a id='AndPortal' />
+<span class='bibtexlabel'>2</span><span class='bibtexinfo'>"Android Portal on eLinux".</span></div>
+<div class='bibtexentry'><a id='StatusFeb2012' />
+<span class='bibtexlabel'>3</span><span class='bibtexinfo'>Tim Bird, "Status of Embedded Linux - February 2012", <i></i>  (2012).</span></div>
+<div class='bibtexentry'><a id='RCMA' />
+<span class='bibtexlabel'>4</span><span class='bibtexinfo'>Jonathan Corbet, "A reworked contiguous memory allocator" (2011).</span></div>
+<div class='bibtexentry'><a id='Dec2011Merging' />
+<span class='bibtexlabel'>5</span><span class='bibtexinfo'>Jonathan Corbet, "Bringing Android closer to the mainline" (2011).</span></div>
+<div class='bibtexentry'><a id='CMAdoc' />
+<span class='bibtexlabel'>6</span><span class='bibtexinfo'>Jonathan Corbet, "CMA documentation file" (2011).</span></div>
+<div class='bibtexentry'><a id='CMEM' />
+<span class='bibtexlabel'>7</span><span class='bibtexinfo'>Texas Instruments, "CMEM overview".</span></div>
+<div class='bibtexentry'><a id='OOMarticle' />
+<span class='bibtexlabel'>8</span><span class='bibtexinfo'>Joongjin Kook, Sukil Hong, Wooseung Lee, Eunkyeung Jae, JungYeop Kim, "Optimization of Out of Memory Killer for Embedded Linux Environments", <i></i>  (2011).</span></div>
+<div class='bibtexentry'><a id='HWMEM' />
+<span class='bibtexlabel'>9</span><span class='bibtexinfo'>Johan Mossberg, "hwmem: Hardware memory driver" (2010).</span></div>
+<div class='bibtexentry'><a id='OVERVIEW' />
+<span class='bibtexlabel'>10</span><span class='bibtexinfo'>"Android Overview" (2011).</span></div>
+<div class='bibtexentry'><a id='OOMTAME' />
+<span class='bibtexlabel'>11</span><span class='bibtexinfo'>Goldwyn Rodrigues, "Taming the OOM Killer" (2009).</span></div>
+<div class='bibtexentry'><a id='ASHMEM' />
+<span class='bibtexlabel'>12</span><span class='bibtexinfo'>Bernhard Rosenkraenzer, "ASHMEM".</span></div>
+<div class='bibtexentry'><a id='CMA' />
+<span class='bibtexlabel'>13</span><span class='bibtexinfo'>Marek Szyprowski, "Contiguous Memory Access" (2011).</span></div>
+<div class='bibtexentry'><a id='WIKI' />
+<span class='bibtexlabel'>14</span><span class='bibtexinfo'>"Android (operating system), From Wikipedia, the free encyclopedia".</span></div>
+<div class='bibtexentry'><a id='ION' />
+<span class='bibtexlabel'>15</span><span class='bibtexinfo'>Thomas M. Zeng, "The Android ION memory allocator" (2012).</span></div>
+</div></div>
+
+<div class="standard"><a id='magicparlabel-425' />
+ </div>
+</body>
+</html>

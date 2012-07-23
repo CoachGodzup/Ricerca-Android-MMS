@@ -388,65 +388,6 @@ status collapsed
 \end_layout
 
 \begin_layout Subsection
-Dalvik Virtual Machine
-\end_layout
-
-\begin_layout Standard
-Dalvik is the VM in which Android applications are run.
- Is structured to work with devices with limited resources:
-\end_layout
-
-\begin_layout Itemize
-Relatively slow CPU 
-\end_layout
-
-\begin_layout Itemize
-Small amount of RAM 
-\end_layout
-
-\begin_layout Itemize
-No swap space 
-\end_layout
-
-\begin_layout Standard
-This VM executes Dalvik bytecode, which is compiled from programs written
- in the Java.
- But note that Dalvik VM is not a Java VM (JVM).
-\end_layout
-
-\begin_layout Standard
-Every Android application runs in its own process, with its own instance
- of the Dalvik virtual machine, in this way the applications work in an
- isolated manner and do not compete with each other.
- 
-\end_layout
-
-\begin_layout Standard
-Dalvik was written so that a device can run multiple VMs efficiently.
- The Dalvik VM executes code in the Dalvik Executable (.dex) format which
- is optimized for minimal memory footprint.
- The VM is register-based, and runs classes compiled by a Java language
- compiler that have been transformed into the .dex format by the included
- "dx" tool.
- 
-\end_layout
-
-\begin_layout Standard
-An uncompressed .dex file is typically a few percent smaller in size than
- a compressed .jar (Java Archive) derived from the same .class files.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Graphics
-	filename /home/coach/android-MMR2012/roba su github/tania repo/asanta96-Ricerca-Android-MMS-2691352/C:/Users/Tania/Desktop/dalvik.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
 Low level management and integration with HW resources
 \end_layout
 
@@ -1497,6 +1438,10 @@ DMABUF integration with Video4Linux is hard and asked for lots of modifies
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
 
 \end_layout
 
