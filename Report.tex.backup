@@ -1,0 +1,284 @@
+% VDE Template for EUSAR Papers
+% Provided by Barbara Lang und Siegmar Lampe
+% University of Bremen, January 2002
+% English version by Jens Fischer
+% German Aerospace Center (DLR), December 2005
+% Additional modifications by Matthias Wei{\ss}
+% FGAN, January 2009
+
+%-----------------------------------------------------------------------------
+% Type of publication
+\documentclass[a4paper,10pt]{article}
+%-----------------------------------------------------------------------------
+% Other packets: Most packets may be downloaded from www.dante.de and
+% "tcilatex.tex" can be found at (December 2005):
+% http://www.mackichan.com/techtalk/v30/UsingFloat.htm
+% Not all packets are necessarily needed:
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%\usepackage{ngerman} % in german language if required
+\usepackage[nooneline,bf]{caption} % Figure descriptions from left margin
+\usepackage{times}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\input{tcilatex}
+%-----------------------------------------------------------------------------
+% Page Setup
+\textheight24cm \textwidth17cm \columnsep6mm
+\oddsidemargin-5mm                 % depending on print drivers!
+\evensidemargin-5mm                % required margin size: 2cm
+\headheight0cm \headsep0cm \topmargin0cm \parindent0cm
+\pagestyle{empty}                  % delete footer and header
+%----------------------------------------------------------------------------
+% Environment definitions
+\newenvironment*{mytitle}{\begin{LARGE}\bf}{\end{LARGE}\\}%
+\newenvironment*{mysubtitle}{\bf}{\\[1.5ex]}%
+\newenvironment*{myabstract}{\begin{Large}\bf}{\end{Large}\\[2.5ex]}%
+%-----------------------------------------------------------------------------
+% Using Pictures and tables:
+% - Instead "table" write "tablehere" without parameters
+% - Instead "figure" write "figurehere " without parameters
+% - Please insert a blank line before and after \begin{figurehere} ... \end{figurehere}
+%
+% CAUTION:   The first reference to a figure/table in the text should be formatted fat.
+%
+\makeatletter
+\newenvironment{tablehere}{\def\@captype{table}}{}
+\newenvironment{figurehere}{\def\@captype{figure}\vspace{2ex}}{\vspace{2ex}}
+\makeatother
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Please use capital letters in the beginning of important words as for example
+\begin{mytitle}Survey on Memory Management in Android\end{mytitle}
+\begin{mysubtitle}Drivers and Application APIs\end{mysubtitle}
+%
+% Please do not insert a line here
+%
+\\
+Garza Matteo\\
+Matr. 755295, (matteo.garza@mail.polimi.it)\\
+Tania Suarez Legra\\
+Matr. ()\\
+\hspace{10ex}
+\begin{flushright}
+\emph{Report for the master course of Real Time Operative System (RTOS)}\\
+\emph{Reviser: PhD. Patrick Bellasi (bellasi@elet.polimi.it)}
+\end{flushright}
+
+Received: April, 01 2011\\
+\hspace{10ex}
+
+\begin{myabstract} Abstract \end{myabstract}
+Android Operative System is the most diffuse OS in lots of devices (expecially smartphones and tablets).
+In this paper we will analyze how Android manages memory on device. We discuss in particular about application memory and
+some of the most used MMUs used by Android OS.
+
+\vspace{4ex}	% Please do not remove or reduce this space here.
+\begin{multicols}{2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+TODO
+
+%-----------------------------------------------------------------------------
+\section{Low level memory management}
+In this part, we discuss about how the memory has managed in Android devices. For
+most of the releases in Android, it was used PMEM and ASHMEM. These kind of libraries
+was too simple, and was patched with some SoC patches, such as NVMAP for nVidia Tegra devices
+and CMEM for TI OMAP ones. The most important patch was CMA (Contiguous Memory Access), expecially
+with DMABUF patch. With the release of Android 4.0 (Ice Cream Sandwich) a brand new library has released,
+ION. We discuss about differences between ION and CMA approach, and, in the state-of-art, 
+we discuss of a future integration between them.
+
+\subsection{PMEM and ASHMEM}
+% Please avoid separations in titles
+% and separate text manually
+
+PMEM (Process MEMory) is the first memory driver implemented on Android devices (since G1).
+It is used to manage shared memory regions sufficiently large (from 1 to 16MB).\\
+This regions must be physically contiguous between user space and kernel drivers (such as GPU, or DSP).
+It was written specifically to be used in a very limited hardware platform, and it could be disabled on x86 architectures.
+\\
+\\
+ASHMEM (Android SHared MEMory) is a shared memory allocator subsystem, similar to POSIX, but with a
+different behavior. It also gives to the developer an easier and file-based API.
+It used named memory, releasable by the kernel.
+Apparently, ASHMEM supports low memory devices better than PMEM, because it could
+free shared memory units when it is needed.
+
+\begin{table}
+ %PMEM VS ASHMEM should be here
+\end{table}
+
+
+%learn how to cite articles
+%the articles cited are:
+%PMEM:
+%http://elinux.org/Android_Kernel_Features
+%ASHMEM
+%http://elinux.org/Android_Kernel_Features
+%http://cs736-android.pbworks.com/w/page/5834465/ASHMEM 
+%http://bit.ly/1vnP69
+%
+%This is a citation \cite{Norman09Learn} and here is another citation
+%\cite{Peyton93Howto}.  
+
+%And this is the reference to a single column figure (see {\bf Figure
+%\ref{fig:myfigure1}}).  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+%Vivamus dapibus convallis odio. Nunc sollicitudin laoreet ante! Vivamus dictum
+%euismod orci.
+
+\begin{figurehere}
+ \centering
+ \includegraphics[width=8cm, height=4cm]{./eps/placeholder.eps}
+ \caption{Some single-column figure caption.}
+ \label{fig:myfigure1}
+\end{figurehere}
+
+
+%-----------------------------------------------------------------------------
+\subsection{CMA and DMABUF}
+
+CMA (Contiguous Memory Allocator) is a well known patch that let the device to alloc 
+big chunk of memory after the system has booted.
+Differently from similar framework, it let regions of system-reserved memory to 
+be reused in a transparent way, letting memory not to be wasted.
+When an alloc is instantiated, this framework migrates all the system page. Thus to build a
+big chunk of physically contiguous memory.\\
+
+Why do an OS have to use chunks of memory? Because virtual memory tends to fragment
+pages. An intensive use of memory let the system not able to find contiguous memory in a
+very short time after boot.
+Recently, the requirement of huge pages in applications raises, especially for transparent huge pages.
+Another question is devices (such as cameras) that needs DMA over areas physically contiguous.
+\\
+CMA reserve an huge area of memory at boot time, only for huge request of memory.
+For every region, block of pages can be flaggable as three type.
+\begin{itemize}
+ \item movable : typically, cache pages or anonymous pages, accessed by page table or page cache radix tree
+ \item kernel recallable : they can be given back to the kernel by request.
+ \item immovable : these are typically pointer referred pages (such as pages invoked by a kmalloc()) 
+\end{itemize}
+The memory manager subsystem try to keep movable pages as near as possible. Grouping these pages, kernel try to ensure more
+and more contiguous free space available for further request.
+CMA extends this mechanism. It adds a new type of migration (CMA). Pages flagged as cma behave like the movable ones, with some
+differences:
+\begin{itemize}
+ \item they are sticky
+ \item Their migration type can't be modified by the kernel
+ \item In CMA Area, the kernel cannot instantiate pages not movable.
+\end{itemize}
+In other words, memory flagged as CMA keep available for the rest of the system with the only restriction to be movable. \\
+When a driver ask for a huge contiguous allocation of memory, CMA allocator can try to free in his own area some contiguous pages 
+to create a buffer large as needed. When the buffer is no longer requested, memory can be used for other needs.
+CMA can just take only the needed amount of memory without worrying about strictly request of alignment.
+
+DMA buffers has different request despise of huge pages.
+
+\begin{table}
+ %qui la tabella di confronto
+\end{table}
+
+CMA patches provides a set of function that can prepare regions of memory and the creation of contest area of a well known size
+using function cm\_alloc and cm\_free to keep and release buffers.
+CMA must not be invoked by the driver, but from DMA support functions. When a driver call a function like dma\_alloc\_coherent(), CMA
+should be invoked automatically to satisfying the request.
+This should work in normal condition.\\
+\\
+One of the issue about CMA is how to initially alloc this area of memory. Current scheme needs that some of special calls 
+should be done by the board file system, with a very arm-like approach. The idea is to do that without board files.
+The ending result is that it should be at least one iteration of that patch set before it will be executed by the mainline.
+
+\begin{figure*}[t]
+  \centering
+ \includegraphics[width=16cm, height=4cm]{./eps/placeholder.eps}
+ \caption{Some wide-figure caption.}
+ \label{fig:myfigure2}
+\end{figure*}
+
+And this is the reference to a single column figure (see {\bf Figure
+\ref{fig:myfigure2}}).
+
+\subsection{ION}
+In december 2011, PMEM is marked as deprecated, and then replaced by ION memory 
+allocator.
+ION is a memory manager that Google has developed from the 4.0 release
+of Android (Ice Cream Sandwich), mainly to resolve the interface issue between different
+memory management between different Android device.
+In fact, some SoC developer implemented different memory manager. We can cite some of
+them:\\
+\begin{list}{}{}
+ \item NVMAP, implemented on nVidia Tegra
+ \item CMEM, implemented on TI OMAP
+ \item HWMEM, implemented on ST-Ericsonn devices
+\end{list}
+All this vendor will pass to ION soon.\\
+\\
+Besides ION being a memory pool manager, it also enables his clients to share buffers (so, it works like DMABUF, the
+DMA buffer sharing framework).
+Like PMEM, ION manages one or  more pools of memory, some of them instantiated at boot time or from hardware blocks with
+specific memory needs. Some devices like that are GPU, display controllers and cameras.
+ION let his pools to be available as heap ION. Every kind of android device can have different ION heaps, depending on 
+device memory.
+Phisical address and heap dimension can be returned to the programmer only if the buffer is physically contiguous.
+Buffer can be prepared or deallocated to be used with DMA, or with virtual kernel addressing. Using a file descriptor,
+it can be also mapped in the user-space.
+There are three kind of allocable ION heap. Other ones can be defined by SoC producers (like ION\_HEAP\_TYPE\_SYSTEM\_IOMMU
+for hardware blocks equipped with IOMMU driver).
+\begin{list}{}{}
+ \item ION\_HEAP\_TYPE\_SYSTEM
+ \item ION\_HEAP\_TYPE\_SYSTEM\_CONTIG
+ \item ION\_HEAP\_TYPE\_CARVEOUT : in this case, carveout memory is physically contiguous and set as boot.
+\end{list}
+
+Typically, in the user-space case, libraries uses ION to alloc large continuous buffers. For instance, camera library can alloc
+a capture buffer to be used from the camera device. Once the buffer is fulfilled with video data, the library gives the buffer to
+kernel to be processed by jpeg encoder block.
+A c/c++ program must have access to /dev/ion before it can alloc memory thanks to ION. He can alloc data using file descriptors (fd).
+It can be maximum one client for user process.\\
+Clients interacts from user-space with ION using ioctl() system interface.
+Android processes can share memory using their fd. To obtain shared buffer, the second user process must obtain a client handle
+through a system call open(/dev/ion, O\_RDONLY).
+ION manage user space client through process PID (in particular, the \`group leader \` one). Fd will be instantiated pointing at
+the same client structure in the kernel.
+To free a buffer, the second client must invalidate the mmap() effect, with an explicit call at munmap(), and the first client 
+must close the fd, calling ION\_IOC\_FREE. This function decrements the reference counter of the handle. When it reaches zero,
+the ion\_handle is destroyed, and the data structure that manages ION is updated.
+\\
+While managing client calls, ION validates input from fd, from client and from handler arguments.
+This validation mechanism reduce the probability of undesired access and memory leaks.
+\\
+\\
+Ion\_buffers is somewhere similar to DMABUF.
+re al momento in cui una release del mainline kernel può bootare nello user space di Android, deve essere conservata l'interfaccia /dev/ion.
+Dal punto di vista del kernel, i drivers ION dovrebbero essere capaci di usare alcune delle API di DMABUF per avvantaggiarsi delle capacità dei subsystem CMA e IOMMU.
+Dall'altro punto di vista, DMABUF deve avvantaggiarsi delle capacità di ION per presentare un'unica interfaccia allo user space, specialmente per lo user space di Android.
+DMABUF può inoltre avvantaggiarsi di alcune feature di debugging degli ION heap per diventare più developer friendly.
+
+Il futuro di Android (quello su cui puntano Linaro, Google e la kernel community è un'integrazione tra ION e DMABUF
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Second Section}
+
+TODO
+%-----------------------------------------------------------------------------
+\subsection{The first subsection of the second \\ Section}
+TODO
+%-----------------------------------------------------------------------------
+\subsection{The second subsection of the second \\ Section}
+TODO
+
+% We suggest the use of JabRef for editing your bibliography file (Report.bib)
+\bibliographystyle{splncs}
+\bibliography{Report}
+
+\end{multicols}
+\end{document}
